@@ -16,7 +16,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(255) NOT NULL,
     `firstname` VARCHAR(255) DEFAULT NULL,
     `lastname` VARCHAR(255) DEFAULT NULL,
-    `created_at` DATETIME NOT NULL,
+    `created_at` DATETIME DEFAULT NOW(),
     `role_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     CONSTRAINT `fk_role_user` FOREIGN KEY(`role_id`) REFERENCES `role` (`id`)
@@ -50,7 +50,7 @@ CREATE TABLE `user_payment` (
 
 CREATE TABLE `order` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
-    `created_at` DATETIME NOT NULL,
+    `created_at` DATETIME DEFAULT NOW(),
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     CONSTRAINT `fk_user_order` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`)
@@ -88,7 +88,7 @@ CREATE TABLE `product` (
     `description` TEXT DEFAULT NULL,
     `price` INT(11) UNSIGNED DEFAULT 0,
     `quantity` INT(5) DEFAULT 0,
-    `created_at` DATETIME NOT NULL,
+    `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL,
     `category_id` INT UNSIGNED NOT NULL,
@@ -122,7 +122,8 @@ CREATE TABLE `order_product` (
 
 CREATE TABLE `cart` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
-    `created_at` DATETIME NOT NULL,
+    `created_at` DATETIME DEFAULT NOW(),
+    `updated_at` DATETIME DEFAULT NULL,
     `quantity` INT(5) UNSIGNED NOT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
