@@ -70,6 +70,18 @@ CREATE TABLE `category` (
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `discount` (
+    `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
+    `name` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT DEFAULT NULL,
+    `percent` INT(3) UNSIGNED DEFAULT 0,
+    `active` BOOLEAN DEFAULT TRUE,
+    `created_at` DATETIME DEFAULT NOW(),
+    `updated_at` DATETIME DEFAULT NULL,
+    `deleted_at` DATETIME DEFAULT NULL,
+    PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE `product` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
@@ -81,7 +93,8 @@ CREATE TABLE `product` (
     `deleted_at` DATETIME DEFAULT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
-    CONSTRAINT `fk_category_product` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`)
+    CONSTRAINT `fk_category_product` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`),
+    CONSTRAINT `fk_discount_product` FOREIGN KEY(`discount_id`) REFERENCES `discount` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `category_tag` (
@@ -119,8 +132,7 @@ CREATE TABLE `cart` (
 CREATE TABLE `cart_product` (
     `cart_id` INT(11) UNSIGNED NOT NULL,
     `product_id` INT(11) UNSIGNED NOT NULL,
+    `quantity` INT(5) UNSIGNED NOT NULL,
     PRIMARY KEY(`cart_id`, `product_id`),
     UNIQUE(`cart_id`, `product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
