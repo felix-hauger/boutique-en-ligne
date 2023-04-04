@@ -58,7 +58,7 @@
                 <mxCell id="9zf9LuYom2PxIqwyLPYn-2" value="id" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9zf9LuYom2PxIqwyLPYn-1" vertex="1">
                     <mxGeometry y="30" width="140" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="195" value="login" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="9zf9LuYom2PxIqwyLPYn-1">
+                <mxCell id="195" value="login" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9zf9LuYom2PxIqwyLPYn-1" vertex="1">
                     <mxGeometry y="60" width="140" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="9zf9LuYom2PxIqwyLPYn-4" value="password" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9zf9LuYom2PxIqwyLPYn-1" vertex="1">
@@ -77,13 +77,16 @@
                     <mxGeometry y="210" width="140" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="9zf9LuYom2PxIqwyLPYn-39" value="&lt;b&gt;&lt;u&gt;order&lt;/u&gt;&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="260" width="140" height="90" as="geometry"/>
+                    <mxGeometry x="260" width="140" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="9zf9LuYom2PxIqwyLPYn-40" value="id" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9zf9LuYom2PxIqwyLPYn-39" vertex="1">
                     <mxGeometry y="30" width="140" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="124" value="created_at" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9zf9LuYom2PxIqwyLPYn-39" vertex="1">
                     <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="196" value="payed_at" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="9zf9LuYom2PxIqwyLPYn-39">
+                    <mxGeometry y="90" width="140" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="89" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=default;fontSize=12;" parent="1" source="9zf9LuYom2PxIqwyLPYn-46" target="166" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -207,7 +210,7 @@
                 </mxCell>
                 <mxCell id="115" value="1,1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="84" vertex="1" connectable="0">
                     <mxGeometry x="-0.9105" y="1" relative="1" as="geometry">
-                        <mxPoint x="-1" as="offset"/>
+                        <mxPoint x="-1" y="2" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="116" value="0,N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="84" vertex="1" connectable="0">
