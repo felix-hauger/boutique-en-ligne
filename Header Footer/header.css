@@ -51,6 +51,5 @@ header #SearchHide{
 }
 
 header #SearchIcon{
-    height:1em;
     position: relative;top: 5px;left:7px;
 }
