@@ -29,11 +29,12 @@ class DbConnection
     }
 }
 
-// how to use : 
+// -------- HOW TO USE ---------
+
 // $sql = 'SELECT id, name, description FROM product';
 
 // $select = DbConnection::getDb()->prepare($sql);
 
 // if ($select->execute()) {
-//     var_dump($select->fetchAll(PDO::FETCH_ASSOC));
+//     return $select->fetchAll(PDO::FETCH_ASSOC);
 // }
