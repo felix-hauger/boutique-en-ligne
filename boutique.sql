@@ -89,6 +89,7 @@ CREATE TABLE `product` (
     `price` INT(11) UNSIGNED DEFAULT 0,
     `image` VARCHAR(255) NOT NULL,
     `quantity` INT(5) DEFAULT 0,
+    `quantity_sold`INT(11) DEFAULT 0,
     `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL,
