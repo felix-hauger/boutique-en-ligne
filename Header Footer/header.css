@@ -1,0 +1,56 @@
+
+:root {
+    --detail-color: #0a460a;
+    --hover-color: #27c422;
+    --bg-color: #c0ffd8;
+  }
+
+header{
+    user-select: none; 
+    padding:3%;
+    font-size: 2em;
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+    background-color:var(--bg-color);
+    color:var(--detail-color);
+    border-style: solid;
+    border-color: var(--detail-color);
+    margin:0;
+   
+}
+
+
+
+body{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+}
+
+header a{
+    color:var(--detail-color);
+    text-decoration: none;
+}
+
+header a:visited{
+    color:var(--detail-color);
+    text-decoration: none;
+}
+
+header a:hover, header a:visited:hover,header i:hover
+{
+    color:var(--hover-color); 
+}
+header #SearchBar{
+    display:none;
+    position: relative;bottom: 3px;
+}
+header #SearchHide{
+    display:none;
+    position: relative;top: 4px;left:7px;
+}
+
+header #SearchIcon{
+    height:1em;
+    position: relative;top: 5px;left:7px;
+}
