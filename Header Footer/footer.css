@@ -1,0 +1,52 @@
+footer{
+    user-select: none; 
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color:white;
+    background-color: rgb(66, 66, 66);
+   font-size: 1.3em;
+   
+}
+
+footer a:link, footer a:visited{
+color:white;
+text-decoration: none;
+}
+footer a:hover{
+    color :gray;
+}
+#boxFooter{
+    display: flex;
+    justify-content:space-between;
+    line-height: 2em;
+    padding:2%;
+    padding-left: 10%;
+    padding-right: 20%;
+}
+#boxAddr{
+    color:rgb(204, 204, 204);
+    display: flex;
+    justify-content: space-between;
+    padding: 3%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+
+#contact{
+    padding-left: 3%;
+}
+
+#boxMentionLégales, #boxMentionLégales a{
+    color:rgb(155, 155, 155);
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: 0.8em;
+    padding-bottom: 1%;
+
+}
+#boxMentionLégales a:hover{
+    color :rgb(201, 201, 201)
+}
