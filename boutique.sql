@@ -92,6 +92,7 @@ CREATE TABLE `product` (
     `updated_at` DATETIME DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL,
     `category_id` INT UNSIGNED NOT NULL,
+    `discount_id` INT UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     CONSTRAINT `fk_category_product` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`),
     CONSTRAINT `fk_discount_product` FOREIGN KEY(`discount_id`) REFERENCES `discount` (`id`)
