@@ -87,7 +87,7 @@ CREATE TABLE `product` (
     `name` VARCHAR(255) NOT NULL,
     `slug` VARCHAR(255) DEFAULT NULL,
     `description` TEXT DEFAULT NULL,
-    `price` INT(11) UNSIGNED DEFAULT 0,
+    `price` INT(11) UNSIGNED NOT NULL,
     `image` VARCHAR(255) NOT NULL,
     `quantity` INT(5) DEFAULT 0,
     `quantity_sold`INT(11) DEFAULT 0,
