@@ -87,11 +87,13 @@ CREATE TABLE `product` (
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT DEFAULT NULL,
     `price` INT(11) UNSIGNED DEFAULT 0,
+    `image` VARCHAR(255) NOT NULL,
     `quantity` INT(5) DEFAULT 0,
     `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL,
     `category_id` INT UNSIGNED NOT NULL,
+    `discount_id` INT UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     CONSTRAINT `fk_category_product` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`),
     CONSTRAINT `fk_discount_product` FOREIGN KEY(`discount_id`) REFERENCES `discount` (`id`)
