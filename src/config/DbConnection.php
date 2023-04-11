@@ -11,7 +11,7 @@ class DbConnection
         // singleton
     }
 
-    public static function getDb()
+    public static function getPdo()
     {
         if (!self::$_db) {
             try {
@@ -30,13 +30,3 @@ class DbConnection
         return self::$_db;
     }
 }
-
-// -------- HOW TO USE ---------
-
-// $sql = 'SELECT id, name, description FROM product';
-
-// $select = DbConnection::getDb()->prepare($sql);
-
-// if ($select->execute()) {
-//     return $select->fetchAll(\PDO::FETCH_ASSOC);
-// }
