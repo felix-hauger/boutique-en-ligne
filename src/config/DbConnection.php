@@ -4,6 +4,9 @@ namespace App\Config;
 
 class DbConnection
 {
+    /**
+     * @var ?PDO used to represent database connection
+     */
     private static ?\PDO $_db = null;
 
     private function __construct()
@@ -11,7 +14,10 @@ class DbConnection
         // singleton
     }
 
-    public static function getDb()
+    /**
+     * @return PDO used for database connection in models
+     */
+    public static function getPdo(): \PDO
     {
         if (!self::$_db) {
             try {
@@ -30,13 +36,3 @@ class DbConnection
         return self::$_db;
     }
 }
-
-// -------- HOW TO USE ---------
-
-// $sql = 'SELECT id, name, description FROM product';
-
-// $select = DbConnection::getDb()->prepare($sql);
-
-// if ($select->execute()) {
-//     return $select->fetchAll(\PDO::FETCH_ASSOC);
-// }
