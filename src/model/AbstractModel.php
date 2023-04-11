@@ -9,12 +9,12 @@ abstract class AbstractModel
     /**
      * @var ?PDO used to connect to database
      */
-    private ?\PDO $_pdo = null;
+    protected ?\PDO $_pdo = null;
 
     /**
      * @var string identifies child class table name
      */
-    private string $_table;
+    protected string $_table;
 
     public function __construct()
     {
