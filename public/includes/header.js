@@ -1,6 +1,7 @@
 var icon = document.getElementById("SearchIcon");
 var bar = document.getElementById("SearchBar");
 var hide = document.getElementById("SearchHide");
+var popup = document.getElementById("popup");
 var r = document.querySelector(':root');
 
 var Research = 0;
@@ -26,6 +27,16 @@ function Recherche() {
 
 }
 
+function ShowUser() {
+    popup.style.display = "inline"
+}
+function HideUser() {
+
+    popup.style.display = "none"
+}
+function StopPropa(event){
+    event.stopPropagation();
+}
 
 // change les variables du css en fonction de la saison
 //permet de changer manuellement de saison pour démonstration
