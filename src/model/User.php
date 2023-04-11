@@ -16,7 +16,7 @@ class User extends AbstractModel
      */
     public function create(string $login, string $password, string $email, string $username, string $firstname, string $lastname): bool
     {
-        $sql = 'INSERT INTO user (title, content, image, creation_date, user_id, category_id) VALUES (:title, :content, :image, NOW(), :user_id, :category_id)';
+        $sql = 'INSERT INTO user (login, password, email, username, firstname, lastname, created_at, role_id) VALUES (:login, :password, :email, :username, :firstname, :lastname, NOW(), 2)';
 
         $insert = $this->_pdo->prepare($sql);
 
