@@ -77,18 +77,28 @@ class User
         // check if password is powerful enough with regex
     }
 
-    public function logout()
-    {
-        // disconnect user
-    }
-
-    public function delete($id)
-    {
-        // delete user, then disconnect
-    }
-
     public function isAlphaNumeric(string $string)
     {
         // check if string is alphanumeric, with regex or functions
+    }
+
+    /**
+     * disconnect user
+     * @return void
+     */
+    public function logout(): void
+    {
+        unset($_SESSION['user']);
+    }
+
+    /**
+     * @param int id representing user id
+     * @return bool depending if model successfully deleted or not
+     */
+    public function delete($id): bool
+    {
+        $user_model = new UserModel();
+
+        return $user_model->delete($id);
     }
 }
