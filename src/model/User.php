@@ -31,6 +31,29 @@ class User extends AbstractModel
         return $insert->execute();
     }
 
+    /**
+     * check if value exists in one field in database
+     * @param string $column the name of the column in the table
+     * @param string $value the value to search
+     * @return int|false id if row is found, else false
+     */
+    public function findIdWithField(string $column, string $value) : int|false
+    {
+        // $sql = 'SELECT COUNT(id) FROM user WHERE ' . $column . ' = :' . $column;
+        $sql = 'SELECT id FROM user WHERE ' . $column . ' = :' . $column;
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':' . $column, $value);
+
+        var_dump($select);
+
+        if ($select->execute()) {
+            return $select->fetchColumn();
+            // return $select->fetchColumn() > 0;
+        }
+    }
+
     public function isFieldInDb(string $column, string $value)
     {
         $sql = 'SELECT COUNT(id) FROM user WHERE ' . $column . ' = :' . $column;
