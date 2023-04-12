@@ -27,7 +27,7 @@ body {
 header a,
 header a:visited,
 #OptionMobile a,
-#OptionMobile a:visited  {
+#OptionMobile a:visited {
     color: var(--detail-color);
     text-decoration: none;
 }
@@ -66,6 +66,7 @@ header #SearchIcon {
 }
 
 #popup {
+    user-select: none;
     display: none;
     background-color: #2e2e2e62;
     position: fixed;
@@ -91,6 +92,38 @@ header #SearchIcon {
     left: 75%;
 }
 
+#login-form input ,#register-form input{
+    width: 50%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid gray;
+}
+
+#login-form input.BtSubmit,#register-form input.BtSubmit{
+    margin-top: 5%;
+    border-bottom: 0;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    font-weight: bold;
+
+}
+#login-form label.LabelForm ,#register-form label.LabelForm{
+    font-size: 2em;
+}
+
+#BtToggleConnec{
+    margin-top: 5%;
+    border: 0;
+    padding :3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    font-weight: bold;
+}
 #OptionMobile {
     background-color: var(--bg-color);
     color: var(--detail-color);
@@ -99,26 +132,27 @@ header #SearchIcon {
     position: fixed;
     padding: 5%;
     bottom: 0;
-    width:88.5%;
+    width: 88.5%;
     display: flex;
     justify-content: space-around;
 }
 
 
-#SearchBarMobile{
+#SearchBarMobile {
     display: none;
     position: fixed;
-    bottom:8%;
+    bottom: 8%;
     width: 95%;
     height: 3%;
     border-style: solid;
     border-color: var(--detail-color);
     margin: 0;
-    left:1%
+    left: 1%
 }
-#SearchHideMobile{
+
+#SearchHideMobile {
     display: none;
-    
+
 }
 
 /* Version Mobile */
@@ -126,7 +160,8 @@ header #SearchIcon {
     header {
         font-size: 2em;
     }
-    footer{
+
+    footer {
         margin-bottom: 13%;
     }
 
