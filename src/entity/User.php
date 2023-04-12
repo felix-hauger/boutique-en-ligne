@@ -40,6 +40,12 @@ class User
     private string $_lastname;
 
     /**
+     * @var int represent the foreign key role id
+     * role determine what the user can & cannot do
+     */
+    private int $_role_id;
+
+    /**
      * Get the value of id
      */
     public function getId(): int
@@ -161,6 +167,24 @@ class User
     public function setLastname(string $lastname): self
     {
         $this->_lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role_id
+     */
+    public function getRoleId(): int
+    {
+        return $this->_role_id;
+    }
+
+    /**
+     * Set the value of role_id
+     */
+    public function setRoleId(int $role_id): self
+    {
+        $this->_role_id = $role_id;
 
         return $this;
     }

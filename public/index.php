@@ -2,16 +2,22 @@
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
+session_start();
+// session_destroy();
+
+var_dump($_SESSION);
+
 // use App\Config\DbConnection;
-use App\Model\User;
+// use App\Model\User as UserModel;
+// use App\Controller\User as UserController;
+// use App\Entity\User as UserEntity;
 // use App\Model\AbstractModel;
 // use App\Controller\Test\Test;
 
-$user = new User();
+// $userModel = new UserModel();
+// $userController = new UserController();
+// $userEntity = new UserEntity();
 
-var_dump($user);
-
-// var_dump(DbConnection::getPdo());
 
 // $m = new AbstractModel();
 

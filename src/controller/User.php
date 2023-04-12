@@ -16,9 +16,9 @@ class User
         if ($password === $password_confirm) {
             try {
                 $user_entity = new UserEntity();
-    
+
                 $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
-    
+
                 $user_entity
                     ->setLogin($login)
                     ->setPassword($password)
@@ -26,7 +26,7 @@ class User
                     ->setUsername($username)
                     ->setFirstname($firstname)
                     ->setLastname($lastname);
-    
+
                 $user_model->create($user_entity);
             } catch (\PDOException $e) {
                 echo $e->getMessage();
@@ -46,12 +46,10 @@ class User
         // retrieve user id if it exists
         $id = $user_model->findIdWithField('login', $login);
 
-        var_dump($id);
-
         if ($id) {
             $db_user = $user_model->find($id);
 
-            var_dump($db_user);
+            // var_dump($db_user);
 
             if (password_verify($password, $db_user['password']) || $password === $db_user['password']) {
                 $user_entity = new UserEntity();
@@ -62,7 +60,8 @@ class User
                     ->setEmail($db_user['email'])
                     ->setUsername($db_user['username'])
                     ->setFirstname($db_user['firstname'])
-                    ->setLastname($db_user['lastname']);
+                    ->setLastname($db_user['lastname'])
+                    ->setRoleId($db_user['role_id']);
 
                 if (session_status() === PHP_SESSION_ACTIVE) {
                     $_SESSION['user'] = $user_entity;

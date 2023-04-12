@@ -9,15 +9,16 @@
         </div>
         <div>
             <?php 
-            if (isset($_SESSION['user'])){
+            if (isset($_SESSION['user'])) {
                 echo '<a id="User" href="user.php"><i class="fa-solid fa-user"></i></a>&emsp;';
-                if ($_SESSION['role']=="admin"){
+                if ($_SESSION['user']->getRoleId() === 1) {
                     echo '<i class="fa-solid fa-play" onclick="SetSaisons()"></i>';
                     echo '<a href="admin.php"><i class="fa-solid fa-toolbox"></i></a>';
                 }
+            } else {
+                echo '<a id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
-            <a id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;
             <a href="panier.php"><i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>
