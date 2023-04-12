@@ -14,6 +14,7 @@ CREATE TABLE `user` (
     `login` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) DEFAULT NULL,
     `firstname` VARCHAR(255) DEFAULT NULL,
     `lastname` VARCHAR(255) DEFAULT NULL,
     `created_at` DATETIME DEFAULT NOW(),
