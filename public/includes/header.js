@@ -1,7 +1,13 @@
 var icon = document.getElementById("SearchIcon");
 var bar = document.getElementById("SearchBar");
 var hide = document.getElementById("SearchHide");
+
 var popup = document.getElementById("popup");
+
+var iconMobile = document.getElementById("SearchIconMobile");
+var barMobile = document.getElementById("SearchBarMobile");
+var hideMobile = document.getElementById("SearchHideMobile");
+
 var r = document.querySelector(':root');
 
 var Research = 0;
@@ -11,16 +17,26 @@ function Recherche() {
 
     if (Research === 0) {
 
+        iconMobile.style.display = "none"
+        barMobile.style.display = "inline";
+        hideMobile.style.display = "inline";
+
         icon.style.display = "none"
         bar.style.display = "inline";
         hide.style.display = "inline";
+
         Research = 1;
     }
     else if (Research === 1) {
 
+        iconMobile.style.display = "inline"
+        barMobile.style.display = "none";
+        hideMobile.style.display = "none";
+
         icon.style.display = "inline"
         bar.style.display = "none";
         hide.style.display = "none";
+
         Research = 0;
     }
 

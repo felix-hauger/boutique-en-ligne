@@ -41,7 +41,6 @@ $Cat = $Cat[0];
 
 <body>
     <?php require_once("includes/header.php"); ?>
-    <i class="fa-solid fa-play" onclick="SetSaisons()"></i>
 
 
     <main>

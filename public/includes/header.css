@@ -7,10 +7,9 @@
 header {
     user-select: none;
     padding: 3%;
-    font-size: 2em;
     font-weight: bolder;
     display: flex;
-    justify-content: space-between;
+    font-size: 2em;
     background-color: var(--bg-color);
     color: var(--detail-color);
     border-style: solid;
@@ -20,25 +19,25 @@ header {
 }
 
 
-
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
 
-header a {
-    color: var(--detail-color);
-    text-decoration: none;
-}
-
-header a:visited {
+header a,
+header a:visited,
+#OptionMobile a,
+#OptionMobile a:visited  {
     color: var(--detail-color);
     text-decoration: none;
 }
 
 header a:hover,
 header a:visited:hover,
-header i:hover {
+header i:hover,
+#OptionMobile a:hover,
+#OptionMobile a:visited:hover,
+#OptionMobile i:hover {
     color: var(--hover-color);
 }
 
@@ -61,9 +60,11 @@ header #SearchIcon {
     left: 7px;
     cursor: pointer;
 }
-#User{
+
+#User {
     cursor: pointer;
 }
+
 #popup {
     display: none;
     background-color: #2e2e2e62;
@@ -74,7 +75,7 @@ header #SearchIcon {
     width: 60%;
     height: 90%;
     padding: 20%;
-    padding-top: 5em
+    padding-top: 5%
 }
 
 #popup-Content {
@@ -82,9 +83,83 @@ header #SearchIcon {
     background-color: white;
     padding: 10%;
     padding-top: 5%;
-    border-radius: 5%;
+    border-radius: 10px;
 }
-#close-popup{
+
+#close-popup {
     position: absolute;
     left: 75%;
+}
+
+#OptionMobile {
+    background-color: var(--bg-color);
+    color: var(--detail-color);
+    border-style: solid;
+    border-color: var(--detail-color);
+    position: fixed;
+    padding: 5%;
+    bottom: 0;
+    width:88.5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+#SearchBarMobile{
+    display: none;
+    position: fixed;
+    bottom:8%;
+    width: 95%;
+    height: 3%;
+    border-style: solid;
+    border-color: var(--detail-color);
+    margin: 0;
+    left:1%
+}
+#SearchHideMobile{
+    display: none;
+    
+}
+
+/* Version Mobile */
+@media screen and (max-width: 800px) {
+    header {
+        font-size: 2em;
+    }
+    footer{
+        margin-bottom: 13%;
+    }
+
+    body {
+        font-size: 50%;
+    }
+
+    #boxAddr {
+        font-size: 70%;
+    }
+
+    #WideScreenView {
+
+        display: none;
+    }
+
+    header {
+        justify-content: space-around;
+    }
+
+}
+
+/* Version PC*/
+@media screen and (min-width: 800px) {
+    header {
+        justify-content: space-between;
+    }
+
+    #MobileScreenView {
+        display: none;
+    }
+
+    #OptionMobile {
+        display: none;
+    }
 }
