@@ -12,20 +12,21 @@ class User extends AbstractModel
 
     /**
      * insert user in database
+     * @param App\Entity\User $user Entity
      * @return bool depending if request is successfull or not
      */
-    public function create(string $login, string $password, string $email, string $username, string $firstname, string $lastname): bool
+    public function create(\App\Entity\User $user): bool
     {
         $sql = 'INSERT INTO user (login, password, email, username, firstname, lastname, created_at, role_id) VALUES (:login, :password, :email, :username, :firstname, :lastname, NOW(), 2)';
 
         $insert = $this->_pdo->prepare($sql);
 
-        $insert->bindParam(':login', $login);
-        $insert->bindParam(':password', $password);
-        $insert->bindParam(':email', $email);
-        $insert->bindParam(':username', $username);
-        $insert->bindParam(':firstname', $firstname);
-        $insert->bindParam(':lastname', $lastname);
+        $insert->bindValue(':login', $user->getLogin());
+        $insert->bindValue(':password', $user->getPassword());
+        $insert->bindValue(':email', $user->getEmail());
+        $insert->bindValue(':username', $user->getUsername());
+        $insert->bindValue(':firstname', $user->getFirstname());
+        $insert->bindValue(':lastname', $user->getLastname());
 
         return $insert->execute();
     }
