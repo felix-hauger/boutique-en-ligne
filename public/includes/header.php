@@ -31,11 +31,8 @@
     <!--<i class="fa-solid fa-play" onclick="SetSaisons()"></i> BT changement de saison  -->
     <div id="popup" onclick="HideUser()">
 
-        <form id="popup-Content" method="post" onclick="StopPropa(event)">
-            <i id="close-popup" class="fa-sharp fa-solid fa-xmark fa-2xl" onclick="HideUser()"></i><br>
-            <input value="login" placeholder="Login"><br>
-            <input value="password" placeholder="password"><br>
-        </form>
+        <?php require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR .  'src' . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'auth.php'; ?>
+
     </div>
 </body>
 
