@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use \App\Model\User as UserModel;
 use \App\Entity\User as UserEntity;
+use Exception;
 
 class User
 {
@@ -12,23 +13,27 @@ class User
         // register user with User model & entity
         $user_model = new UserModel();
 
-        try {
-            $user_entity = new UserEntity();
-
-            $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
-
-            $user_entity
-                ->setLogin($login)
-                ->setPassword($password)
-                ->setEmail($email)
-                ->setUsername($username)
-                ->setFirstname($firstname)
-                ->setLastname($lastname);
-
-            $user_model->create($user_entity);
-        } catch (\PDOException $e) {
-            echo $e->getMessage();
-            var_dump($e);
+        if ($password === $password_confirm) {
+            try {
+                $user_entity = new UserEntity();
+    
+                $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
+    
+                $user_entity
+                    ->setLogin($login)
+                    ->setPassword($password)
+                    ->setEmail($email)
+                    ->setUsername($username)
+                    ->setFirstname($firstname)
+                    ->setLastname($lastname);
+    
+                $user_model->create($user_entity);
+            } catch (\PDOException $e) {
+                echo $e->getMessage();
+                var_dump($e);
+            }
+        } else {
+            throw new Exception('Le mot de passe et la confirmation doivent être identiques');
         }
     }
 
