@@ -35,6 +35,38 @@ class User
     public function connect(string $login, string $password)
     {
         // retrieve user infos, hydrate User entity & store it in session
+
+        $user_model = new UserModel();
+
+        // retrieve user id if it exists
+        $id = $user_model->findIdWithField('login', $login);
+
+        var_dump($id);
+
+        if ($id) {
+            $db_user = $user_model->find($id);
+
+            var_dump($db_user);
+
+            if (password_verify($password, $db_user['password']) || $password === $db_user['password']) {
+                $user_entity = new UserEntity();
+
+                $user_entity
+                    ->setId($db_user['id'])
+                    ->setLogin($db_user['login'])
+                    ->setEmail($db_user['email'])
+                    ->setUsername($db_user['username'])
+                    ->setFirstname($db_user['firstname'])
+                    ->setLastname($db_user['lastname']);
+
+                if (session_status() === PHP_SESSION_ACTIVE) {
+                    $_SESSION['user'] = $user_entity;
+                }
+                return true;
+            }
+        }
+
+        throw new \Exception('identifiants incorrects');
     }
 
     public function checkPasswordStrength(string $password) {
