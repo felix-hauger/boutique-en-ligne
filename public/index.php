@@ -9,7 +9,7 @@ use App\Model\User;
 
 $user = new User();
 
-var_dump($user);
+//var_dump($user);
 
 // var_dump(DbConnection::getPdo());
 
@@ -19,8 +19,7 @@ var_dump($user);
 // $test = new Test();
 // var_dump($test->__toString())
 
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -51,10 +50,10 @@ var_dump($user);
 </head>
 
 <body>
-    <?php require_once("includes/header.php") ?>
+<?php require_once("includes/header.php") ?>
 
 
 
-    <?php require_once("includes/footer.php") ?>
+<?php require_once("includes/footer.php") ?>
 </body>
 </html>

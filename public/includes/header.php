@@ -11,9 +11,15 @@
             <?php 
             if (isset($_SESSION['user'])){
                 echo '<a id="User" href="user.php"><i class="fa-solid fa-user"></i></a>&emsp;';
+                ?><form method="post" action="suppression.php" id="form">
+                    <input type="hidden" id="cache" name="cache" value="<?=$actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];?>"/>
+                    </form>
+                    <buttton id="delete"  onclick="delete()">Supprimer</button>
+    <?php
                 if ($_SESSION['role']=="admin"){
                     echo '<i class="fa-solid fa-play" onclick="SetSaisons()"></i>';
                     echo '<a href="admin.php"><i class="fa-solid fa-toolbox"></i></a>';
+                   
                 }
             }
             ?>
