@@ -54,6 +54,22 @@ function StopPropa(event){
     event.stopPropagation();
 }
 
+// toggle display between login form & register form
+function toggleAuth(event) {
+    let loginForm = document.getElementById('login-form'),
+        registerForm = document.getElementById('register-form');
+
+    if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+        event.target.innerHTML = "Pas de compte ?";
+    } else {
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+        event.target.innerHTML = "Déjà inscrit ?";
+    }
+}
+
 // change les variables du css en fonction de la saison
 //permet de changer manuellement de saison pour démonstration
 function SetSaisons() {
