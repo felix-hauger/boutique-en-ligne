@@ -45,21 +45,21 @@ if (isset($_POST['submit-login'])) {
     <i id="close-popup" class="fa-sharp fa-solid fa-xmark fa-2xl" onclick="HideUser()"></i><br>
 
     <form id="login-form" method="post">
-        <label class="LabelForm">Connexion</label><br>
-        <input type="text" name="login" id="login" placeholder="Login"><br>
-        <input type="password" name="password" id="password" placeholder="Mot de passe"><br>
+        <label class="LabelForm" for="connect-login">Connexion</label><br>
+        <input type="text" name="login" id="connect-login" placeholder="Login"><br>
+        <input type="password" name="password" id="connect-password" placeholder="Mot de passe"><br>
         <input class="BtSubmit" type="submit" name="submit-login" value="Connexion">
     </form>
 
     <form id="register-form" method="post" style="display: none;">
-        <label class="LabelForm">Inscription</label><br>
-        <input type="text" name="login" id="login" placeholder="Login"><br>
-        <input type="password" name="password" id="password" placeholder="Mot de passe"><br>
-        <input type="password" name="confirmation" id="confirmation" placeholder="Confirmation"><br>
-        <input type="email" name="email" id="email" placeholder="Email"><br>
-        <input type="text" name="username" id="username" placeholder="Nom d'utilisateur"><br>
-        <input type="text" name="firstname" id="firstname" placeholder="Prénom"><br>
-        <input type="text" name="lastname" id="lastname" placeholder="Nom de famille"><br>
+        <label class="LabelForm" for="register-login">Inscription</label><br>
+        <input type="text" name="login" id="register-login" placeholder="Login"><br>
+        <input type="password" name="password" id="register-password" placeholder="Mot de passe"><br>
+        <input type="password" name="confirmation" id="register-confirmation" placeholder="Confirmation"><br>
+        <input type="email" name="email" id="register-email" placeholder="Email"><br>
+        <input type="text" name="username" id="register-username" placeholder="Nom d'utilisateur"><br>
+        <input type="text" name="firstname" id="register-firstname" placeholder="Prénom"><br>
+        <input type="text" name="lastname" id="register-lastname" placeholder="Nom de famille"><br>
         <input class="BtSubmit" type="submit" name="submit-register" value="Inscription">
     </form>
 
