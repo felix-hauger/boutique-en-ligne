@@ -8,7 +8,6 @@ use Exception;
 
 class User
 {
-
     /**
      * @param string $login to auth
      * @param string $password to auth, do not store in session
@@ -110,6 +109,16 @@ class User
     public function isAlphaNumeric(string $string)
     {
         // check if string is alphanumeric, with regex or functions
+    }
+
+    /**
+     * convert html characters & all quotes to be not interpreted, remove spaces before & after string
+     * @param string $string the string to filter
+     * @return string the filtered string
+     */
+    public function filterSpecialCharacters(string $string): string
+    {
+        return htmlspecialchars(trim($string), ENT_QUOTES);
     }
 
     /**
