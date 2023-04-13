@@ -20,6 +20,17 @@ class User
      */
     public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): mixed
     {
+        $args = func_get_args();
+        var_dump($args);
+        // $test = array_filter($args, call_user_func_array([$this, 'filterSpecialCharacters'], $args));
+        $filtered_args = array_map([$this, 'filterSpecialCharacters'], $args);
+        var_dump($filtered_args);
+
+        // var_dump($test);
+
+
+
+        die();
         // register user with User model & entity
         // instanciate User model
         $user_model = new UserModel();
@@ -116,7 +127,7 @@ class User
      * @param string $string the string to filter
      * @return string the filtered string
      */
-    public function filterSpecialCharacters(string $string): string
+    public function filterSpecialCharacters($string): string
     {
         return htmlspecialchars(trim($string), ENT_QUOTES);
     }
@@ -141,3 +152,7 @@ class User
         return $user_model->delete($id);
     }
 }
+
+$user = new User();
+
+$user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
