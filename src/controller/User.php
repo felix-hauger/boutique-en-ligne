@@ -19,8 +19,9 @@ class User extends AbstractController
      * @param string $lastname personal info
      * 
      * @return bool when User model uses create method, depending if request is successfull or not
+     * @return string Exception message when an Exception is catched from the model
      */
-    public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname)
+    public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): bool|string
     {
         $user_arr = $this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args());
 
@@ -52,7 +53,7 @@ class User extends AbstractController
                 // return bool depending if model successfully created user or not
                 return $user_model->create($user_entity);
             } catch (\PDOException $e) {
-                echo $e->getMessage();
+                return $e->getMessage();
                 // var_dump($e);
             }
         } else {
