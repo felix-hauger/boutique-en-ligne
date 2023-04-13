@@ -23,15 +23,18 @@ class User extends AbstractController
      */
     public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): bool|string
     {
-        $user_arr = $this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args());
+        // filter method arguments & replace them in the function environment
+        extract($this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args()));
 
-        var_dump($user_arr);
-        die();
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception('Format email invalide');
+        }
+
+        // var_dump($user_arr);
+        // die();
         // register user with User model & entity
         // instanciate User model
         $user_model = new UserModel();
-
-        // ! must use methods to test inputs
 
         if ($password === $password_confirm) {
             try {
@@ -53,7 +56,7 @@ class User extends AbstractController
                 // return bool depending if model successfully created user or not
                 return $user_model->create($user_entity);
             } catch (\PDOException $e) {
-                return $e->getMessage();
+                throw new \Exception($e->getMessage());
                 // var_dump($e);
             }
         } else {
@@ -141,6 +144,6 @@ class User extends AbstractController
     }
 }
 
-$user = new User();
+// $user = new User();
 
-$user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
+// $user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
