@@ -20,23 +20,12 @@ class User extends AbstractController
      * 
      * @return bool when User model uses create method, depending if request is successfull or not
      */
-    public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): mixed
+    public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname)
     {
-        // $args = func_get_args();
-        // var_dump($args);
-
-        // filter inputs to prevent xss attacks
-        $args = array_map([$this, 'filterSpecialCharacters'], func_get_args());
-
-        // get arg names
-        $args_names = $this->getMethodArgNames(User::class, __FUNCTION__);
-
-        // create associative array with parameters names & filtered arguments values
-        $user_arr = array_combine($args_names, $args);
+        $user_arr = $this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args());
 
         var_dump($user_arr);
-
-        // die();
+        die();
         // register user with User model & entity
         // instanciate User model
         $user_model = new UserModel();
@@ -128,15 +117,7 @@ class User extends AbstractController
         // check if string is alphanumeric, with regex or functions
     }
 
-    /**
-     * convert html characters & all quotes to be not interpreted, remove spaces before & after string
-     * @param string $string the string to filter
-     * @return string the filtered string
-     */
-    public function filterSpecialCharacters($string): string
-    {
-        return htmlspecialchars(trim($string), ENT_QUOTES);
-    }
+
 
     /**
      * disconnect user
