@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+
 use \App\Model\User as UserModel;
 use \App\Entity\User as UserEntity;
 use Exception;
 
-class User
+class User extends AbstractController
 {
     /**
      * @param string $login to auth
@@ -20,17 +22,21 @@ class User
      */
     public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): mixed
     {
-        $args = func_get_args();
-        var_dump($args);
-        // $test = array_filter($args, call_user_func_array([$this, 'filterSpecialCharacters'], $args));
-        $filtered_args = array_map([$this, 'filterSpecialCharacters'], $args);
-        var_dump($filtered_args);
+        // $args = func_get_args();
+        // var_dump($args);
 
-        // var_dump($test);
+        // filter inputs to prevent xss attacks
+        $args = array_map([$this, 'filterSpecialCharacters'], func_get_args());
 
+        // get arg names
+        $args_names = $this->getMethodArgNames(User::class, __FUNCTION__);
 
+        // create associative array with parameters names & filtered arguments values
+        $user_arr = array_combine($args_names, $args);
 
-        die();
+        var_dump($user_arr);
+
+        // die();
         // register user with User model & entity
         // instanciate User model
         $user_model = new UserModel();
