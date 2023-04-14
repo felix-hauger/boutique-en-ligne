@@ -72,7 +72,6 @@ CREATE TABLE `tag` (
 CREATE TABLE `category` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
-    `description` TEXT DEFAULT NULL,
     PRIMARY KEY(`id`),
     UNIQUE(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -155,4 +154,18 @@ CREATE TABLE `cart_product` (
     UNIQUE(`cart_id`, `product_id`),
     CONSTRAINT `fk_cart_cart_product` FOREIGN KEY(`cart_id`) REFERENCES `cart` (`id`),
     CONSTRAINT `fk_product_cart_product` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `stock` (
+    `id` int(11) UNSIGNED AUTO_INCREMENT NOT NULL,
+    `xs` int(10) UNSIGNED DEFAULT 0,
+    `s` int(10) UNSIGNED DEFAULT 0,
+    `m` int(10) UNSIGNED DEFAULT 0,
+    `l` int(10) UNSIGNED DEFAULT 0,
+    `xl` int(10) UNSIGNED DEFAULT 0,
+    `xxl` int(10) UNSIGNED DEFAULT 0,
+    `product_id` int(10) UNSIGNED NOT NULL,
+    PRIMARY KEY(`id`),
+    UNIQUE(`id`),
+    CONSTRAINT `fk_product_stock` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
