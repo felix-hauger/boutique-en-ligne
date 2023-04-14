@@ -41,9 +41,7 @@ class Product extends AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        if ($select->execute()) {
-            return $select->fetchAll(\PDO::FETCH_ASSOC);
-        }
+        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
     }
 
     /**
@@ -55,10 +53,7 @@ class Product extends AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        if ($select->execute()) {
-            return $select->fetchAll(\PDO::FETCH_ASSOC);
-        }
-
+        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
     }
 }
 
