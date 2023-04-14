@@ -1,15 +1,18 @@
 <?php
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 use App\Config\DbConnection;
-//Selecte everything from product to redistribute
+//session start apres l'autoload sinon bug lors de la connexion
+session_start();
+
+//Select everything from product to redistribute
 $sql = 'SELECT * FROM product';
 $select = DbConnection::getPdo()->prepare($sql);
 if ($select->execute()) {
     //put everything in $result
-    $result=$select->fetchAll(\PDO::FETCH_ASSOC);
+    $result=$select->fetch(\PDO::FETCH_ASSOC);
  }
-//get rid of the encapsulating array
-$result = $result[0];
+
 
 //find the id of the category of this article
 $idCat = $result['category_id'];
@@ -20,10 +23,21 @@ $select = DbConnection::getPdo()->prepare($sql);
 
 if ($select->execute()) {
     //put everything in $Cat
-    $Cat=$select->fetchAll(\PDO::FETCH_ASSOC);
+    $Cat=$select->fetch(\PDO::FETCH_ASSOC);
  }
-//get rid of the encapsulating array
-$Cat = $Cat[0];
+
+ $sql = "SELECT * FROM `stock` WHERE `product_id` = ".$result['id']."";
+
+$select = DbConnection::getPdo()->prepare($sql);
+
+if ($select->execute()) {
+    //put everything in $Cat
+    $stock=$select->fetch(\PDO::FETCH_ASSOC);
+ }
+
+
+
+
 
 
 ?>
@@ -74,6 +88,10 @@ $Cat = $Cat[0];
                     <h1><?= $result['name'] ?></h1><br>
                     <div id="Catégories">&emsp;<?= "#", $Cat['name'] ?></div><br>
                     <div id="Price">&nbsp;&nbsp;<?= $result['price'], "€" ?></div><br><br>
+                    faire une tbleau
+                    <button>xs</button>&emsp;<button>s</button>&emsp;<button>m</button>&emsp;<button>l</button>&emsp;<button>xl</button>&emsp;<button>xxl</button><br>
+                    <?= $stock['xs']."&emsp;".$stock['s']."&emsp;".$stock['m']."&emsp;".$stock['l']."&emsp;".$stock['xl']."&emsp;".$stock['xxl'];?>
+
                     <div id="QuantityBox">
                     &emsp;<i id="BtInput" class="fa-sharp fa-solid fa-play fa-flip-horizontal" onclick="InputQuantitySub()"></i>
                         <input id="InputQuantity" placeholder="1"></input>

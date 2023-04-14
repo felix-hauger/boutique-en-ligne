@@ -8,20 +8,22 @@
             <input id="SearchBar" placeholder="Rechercher"></input>
         </div>
         <div>
-            <?php 
+            <?php
             if (isset($_SESSION['user'])) {
-                echo '<a id="User" href="user.php"><i class="fa-solid fa-user"></i></a>&emsp;';
+                echo '<a title="Vos Informations" id="User" href="user.php"><i class="fa-solid fa-user"></i></a>&emsp;';
+                echo '<a title="Vous Déconnecter" href="disconnect.php"><i class="fa-solid fa-user-slash"></i></a>&emsp;';
                 if ($_SESSION['user']->getRoleId() === 1) {
-                    echo '<i class="fa-solid fa-play" onclick="SetSaisons()"></i>';
-                    echo '<a href="admin.php"><i class="fa-solid fa-toolbox"></i></a>';
+                    echo '<i title="Changer le Theme" class="fa-solid fa-paint-roller onclick="SetSaisons()"></i>&emsp;';
+                    echo '<a title="Option D\'administration" href="admin.php"><i class="fa-solid fa-toolbox"></i></a>&emsp;';
                 }
             } else {
-                echo '<a id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
+                echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
-            <a href="panier.php"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a title="Votre Panier" href="panier.php"><i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>
+
     </header>
 
     <header id="MobileScreenView">
@@ -42,7 +44,7 @@
 
     <div id="popup" onclick="HideUser()">
 
-        <?php require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR .  'src' . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'auth.php'; ?>
+        <?php require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR . 'auth.php'; ?>
 
     </div>
 </body>
