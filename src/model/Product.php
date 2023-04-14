@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Model;
+
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+class Product extends AbstractModel
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_table = 'product';
+    }
+
+    /**
+     * insert user in database
+     * @param App\Entity\User $user Entity
+     * @return bool depending if request is successfull or not
+     */
+    public function create(\App\Entity\Product $product): bool
+    {
+        $sql = 'INSERT INTO product (name, description, price, image, created_at, category_id) VALUES (:name, :description, :price, :image, NOW(), :category_id)';
+
+        $insert = $this->_pdo->prepare($sql);
+
+        $insert->bindValue(':name', $product->getName());
+        $insert->bindValue(':description', $product->getDescription());
+        $insert->bindValue(':price', $product->getPrice());
+        $insert->bindValue(':image', $product->getImage());
+        $insert->bindValue(':category_id', $product->getCategoryId());
+
+        return $insert->execute();
+    }
+}

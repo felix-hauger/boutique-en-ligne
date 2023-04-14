@@ -33,6 +33,7 @@ abstract class AbstractModel
         if ($select->execute()) {
             return $select->fetchAll(\PDO::FETCH_ASSOC);
         }
+        // todo factoring code to define table using model class name
     }
 
     /**
