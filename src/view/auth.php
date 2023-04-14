@@ -1,5 +1,5 @@
 <?php
-var_dump($_POST);
+// var_dump($_POST);
 
 use App\Controller\User as UserController;
 
@@ -21,7 +21,7 @@ if (isset($_POST['submit-login'])) {
     // echo 'titi';
     $userController = new UserController();
 
-    //! add tests to inputs
+    // // add tests to inputs
     // foreach($_POST as $key => $value) {
     //     echo "$key => $value, ";
     //     if ($key === 'email') {

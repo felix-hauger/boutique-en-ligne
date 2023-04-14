@@ -5,7 +5,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 session_start();
 // session_destroy();
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 // use App\Config\DbConnection;
 // use App\Model\User as UserModel;
