@@ -45,8 +45,24 @@ class Product extends AbstractModel
             return $select->fetchAll(\PDO::FETCH_ASSOC);
         }
     }
+
+    /**
+     * @return ?array The last added products
+     */
+    public function getLastAdded(): ?array
+    {
+        $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
+
+        $select = $this->_pdo->prepare($sql);
+
+        if ($select->execute()) {
+            return $select->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+    }
 }
 
 $p = new Product();
 
-var_dump($p->getMoreSold());
+// var_dump($p->getMoreSold());
+var_dump($p->getLastAdded());
