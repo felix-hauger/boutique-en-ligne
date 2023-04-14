@@ -5,43 +5,43 @@ namespace App\Entity;
 class User
 {
     /**
-     * @var int identifies entity
+     * @var int Identifies entity
      */
     private int $_id;
 
     /**
-     * @var string login to auth
+     * @var string Login to auth
      */
     private string $_login;
 
     /**
-     * @var string password to auth, do not store in session
+     * @var string Password to auth, do not store in session
      */
     private string $_password;
 
     /**
-     * @var string email
+     * @var string Email
      */
     private string $_email;
 
     /**
-     * @var string username visible to other users
+     * @var string Username visible to other users
      */
     private string $_username;
 
     /**
-     * @var string personal info
+     * @var string Personal info
      */
     private string $_firstname;
 
     /**
-     * @var string personal info
+     * @var string Personal info
      */
     private string $_lastname;
 
     /**
-     * @var int represent the foreign key role id
-     * role determine what the user can & cannot do
+     * @var int Represents the foreign key role id
+     *          Role determine what the user can & cannot do
      */
     private int $_role_id;
 

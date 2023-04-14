@@ -19,10 +19,12 @@ abstract class AbstractModel
     public function __construct()
     {
         $this->_pdo = DbConnection::getPdo();
+        
+        // todo factoring code to define table using model class name
     }
 
     /**
-     * @return array of sql results
+     * @return array of sql results if request executed successfully
      */
     public function findAll(): ?array
     {
@@ -30,14 +32,12 @@ abstract class AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        if ($select->execute()) {
-            return $select->fetchAll(\PDO::FETCH_ASSOC);
-        }
+        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
     }
 
     /**
      * @param int id representing id column in database
-     * @return array row from database
+     * @return array row from database if request executed successfully
      */
     public function find(int $id): ?array
     {
@@ -47,9 +47,7 @@ abstract class AbstractModel
 
         $select->bindParam(':id', $id);
 
-        if ($select->execute()) {
-            return $select->fetch(\PDO::FETCH_ASSOC);
-        }
+        return $select->execute() ? $select->fetch(\PDO::FETCH_ASSOC) : null;
     }
 
     /**

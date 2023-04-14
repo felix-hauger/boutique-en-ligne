@@ -37,7 +37,7 @@ class User extends AbstractModel
      * @param string $value the value to search
      * @return int|false id if row is found, else false
      */
-    public function findIdWithField(string $column, string $value) : int|false
+    public function findIdWithField(string $column, string $value) : ?int
     {
         // $sql = 'SELECT COUNT(id) FROM user WHERE ' . $column . ' = :' . $column;
         $sql = 'SELECT id FROM user WHERE ' . $column . ' = :' . $column;
@@ -46,12 +46,9 @@ class User extends AbstractModel
 
         $select->bindParam(':' . $column, $value);
 
-        var_dump($select);
+        // var_dump($select);
 
-        if ($select->execute()) {
-            return $select->fetchColumn();
-            // return $select->fetchColumn() > 0;
-        }
+        return $select->execute() ? $select->fetchColumn() : null;
     }
 
     public function isFieldInDb(string $column, string $value)
