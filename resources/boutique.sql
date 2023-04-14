@@ -6,7 +6,8 @@ CREATE TABLE `role` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `rights` VARCHAR(255) NOT NULL,
     `description` TEXT DEFAULT NULL,
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`id`),
+    UNIQUE(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `user` (
@@ -35,7 +36,8 @@ CREATE TABLE `user_address` (
     `mobile` VARCHAR(25) DEFAULT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
-    CONSTRAINT `fk_user_user_address` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`)
+    UNIQUE(`id`),
+    CONSTRAINT `fk_user_user_address` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `user_payment` (
@@ -46,7 +48,8 @@ CREATE TABLE `user_payment` (
     `expire_date` DATE NOT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
-    CONSTRAINT `fk_user_user_payment` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`)
+    UNIQUE(`id`),
+    CONSTRAINT `fk_user_user_payment` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `order` (
@@ -54,6 +57,7 @@ CREATE TABLE `order` (
     `created_at` DATETIME DEFAULT NOW(),
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
+    UNIQUE(`id`),
     CONSTRAINT `fk_user_order` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -61,14 +65,16 @@ CREATE TABLE `tag` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT DEFAULT NULL,
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`id`),
+    UNIQUE(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `category` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT DEFAULT NULL,
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`id`),
+    UNIQUE(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `discount` (
@@ -80,7 +86,8 @@ CREATE TABLE `discount` (
     `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL,
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`id`),
+    UNIQUE(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `product` (
@@ -90,7 +97,6 @@ CREATE TABLE `product` (
     `description` TEXT DEFAULT NULL,
     `price` INT(11) UNSIGNED NOT NULL,
     `image` VARCHAR(255) NOT NULL,
-    `quantity` INT(5) DEFAULT 0,
     `quantity_sold`INT(11) DEFAULT 0,
     `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
@@ -98,15 +104,18 @@ CREATE TABLE `product` (
     `category_id` INT UNSIGNED NOT NULL,
     `discount_id` INT UNSIGNED DEFAULT NULL,
     PRIMARY KEY(`id`),
+    UNIQUE(`id`),
     CONSTRAINT `fk_category_product` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`),
     CONSTRAINT `fk_discount_product` FOREIGN KEY(`discount_id`) REFERENCES `discount` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `category_tag` (
-    `category_id` INT(11) NOT NULL,
-    `tag_id` INT(11) NOT NULL,
+    `category_id` INT(11) UNSIGNED NOT NULL,
+    `tag_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`category_id`, `tag_id`),
-    UNIQUE(`category_id`, `tag_id`)
+    UNIQUE(`category_id`, `tag_id`),
+    CONSTRAINT `fk_category_category_tag` FOREIGN KEY(`category_id`) REFERENCES `category` (`id`),
+    CONSTRAINT `fk_tag_category_tag` FOREIGN KEY(`tag_id`) REFERENCES `tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `product_tag` (
@@ -122,7 +131,9 @@ CREATE TABLE `order_product` (
     `unit_price` INT(11) NOT NULL,
     `quantity` INT(5) UNSIGNED NOT NULL,
     PRIMARY KEY(`order_id`, `product_id`),
-    UNIQUE(`order_id`, `product_id`)
+    UNIQUE(`order_id`, `product_id`),
+    CONSTRAINT `fk_order_order_product` FOREIGN KEY(`order_id`) REFERENCES `order` (`id`),
+    CONSTRAINT `fk_product_order_product` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `cart` (
@@ -132,6 +143,7 @@ CREATE TABLE `cart` (
     `quantity` INT(5) UNSIGNED NOT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
+    UNIQUE(`id`),
     CONSTRAINT `fk_user_cart` FOREIGN KEY(`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -140,5 +152,7 @@ CREATE TABLE `cart_product` (
     `product_id` INT(11) UNSIGNED NOT NULL,
     `quantity` INT(5) UNSIGNED NOT NULL,
     PRIMARY KEY(`cart_id`, `product_id`),
-    UNIQUE(`cart_id`, `product_id`)
+    UNIQUE(`cart_id`, `product_id`),
+    CONSTRAINT `fk_cart_cart_product` FOREIGN KEY(`cart_id`) REFERENCES `cart` (`id`),
+    CONSTRAINT `fk_product_cart_product` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
