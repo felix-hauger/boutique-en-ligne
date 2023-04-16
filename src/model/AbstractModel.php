@@ -19,8 +19,12 @@ abstract class AbstractModel
     public function __construct()
     {
         $this->_pdo = DbConnection::getPdo();
-        
-        // todo factoring code to define table using model class name
+
+        $class = get_class($this);
+
+        $class = explode('\\', $class);
+
+        $this->_table = strtolower(array_pop($class));
     }
 
     /**
