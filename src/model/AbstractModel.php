@@ -20,10 +20,13 @@ abstract class AbstractModel
     {
         $this->_pdo = DbConnection::getPdo();
 
+        // get child class (on the context where it is called)
         $class = get_class($this);
 
+        // explode the namespace into an array
         $class = explode('\\', $class);
 
+        // set $_table property value to the last array entry case lowered
         $this->_table = strtolower(array_pop($class));
     }
 
