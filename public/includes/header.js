@@ -13,6 +13,7 @@ var r = document.querySelector(':root');
 var Research = 0;
 var Saison = 0;
 
+//affiche ou non la barre de recherche
 function Recherche() {
 
     if (Research === 0) {
@@ -42,14 +43,16 @@ function Recherche() {
 
 
 }
-
+//affiche la popup de connexion
 function ShowUser() {
     popup.style.display = "inline"
 }
+//cache la popup de connexion
 function HideUser() {
 
     popup.style.display = "none"
 }
+//empeche la propagation d'une action d'un parent a ses enfants
 function StopPropa(event){
     event.stopPropagation();
 }
