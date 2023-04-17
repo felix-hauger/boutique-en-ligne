@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use PDO;
-
 use \App\Config\DbConnection;
 
 abstract class AbstractModel
@@ -32,8 +31,8 @@ abstract class AbstractModel
         $this->_table = strtolower(array_pop($class));
 
         // ! WARNING: at current version you must still define $_table property
-        // ! WARNING: if the model / table is more than 1 word long
-        // ! WARNING: exemple: model => CartProduct, table name => cart_product
+        // ! WARNING: in child class if the model / table is more than 1 word long
+        // ! WARNING: exemple: model => UserAddress, table name => user_address
     }
 
     /**

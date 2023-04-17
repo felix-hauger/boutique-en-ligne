@@ -1,5 +1,5 @@
 <?php
-
+// ! add update method
 namespace App\Model;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -13,7 +13,7 @@ class Product extends AbstractModel
     }
 
     /**
-     * insert user in database
+     * Insert user in database
      * @param App\Entity\User $user Entity
      * @return bool depending if request is successfull or not
      */

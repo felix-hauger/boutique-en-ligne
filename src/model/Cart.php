@@ -6,13 +6,6 @@ require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 class Cart extends AbstractModel
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->_table = 'cart';
-    }
-
     /**
      * insert cart in database
      * @param App\Entity\Cart $cart Entity
@@ -45,13 +38,13 @@ class Cart extends AbstractModel
         return $update->execute();
     }
 
-    public function find(int $id): array|false
+    public function find(int $id): array
     {
         $sql = 'SELECT 
             cart.id, cart.created_at, cart.updated_at, cart.total_amount, 
-            cart_product.product_quantity, 
-            product.id, product.name, SUBSTRING(product.description, 0, 120), product.image, product.price, 
-            category.name
+            cart_product.quantity, 
+            product.id, product.name, SUBSTRING(product.description, 0, 120) AS overview, product.image, product.price, 
+            category.name AS category
             FROM cart
             INNER JOIN cart_product
             ON cart.id = cart_product.cart_id
@@ -73,4 +66,4 @@ class Cart extends AbstractModel
 
 $cart = new Cart();
 
-var_dump($cart->find(1));
+var_dump($cart->find(12));
