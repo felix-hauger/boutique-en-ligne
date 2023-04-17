@@ -47,15 +47,15 @@ class Product
     private DateTime $_created_at;
     
     /**
-     * @var Datetime The latest date when the product was updated
+     * @var ?Datetime The latest date when the product was updated
      */
-    private DateTime $_updated_at;
+    private ?DateTime $_updated_at = null;
     
     /**
-     * @var Datetime The deletion date to make product unavalaible for purchase 
+     * @var ?Datetime The deletion date to make product unavalaible for purchase 
      * but preserve it in database for admin & customer purchase history
      */
-    private DateTime $_deleted_at;
+    private ?DateTime $_deleted_at = null;
     
     /**
      * @var int representing the foreign key category_id 
@@ -65,7 +65,7 @@ class Product
     /**
      * @var int representing the foreign key discount_id 
      */
-    private int $_discount_id;
+    private ?int $_discount_id = null;
 
     /**
      * Get the value of _id
@@ -214,7 +214,7 @@ class Product
     /**
      * Get the value of _updated_at
      */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->_updated_at;
     }
@@ -222,7 +222,7 @@ class Product
     /**
      * Set the value of _updated_at
      */
-    public function setUpdatedAt(DateTime $_updated_at): self
+    public function setUpdatedAt(?DateTime $_updated_at): self
     {
         $this->_updated_at = $_updated_at;
 
@@ -232,7 +232,7 @@ class Product
     /**
      * Get the value of _deleted_at
      */
-    public function getDeletedAt(): DateTime
+    public function getDeletedAt(): ?DateTime
     {
         return $this->_deleted_at;
     }
@@ -240,7 +240,7 @@ class Product
     /**
      * Set the value of _deleted_at
      */
-    public function setDeletedAt(DateTime $_deleted_at): self
+    public function setDeletedAt(?DateTime $_deleted_at): self
     {
         $this->_deleted_at = $_deleted_at;
 
@@ -268,7 +268,7 @@ class Product
     /**
      * Get the value of _discount_id
      */
-    public function getDiscountId(): int
+    public function getDiscountId(): ?int
     {
         return $this->_discount_id;
     }
@@ -276,7 +276,7 @@ class Product
     /**
      * Set the value of _discount_id
      */
-    public function setDiscountId(int $_discount_id): self
+    public function setDiscountId(?int $_discount_id): self
     {
         $this->_discount_id = $_discount_id;
 
