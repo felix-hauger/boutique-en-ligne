@@ -3,6 +3,8 @@
 namespace App\Model;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+use Exception;
 use PDO;
 
 class Product extends AbstractModel
@@ -58,6 +60,10 @@ class Product extends AbstractModel
 
     public function find(int $id): array|false
     {
+        if (!$this->isInDb($id)) {
+            throw new Exception('Produit introuvable.');
+        }
+
         $sql =
             'SELECT product.id, product.name, product.description, price, image, quantity_sold, created_at, updated_at, deleted_at,
             category.id as category_id, category.name as category_name 
