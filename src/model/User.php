@@ -32,7 +32,7 @@ class User extends AbstractModel
 
     public function update(\App\Entity\User $user)
     {
-        $sql = 'UPDATE user SET login = :login, password = :password, email = :email, username = :username, firstname = :firstname, lastname = :lastname, role_id = :role_id';
+        $sql = 'UPDATE user SET login = :login, password = :password, email = :email, username = :username, firstname = :firstname, lastname = :lastname, role_id = :role_id WHERE id = :id';
 
         $update = $this->_pdo->prepare($sql);
 
@@ -43,6 +43,7 @@ class User extends AbstractModel
         $update->bindValue(':firstname', $user->getFirstname());
         $update->bindValue(':lastname', $user->getLastname());
         $update->bindValue(':role_id', $user->getRoleId());
+        $update->bindValue(':id', $user->getId());
 
         return $update->execute();
     }
@@ -82,4 +83,4 @@ class User extends AbstractModel
 $user = new User();
 
 // var_dump($user->_table);
-var_dump($user->findAll());
+// var_dump($user->findAll());
