@@ -29,6 +29,10 @@ class Product extends AbstractModel
         return $insert->execute();
     }
 
+    /**
+     * @param \App\Entity\Product $product Hydrated entity
+     * @return bool depending if request is successfull or not
+     */
     public function update(\App\Entity\Product $product)
     {
         $sql = 'UPDATE product SET
@@ -58,6 +62,11 @@ class Product extends AbstractModel
         return $update->execute();
     }
 
+    /**
+     * overload AbstractMethod::find() method
+     * @param int $id The product id
+     * @return array|false Array of database rows if query is successfully executed
+     */
     public function find(int $id): array|false
     {
         if (!$this->isInDb($id)) {
@@ -80,6 +89,10 @@ class Product extends AbstractModel
         return $select->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $category_id The category id
+     * @return array|false Array of database rows if query is successfully executed
+     */
     public function findAllByCategory(int $category_id)
     {
         $sql = 'SELECT * FROM product WHERE category_id = :category_id';
@@ -117,6 +130,10 @@ class Product extends AbstractModel
         return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
     }
 
+    /**
+     * @param int $tag_id The tag id
+     * @return array|false Array of database rows if query is successfully executed
+     */
     public function findAllByTag(int $tag_id): array|false
     {
         $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold,
