@@ -1,12 +1,17 @@
 <?php
 
+//check if an article is selected, if not the user will be redirected to index
+if (!isset($_GET["Article"])){
+    header("location:index.php");
+}
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 use App\Config\DbConnection;
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
 
 //Select everything from product to redistribute
-$sql = 'SELECT * FROM product';
+$sql = "SELECT * FROM product WHERE id = ".$_GET["Article"]."";
 $select = DbConnection::getPdo()->prepare($sql);
 if ($select->execute()) {
     //put everything in $result
