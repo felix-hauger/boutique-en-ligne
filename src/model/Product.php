@@ -116,11 +116,30 @@ class Product extends AbstractModel
 
         return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
     }
+
+    public function findAllByTag(int $tag_id): array|false
+    {
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold,
+            tag.name, tag.description
+            FROM product
+            INNER JOIN product_tag ON product.id = product_tag.product_id
+            INNER JOIN tag ON tag.id = product_tag.tag_id
+            WHERE tag.id = :tag_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':tag_id', $tag_id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 $p = new Product();
+// $query = $p->findAllByTag(1);
 // $ent = new \App\Entity\Product();
-
+// var_dump($query);
 // $ent->setName('update');
 // $ent->setDescription('update');
 // $ent->setPrice(150);

@@ -19,11 +19,11 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
         $product = $product_controller->get($_GET['id']);
     } catch (Exception $e) {
         http_response_code(404);
-        die('<h1>' . $e->getMessage() . '</h1><a href="boutique.php">Retour à l\'accueil</a>');
+        die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');
     }
 } else {
     http_response_code(404);
-    die('<h1>Page introuvable.</h1><a href="boutique.php">Retour à l\'accueil</a>');
+    die('<h1>Page introuvable.</h1><a href="index.php">Retour à l\'accueil</a>');
 }
 
 //Select everything from product to redistribute

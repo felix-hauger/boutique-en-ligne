@@ -77,9 +77,9 @@ class CartProduct
     }
 }
 
-$cp = new CartProduct();
+// $cp = new CartProduct();
 
-var_dump($cp);
+// var_dump($cp);
 
 // $cp->create(2, 5, 1);
 // $cp->update(2, 5, 2);

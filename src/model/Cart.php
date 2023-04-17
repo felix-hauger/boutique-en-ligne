@@ -64,6 +64,6 @@ class Cart extends AbstractModel
     }
 }
 
-$cart = new Cart();
+// $cart = new Cart();
 
-var_dump($cart->find(12));
+// var_dump($cart->find(12));
