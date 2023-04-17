@@ -56,6 +56,24 @@ class Product extends AbstractModel
         return $update->execute();
     }
 
+    public function find(int $id): array|false
+    {
+        $sql =
+            'SELECT product.id, product.name, product.description, price, image, quantity_sold, created_at, updated_at, deleted_at,
+            category.id as category_id, category.name as category_name 
+            FROM product
+            INNER JOIN category ON category.id = product.category_id
+            WHERE product.id = :id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':id', $id);
+
+        $select->execute();
+
+        return $select->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function findAllByCategory(int $category_id)
     {
         $sql = 'SELECT * FROM product WHERE category_id = :category_id';
@@ -109,7 +127,8 @@ $p = new Product();
 
 // $p->update($ent);
 
-var_dump($p->getMoreSold());
-var_dump($p->getLastAdded());
+// var_dump($p->getMoreSold());
+// var_dump($p->getLastAdded());
+// var_dump($p->find(5));
 
 // $p->create($ent);
