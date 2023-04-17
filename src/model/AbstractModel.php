@@ -80,5 +80,18 @@ abstract class AbstractModel
 
         return $select->execute();
     }
+
+    public function isFieldInDb(string $column, string $value)
+    {
+        $sql = 'SELECT COUNT(id) FROM ' . $this->_table . ' WHERE ' . $column . ' = :' . $column;
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':' . $column, $value);
+
+        $select->execute();
+
+        return $select->fetchColumn() > 0;
+    }
 }
 

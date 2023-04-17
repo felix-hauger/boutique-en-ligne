@@ -67,20 +67,11 @@ class User extends AbstractModel
 
         return $select->execute() ? $select->fetchColumn() : null;
     }
-
-    public function isFieldInDb(string $column, string $value)
-    {
-        $sql = 'SELECT COUNT(id) FROM user WHERE ' . $column . ' = :' . $column;
-
-        $select = $this->_pdo->prepare($sql);
-
-        $select->bindParam(':' . $column, $value);
-
-        return $select->fetchColumn() > 0;
-    }
 }
 
 $user = new User();
+
+// var_dump($user->isFieldInDb('id', 1));
 
 // var_dump($user->_table);
 // var_dump($user->findAll());
