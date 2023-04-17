@@ -2,14 +2,12 @@
 
 namespace App\Model;
 
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+// use App\Entity\User as UserEntity;
+
 class User extends AbstractModel
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_table = 'user';
-    }
-
     /**
      * insert user in database
      * @param App\Entity\User $user Entity
@@ -62,3 +60,8 @@ class User extends AbstractModel
         return $select->fetchColumn() > 0;
     }
 }
+
+$user = new User();
+
+// var_dump($user->_table);
+var_dump($user->findAll());
