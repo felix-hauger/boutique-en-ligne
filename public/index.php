@@ -11,6 +11,7 @@ if ($select->execute()) {
     //put everything in $result
     $result = $select->fetch(\PDO::FETCH_ASSOC);
 }
+
 // session_destroy();
 
 // var_dump($_SESSION);
@@ -89,7 +90,7 @@ function DisplayArticle($result)
 
     <section class="sectionShop">
         <h2>Articles les plus vendus</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" 
+        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
             slides-per-view="4">
             <swiper-slide>
                 <?php DisplayArticle($result); ?>
@@ -123,7 +124,7 @@ function DisplayArticle($result)
 
     <section class="sectionShop">
         <h2>Nos derniers articles</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" 
+        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
             slides-per-view="4">
             <swiper-slide>
                 <?php DisplayArticle($result); ?>
@@ -157,7 +158,7 @@ function DisplayArticle($result)
 
     <section id="derniereSection" class="sectionShop">
         <h2>Articles de Saison</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" 
+        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
             slides-per-view="4">
             <swiper-slide>
                 <?php DisplayArticle($result); ?>
