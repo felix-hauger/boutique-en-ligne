@@ -6,6 +6,7 @@ require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 use \App\Model\Product as ProductModel;
 use \App\Entity\Product as ProductEntity;
 use DateTime;
+use Exception;
 
 class Product extends AbstractController
 {
@@ -35,11 +36,11 @@ class Product extends AbstractController
     
             return $product_entity;
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            throw new Exception($e->getMessage());
         }
     }
 }
 
-$p = new Product();
-var_dump($p->get(80));
+// $p = new Product();
+// var_dump($p->get(80));
 

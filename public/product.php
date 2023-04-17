@@ -2,8 +2,24 @@
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 use App\Config\DbConnection;
+use App\Controller\Product;
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
+
+$product_controller = new Product();
+
+
+if (preg_match('/^\d+$/', $_GET['id'])) {
+    try {
+        $product = $product_controller->get($_GET['id']);
+    } catch (Exception $e) {
+        http_response_code(404);
+        die('<h1>' . $e->getMessage() . '</h1><a href="boutique.php">Retour à l\'accueil</a>');
+    }
+} else {
+    http_response_code(404);
+    die('<h1>Page introuvable.</h1><a href="boutique.php">Retour à l\'accueil</a>');
+}
 
 //Select everything from product to redistribute
 $sql = 'SELECT * FROM product';
