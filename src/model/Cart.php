@@ -44,6 +44,33 @@ class Cart extends AbstractModel
 
         return $update->execute();
     }
+
+    public function find(int $id): array|false
+    {
+        $sql = 'SELECT 
+            cart.id, cart.created_at, cart.updated_at, cart.total_amount, 
+            cart_product.product_quantity, 
+            product.id, product.name, SUBSTRING(product.description, 0, 120), product.image, product.price, 
+            category.name
+            FROM cart
+            INNER JOIN cart_product
+            ON cart.id = cart_product.cart_id
+            INNER JOIN product
+            ON product.id = cart_product.product_id
+            INNER JOIN category
+            ON category.id = product.category_id
+            WHERE cart.id = :id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
 
 $cart = new Cart();
+
+var_dump($cart->find(1));
