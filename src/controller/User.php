@@ -158,10 +158,10 @@ class User extends AbstractController
     }
 }
 
-$user = new User();
+// $user = new User();
 
 // $user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
-$user_entity = new UserEntity();
+// $user_entity = new UserEntity();
 
 // $user_entity
 //     ->setId(34)
@@ -172,14 +172,5 @@ $user_entity = new UserEntity();
 //     ->setFirstname('firstname')
 //     ->setLastname('lastname')
 //     ->setRoleId(1);
-$user_entity
-    ->setId(34)
-    ->setLogin('zaeazeaze')
-    ->setPassword('password')
-    ->setEmail('email')
-    ->setUsername('username')
-    ->setFirstname('firstname')
-    ->setLastname('lastname')
-    ->setRoleId(1);
 
-$user->update($user_entity);
+// $user->update($user_entity);
