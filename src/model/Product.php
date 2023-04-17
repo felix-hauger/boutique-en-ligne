@@ -3,6 +3,7 @@
 namespace App\Model;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+use PDO;
 
 class Product extends AbstractModel
 {
@@ -61,6 +62,19 @@ class Product extends AbstractModel
         return $update->execute();
     }
 
+    public function findAllByCategory(int $category_id)
+    {
+        $sql = 'SELECT * FROM product WHERE category_id = :category_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * @return ?array The best-selling products
      */
@@ -70,7 +84,7 @@ class Product extends AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
+        return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
     }
 
     /**
@@ -82,7 +96,7 @@ class Product extends AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
+        return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
     }
 }
 
@@ -102,6 +116,6 @@ $p = new Product();
 // $p->update($ent);
 
 // var_dump($p->getMoreSold());
-var_dump($p->getLastAdded());
+// var_dump($p->getLastAdded());
 
 // $p->create($ent);
