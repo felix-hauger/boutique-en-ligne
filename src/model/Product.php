@@ -32,6 +32,35 @@ class Product extends AbstractModel
         return $insert->execute();
     }
 
+    public function update(\App\Entity\Product $product)
+    {
+        $sql = 'UPDATE product SET
+        name = :name,
+        description = :description,
+        price = :price,
+        image = :image,
+        quantity_sold = :quantity_sold,
+        updated_at = NOW(),
+        deleted_at = :deleted_at,
+        category_id = :category_id,
+        discount_id = :discount_id
+        WHERE id = :id';
+
+        $update = $this->_pdo->prepare($sql);
+
+        $update->bindValue(':name', $product->getName());
+        $update->bindValue(':description', $product->getDescription());
+        $update->bindValue(':price', $product->getPrice());
+        $update->bindValue(':image', $product->getImage());
+        $update->bindValue(':quantity_sold', $product->getQuantitySold());
+        $update->bindValue(':deleted_at', $product->getDeletedAt());
+        $update->bindValue(':category_id', $product->getCategoryId());
+        $update->bindValue(':discount_id', $product->getDiscountId());
+        $update->bindValue(':id', $product->getId());
+
+        return $update->execute();
+    }
+
     /**
      * @return ?array The best-selling products
      */
@@ -58,6 +87,21 @@ class Product extends AbstractModel
 }
 
 $p = new Product();
+// $ent = new \App\Entity\Product();
+
+// $ent->setName('update');
+// $ent->setDescription('update');
+// $ent->setPrice(150);
+// $ent->setImage('update.jpg');
+// $ent->setQuantitySold(10);
+// $ent->setDeletedAt(null);
+// $ent->setCategoryId(3);
+// $ent->setDiscountId(null);
+// $ent->setId(31);
+
+// $p->update($ent);
 
 // var_dump($p->getMoreSold());
 var_dump($p->getLastAdded());
+
+// $p->create($ent);
