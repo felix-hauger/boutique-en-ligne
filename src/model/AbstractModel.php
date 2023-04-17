@@ -33,20 +33,22 @@ abstract class AbstractModel
     /**
      * @return array of sql results if request executed successfully
      */
-    public function findAll(): ?array
+    public function findAll(): array
     {
         $sql = 'SELECT * FROM ' . $this->_table;
 
         $select = $this->_pdo->prepare($sql);
 
-        return $select->execute() ? $select->fetchAll(\PDO::FETCH_ASSOC) : null;
+        $select->execute();
+
+        return $select->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
      * @param int id representing id column in database
      * @return array row from database if request executed successfully
      */
-    public function find(int $id): ?array
+    public function find(int $id): array|false
     {
         $sql = 'SELECT * FROM ' . $this->_table . ' WHERE id = :id';
 
@@ -54,7 +56,9 @@ abstract class AbstractModel
 
         $select->bindParam(':id', $id);
 
-        return $select->execute() ? $select->fetch(\PDO::FETCH_ASSOC) : null;
+        $select->execute();
+
+        return $select->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
