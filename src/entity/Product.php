@@ -68,6 +68,11 @@ class Product
     private ?int $_discount_id = null;
 
     /**
+     * @var string The category name retrieved using $_category_id foreign key property
+     */
+    private string $_category_name;
+
+    /**
      * Get the value of _id
      */
     public function getId(): int
@@ -279,6 +284,24 @@ class Product
     public function setDiscountId(?int $_discount_id): self
     {
         $this->_discount_id = $_discount_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _category_name
+     */
+    public function getCategoryName(): string
+    {
+        return $this->_category_name;
+    }
+
+    /**
+     * Set the value of _category_name
+     */
+    public function setCategoryName(string $category_name): self
+    {
+        $this->_category_name = $category_name;
 
         return $this;
     }
