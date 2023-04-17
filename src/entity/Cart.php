@@ -37,9 +37,9 @@ class Cart
     /**
      * Set the value of _id
      */
-    public function setId(int $_id): self
+    public function setId(int $id): self
     {
-        $this->_id = $_id;
+        $this->_id = $id;
 
         return $this;
     }
@@ -55,9 +55,9 @@ class Cart
     /**
      * Set the value of _created_at
      */
-    public function setCreatedAt(DateTime $_created_at): self
+    public function setCreatedAt(DateTime $created_at): self
     {
-        $this->_created_at = $_created_at;
+        $this->_created_at = $created_at;
 
         return $this;
     }
@@ -65,7 +65,7 @@ class Cart
     /**
      * Get the value of _updated_at
      */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->_updated_at;
     }
@@ -73,9 +73,9 @@ class Cart
     /**
      * Set the value of _updated_at
      */
-    public function setUpdatedAt(DateTime $_updated_at): self
+    public function setUpdatedAt(?DateTime $updated_at): self
     {
-        $this->_updated_at = $_updated_at;
+        $this->_updated_at = $updated_at;
 
         return $this;
     }
@@ -91,9 +91,9 @@ class Cart
     /**
      * Set the value of _user_id
      */
-    public function setUserId(int $_user_id): self
+    public function setUserId(int $user_id): self
     {
-        $this->_user_id = $_user_id;
+        $this->_user_id = $user_id;
 
         return $this;
     }
