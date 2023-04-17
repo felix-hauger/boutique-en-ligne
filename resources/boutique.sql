@@ -139,7 +139,7 @@ CREATE TABLE `cart` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `created_at` DATETIME DEFAULT NOW(),
     `updated_at` DATETIME DEFAULT NULL,
-    `quantity` INT(5) UNSIGNED NOT NULL,
+    `total_amount` INT(11) UNSIGNED NOT NULL,
     `user_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     UNIQUE(`id`),
