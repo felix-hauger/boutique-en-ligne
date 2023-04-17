@@ -1,5 +1,5 @@
 <?php
-// ! add update method
+
 namespace App\Model;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -7,12 +7,6 @@ use PDO;
 
 class Product extends AbstractModel
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_table = 'product';
-    }
-
     /**
      * Insert user in database
      * @param App\Entity\User $user Entity
@@ -115,7 +109,7 @@ $p = new Product();
 
 // $p->update($ent);
 
-// var_dump($p->getMoreSold());
-// var_dump($p->getLastAdded());
+var_dump($p->getMoreSold());
+var_dump($p->getLastAdded());
 
 // $p->create($ent);
