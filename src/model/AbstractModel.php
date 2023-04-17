@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use PDO;
 use \App\Config\DbConnection;
 
 abstract class AbstractModel
@@ -9,7 +10,7 @@ abstract class AbstractModel
     /**
      * @var ?PDO used to connect to database
      */
-    protected ?\PDO $_pdo = null;
+    protected ?PDO $_pdo = null;
 
     /**
      * @var string identifies child class table name
@@ -28,12 +29,16 @@ abstract class AbstractModel
 
         // set $_table property value to the last array entry case lowered
         $this->_table = strtolower(array_pop($class));
+
+        // ! WARNING: at current version you must still define $_table property
+        // ! WARNING: in child class if the model / table is more than 1 word long
+        // ! WARNING: exemple: model => UserAddress, table name => user_address
     }
 
     /**
      * @return array of sql results if request executed successfully
      */
-    public function findAll(): array
+    public function findAll(): array|false
     {
         $sql = 'SELECT * FROM ' . $this->_table;
 
@@ -41,7 +46,7 @@ abstract class AbstractModel
 
         $select->execute();
 
-        return $select->fetchAll(\PDO::FETCH_ASSOC);
+        return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -58,7 +63,7 @@ abstract class AbstractModel
 
         $select->execute();
 
-        return $select->fetch(\PDO::FETCH_ASSOC);
+        return $select->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

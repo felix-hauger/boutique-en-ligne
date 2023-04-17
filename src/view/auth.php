@@ -7,7 +7,7 @@ if (isset($_POST['submit-login'])) {
 
     $userController = new UserController();
 
-    //! add tests to inputs
+    //? add tests to inputs here?
 
     try {
         $userController->connect(

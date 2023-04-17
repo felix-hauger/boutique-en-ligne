@@ -40,7 +40,7 @@ class User
     private string $_lastname;
 
     /**
-     * @var int Represents the foreign key role id
+     * @var int Represents the foreign key role_id
      *          Role determine what the user can & cannot do
      */
     private int $_role_id;
