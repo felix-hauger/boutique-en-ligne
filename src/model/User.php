@@ -2,14 +2,13 @@
 
 namespace App\Model;
 
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+// use App\Entity\User as UserEntity;
+
+
 class User extends AbstractModel
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_table = 'user';
-    }
-
     /**
      * insert user in database
      * @param App\Entity\User $user Entity
@@ -29,6 +28,24 @@ class User extends AbstractModel
         $insert->bindValue(':lastname', $user->getLastname());
 
         return $insert->execute();
+    }
+
+    public function update(\App\Entity\User $user)
+    {
+        $sql = 'UPDATE user SET login = :login, password = :password, email = :email, username = :username, firstname = :firstname, lastname = :lastname, role_id = :role_id WHERE id = :id';
+
+        $update = $this->_pdo->prepare($sql);
+
+        $update->bindValue(':login', $user->getLogin());
+        $update->bindValue(':password', $user->getPassword());
+        $update->bindValue(':email', $user->getEmail());
+        $update->bindValue(':username', $user->getUsername());
+        $update->bindValue(':firstname', $user->getFirstname());
+        $update->bindValue(':lastname', $user->getLastname());
+        $update->bindValue(':role_id', $user->getRoleId());
+        $update->bindValue(':id', $user->getId());
+
+        return $update->execute();
     }
 
     /**
@@ -62,3 +79,8 @@ class User extends AbstractModel
         return $select->fetchColumn() > 0;
     }
 }
+
+$user = new User();
+
+// var_dump($user->_table);
+// var_dump($user->findAll());
