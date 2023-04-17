@@ -154,6 +154,9 @@ header #SearchIcon {
     display: none;
 
 }
+#OptionMobile{
+    z-index: 100;
+}
 
 /* Version Mobile */
 @media screen and (max-width: 800px) {
@@ -176,6 +179,7 @@ header #SearchIcon {
     #WideScreenView {
 
         display: none;
+
     }
 
     header {
