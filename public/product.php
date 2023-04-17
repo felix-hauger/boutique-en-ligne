@@ -1,5 +1,10 @@
 <?php
 
+if (!isset($_GET['id'])) {
+    header('Location: index.php');
+    die();
+}
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 use App\Config\DbConnection;
 use App\Controller\Product;
