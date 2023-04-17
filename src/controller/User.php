@@ -121,7 +121,21 @@ class User extends AbstractController
         // check if string is alphanumeric, with regex or functions
     }
 
+    public function update(\App\Entity\User $user)
+    {
+        $user_model = new UserModel();
 
+        $db_user = $user_model->find($user->getId());
+
+        var_dump($db_user);
+
+        if ($db_user) {
+            $user_model->update($user);
+            // if ($user->getFirstname() !== $db_user['firstname']) {
+                
+            // }
+        }
+    }
 
     /**
      * disconnect user
@@ -144,6 +158,28 @@ class User extends AbstractController
     }
 }
 
-// $user = new User();
+$user = new User();
 
 // $user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
+$user_entity = new UserEntity();
+
+// $user_entity
+//     ->setId(34)
+//     ->setLogin('login')
+//     ->setPassword('password')
+//     ->setEmail('email')
+//     ->setUsername('username')
+//     ->setFirstname('firstname')
+//     ->setLastname('lastname')
+//     ->setRoleId(1);
+$user_entity
+    ->setId(34)
+    ->setLogin('zaeazeaze')
+    ->setPassword('password')
+    ->setEmail('email')
+    ->setUsername('username')
+    ->setFirstname('firstname')
+    ->setLastname('lastname')
+    ->setRoleId(1);
+
+$user->update($user_entity);
