@@ -6,7 +6,19 @@ namespace App\Model;
 use \App\Config\DbConnection;
 
 
-class Articles {
+class Article {
+
+    private $id;  
+    private $id_article;
+    public $articles;
+    public $id_utilisateur; 
+    public $id_categorie;
+    public $date;
+    public $bdd;
+    public $images;
+    public $name;
+
+
 //==>PAGE INDEX.PHP
     //Les 3 derniers articles parus
     public function last_articles()
@@ -41,34 +53,12 @@ class Articles {
 
     //==>PAGE CATEGORIE.PHP
     //cree la page selon la categorie
-    public function articles_by_id_categ($category_id)
+    public function articles_by_id_categ($id_categorie)
     {
-        $this->id_categorie  = $category_id;
+        $this->category_id  = $id_categorie;
 
         $id_categorie = htmlspecialchars($id_categorie);
         $sql = "SELECT category.name, product.name, product.images, product.category_id, product.created_at 
-                FROM `category`
-                INNER JOIN product ON product.category_id = category.id
-                WHERE category.id = ? ";
-        $request = $this->bdd->prepare($sql);
-        $request->execute([$category_id]);
-        // var_dump($request);
-
-        $categ_id = $request->fetchAll(PDO::FETCH_ASSOC);
-        // $categ_id = $request->fetchAll();
-        // var_dump($categ_id);
-
-        return $categ_id;
-    }
-
-    //==>PAGE CATEGORIE.PHP
-    //cree la page selon la categorie
-    public function articles_by_id_categ($id_categorie)
-    {
-        $this->id_categorie  = $id_categorie;
-
-        $id_categorie = htmlspecialchars($id_categorie);
-        $sql = "SELECT category.name, product.name, product.image, product.category_id, product.created_at 
                 FROM `category`
                 INNER JOIN product ON product.category_id = category.id
                 WHERE category.id = ? ";
@@ -80,8 +70,10 @@ class Articles {
         // $categ_id = $request->fetchAll();
         // var_dump($categ_id);
 
-        return $categ_id;
+        return $id_categorie;
     }
+
+    
 
     //==>PAGE ARTICLES.PHP ==> PAGINATION
     //(1/2) On determine le nombre total d'articles 
@@ -153,3 +145,4 @@ class Articles {
         return $countArt;
     }
 }
+

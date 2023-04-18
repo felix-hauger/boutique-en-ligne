@@ -178,7 +178,6 @@ button.selected {
     #imgProduct {
         height: 100vw;
         width: 100%;
-        ;
         object-fit: cover;
     }
 
