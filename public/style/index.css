@@ -25,11 +25,10 @@
 }
 
 .NomArticle {
-    height: 25px;
     font-size: 1.5em;
-    word-wrap: normal;
-    word-break: keep-all;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .detail {
@@ -67,6 +66,7 @@ h2 {
     color: var(--detail-color);
     padding: 3% 10% 1%;
     font-size: 2rem;
+ 
 }
 
 
@@ -81,11 +81,13 @@ h2 {
     }
     .NomArticle{
         font-size: 1.2em;
-        height: 9px;
     }
     .carte{
         width: 80%;
         margin: 5%;
+    }
+    .prix {
+        font-size: 1.5em;
     }
     
 }
