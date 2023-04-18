@@ -66,7 +66,7 @@ $product_index = $product_controller->index();
     <script async src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
 
-    <title>Titre</title>
+    <title>Accueil | Saisons à la mode</title>
 
 </head>
 
