@@ -38,7 +38,7 @@ class Cart extends AbstractModel
         return $update->execute();
     }
 
-    public function find(int $id): array
+    public function find(int $id): array|false
     {
         $sql = 'SELECT 
             cart.id, cart.created_at, cart.updated_at, cart.total_amount, 
@@ -64,6 +64,6 @@ class Cart extends AbstractModel
     }
 }
 
-$cart = new Cart();
+// $cart = new Cart();
 
-var_dump($cart->find(12));
+// var_dump($cart->find(12));

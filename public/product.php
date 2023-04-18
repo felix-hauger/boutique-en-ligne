@@ -1,18 +1,37 @@
 <?php
 
 //check if an article is selected, if not the user will be redirected to index
-if (!isset($_GET["Article"])) {
-    header("location:index.php");
+if (!isset($_GET['id'])) {
+    header('Location: index.php');
+    die();
 }
 
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
+
 use App\Config\DbConnection;
+use App\Controller\Product;
 
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
 
+$product_controller = new Product();
+
+
+if (preg_match('/^\d+$/', $_GET['id'])) {
+    try {
+        $product = $product_controller->get($_GET['id']);
+    } catch (Exception $e) {
+        http_response_code(404);
+        die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');
+    }
+} else {
+    http_response_code(404);
+    die('<h1>Page introuvable.</h1><a href="index.php">Retour à l\'accueil</a>');
+}
+
 //Select everything from product to redistribute
-$sql = "SELECT * FROM product WHERE id = " . $_GET["Article"] . "";
+$sql = "SELECT * FROM product WHERE id = " . $_GET["id"] . "";
 $select = DbConnection::getPdo()->prepare($sql);
 if ($select->execute()) {
     //put everything in $result

@@ -1,0 +1,34 @@
+body, body * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+}
+
+#cart-items {
+    /* background-color: red; */
+    border: 3px solid black;
+    width: 1200px;
+    height: 1200px;
+    /* flex-grow: 3; */
+    /* flex-grow: 3; */
+}
+
+#cart-action {
+    position: sticky;
+    /* width: 25%; */
+    width: 400px;
+    /* flex-grow: 1; */
+    height: 500px;
+    background-color: green;
+    /* float: right; */
+}
+
+.cart-item {
+    border: 1px solid blue;
+    /* padding: ; */
+}

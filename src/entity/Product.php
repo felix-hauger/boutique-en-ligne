@@ -68,6 +68,11 @@ class Product
     private ?int $_discount_id = null;
 
     /**
+     * @var string The category name retrieved using $_category_id foreign key property
+     */
+    private string $_category_name;
+
+    /**
      * Get the value of _id
      */
     public function getId(): int
@@ -78,9 +83,9 @@ class Product
     /**
      * Set the value of _id
      */
-    public function setId(int $_id): self
+    public function setId(int $id): self
     {
-        $this->_id = $_id;
+        $this->_id = $id;
 
         return $this;
     }
@@ -96,9 +101,9 @@ class Product
     /**
      * Set the value of _name
      */
-    public function setName(string $_name): self
+    public function setName(string $name): self
     {
-        $this->_name = $_name;
+        $this->_name = $name;
 
         return $this;
     }
@@ -114,9 +119,9 @@ class Product
     /**
      * Set the value of _slug
      */
-    public function setSlug(string $_slug): self
+    public function setSlug(string $slug): self
     {
-        $this->_slug = $_slug;
+        $this->_slug = $slug;
 
         return $this;
     }
@@ -132,9 +137,9 @@ class Product
     /**
      * Set the value of _description
      */
-    public function setDescription(string $_description): self
+    public function setDescription(string $description): self
     {
-        $this->_description = $_description;
+        $this->_description = $description;
 
         return $this;
     }
@@ -150,9 +155,9 @@ class Product
     /**
      * Set the value of _price
      */
-    public function setPrice(int $_price): self
+    public function setPrice(int $price): self
     {
-        $this->_price = $_price;
+        $this->_price = $price;
 
         return $this;
     }
@@ -168,9 +173,9 @@ class Product
     /**
      * Set the value of _image
      */
-    public function setImage(string $_image): self
+    public function setImage(string $image): self
     {
-        $this->_image = $_image;
+        $this->_image = $image;
 
         return $this;
     }
@@ -186,9 +191,9 @@ class Product
     /**
      * Set the value of _quantity_sold
      */
-    public function setQuantitySold(int $_quantity_sold): self
+    public function setQuantitySold(int $quantity_sold): self
     {
-        $this->_quantity_sold = $_quantity_sold;
+        $this->_quantity_sold = $quantity_sold;
 
         return $this;
     }
@@ -204,9 +209,9 @@ class Product
     /**
      * Set the value of _created_at
      */
-    public function setCreatedAt(DateTime $_created_at): self
+    public function setCreatedAt(DateTime $created_at): self
     {
-        $this->_created_at = $_created_at;
+        $this->_created_at = $created_at;
 
         return $this;
     }
@@ -222,9 +227,9 @@ class Product
     /**
      * Set the value of _updated_at
      */
-    public function setUpdatedAt(?DateTime $_updated_at): self
+    public function setUpdatedAt(?DateTime $updated_at): self
     {
-        $this->_updated_at = $_updated_at;
+        $this->_updated_at = $updated_at;
 
         return $this;
     }
@@ -240,9 +245,9 @@ class Product
     /**
      * Set the value of _deleted_at
      */
-    public function setDeletedAt(?DateTime $_deleted_at): self
+    public function setDeletedAt(?DateTime $deleted_at): self
     {
-        $this->_deleted_at = $_deleted_at;
+        $this->_deleted_at = $deleted_at;
 
         return $this;
     }
@@ -258,9 +263,9 @@ class Product
     /**
      * Set the value of _category_id
      */
-    public function setCategoryId(int $_category_id): self
+    public function setCategoryId(int $category_id): self
     {
-        $this->_category_id = $_category_id;
+        $this->_category_id = $category_id;
 
         return $this;
     }
@@ -276,9 +281,27 @@ class Product
     /**
      * Set the value of _discount_id
      */
-    public function setDiscountId(?int $_discount_id): self
+    public function setDiscountId(?int $discount_id): self
     {
-        $this->_discount_id = $_discount_id;
+        $this->_discount_id = $discount_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _category_name
+     */
+    public function getCategoryName(): string
+    {
+        return $this->_category_name;
+    }
+
+    /**
+     * Set the value of _category_name
+     */
+    public function setCategoryName(string $category_name): self
+    {
+        $this->_category_name = $category_name;
 
         return $this;
     }
