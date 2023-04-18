@@ -81,19 +81,6 @@ abstract class AbstractModel
         return $select->execute();
     }
 
-    public function isFieldInDb(string $column, mixed $value)
-    {
-        $sql = 'SELECT COUNT(id) FROM ' . $this->_table . ' WHERE ' . $column . ' = :' . $column;
-
-        $select = $this->_pdo->prepare($sql);
-
-        $select->bindParam(':' . $column, $value);
-
-        $select->execute();
-
-        return $select->fetchColumn() > 0;
-    }
-
     public function isInDb(int $id)
     {
         $sql = 'SELECT COUNT(id) FROM ' . $this->_table . ' WHERE id = :id';
@@ -107,22 +94,41 @@ abstract class AbstractModel
         return $select->fetchColumn() > 0;
     }
 
-    /**
-     * check if value exists in one field in database
-     * @param string $column the name of the column in the table
-     * @param string $value the value to search
-     * @return int|false id if row is found, else false
-     */
-    public function findIdWithField(string $column, string $value) : ?int
+    public function isFieldInDb(string $column, mixed $value, bool $case_sensitive = false)
     {
-        // $sql = 'SELECT COUNT(id) FROM user WHERE ' . $column . ' = :' . $column;
-        $sql = 'SELECT id FROM ' . $this->_table . ' WHERE ' . $column . ' = :' . $column;
+        if ($case_sensitive) {
+            $sql = 'SELECT COUNT(id) FROM ' . $this->_table . ' WHERE BINARY ' . $column . ' = :' . $column;
+        } else {
+            $sql = 'SELECT COUNT(id) FROM ' . $this->_table . ' WHERE UPPER(' . $column . ') LIKE UPPER(:' . $column . ')';
+        }
 
         $select = $this->_pdo->prepare($sql);
 
         $select->bindParam(':' . $column, $value);
 
-        // var_dump($select);
+        $select->execute();
+
+        return $select->fetchColumn() > 0;
+    }
+
+    /**
+     * check if value exists in one field in database
+     * @param string $column The name of the column in the table
+     * @param string $value The value to search
+     * @param bool $case_sensitive Determine if the query is case sensitive or not
+     * @return int|false The id if row is found, else false
+     */
+    public function findIdWithField(string $column, string $value, bool $case_sensitive = false) : ?int
+    {
+        if ($case_sensitive) {
+            $sql = 'SELECT id FROM ' . $this->_table . ' WHERE BINARY ' . $column . ' = :' . $column;
+        } else {
+            $sql = 'SELECT id FROM ' . $this->_table . ' WHERE UPPER(' . $column . ') LIKE UPPER(:' . $column . ')';
+        }
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':' . $column, $value);
 
         return $select->execute() ? $select->fetchColumn() : null;
     }
