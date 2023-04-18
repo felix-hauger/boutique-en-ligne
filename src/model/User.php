@@ -51,9 +51,9 @@ class User extends AbstractModel
 
 }
 
-$user = new User();
+// $user = new User();
 
-// var_dump($user->findIdWithField('login', 'toto'));
+// var_dump($user->findIdWithField('login', 'tata', false));
 
 // var_dump($user->isFieldInDb('id', 1));
 

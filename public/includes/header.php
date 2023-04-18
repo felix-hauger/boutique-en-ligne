@@ -20,7 +20,7 @@
                 echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
-            <a title="Votre Panier" href="panier.php"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a title="Votre Panier" href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>
 

@@ -72,6 +72,7 @@ class Product extends AbstractController
 
 // $p = new Product();
 // echo $p->checkSeason();
-// $p->index();
+// $test = $p->index();
 // var_dump($p->get(80));
 
+// var_dump($test);
