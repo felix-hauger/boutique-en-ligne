@@ -109,7 +109,7 @@ class Product extends AbstractModel
     /**
      * @return ?array The best-selling products
      */
-    public function getMoreSold(): ?array
+    public function findMoreSold(): ?array
     {
         $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
 
@@ -190,11 +190,11 @@ class Product extends AbstractModel
 }
 
 $p = new Product();
-try {
-    var_dump($p->findLastBySeasonName('ÉtÉ'));
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
+// try {
+//     var_dump($p->findLastBySeasonName('ÉtÉ'));
+// } catch (Exception $e) {
+//     echo $e->getMessage();
+// }
 // $query = $p->findAllByTag(1);
 // $ent = new \App\Entity\Product();
 // var_dump($query);
