@@ -9,7 +9,7 @@ $sql = 'SELECT * FROM product';
 $select = DbConnection::getPdo()->prepare($sql);
 if ($select->execute()) {
     //put everything in $result
-    $result = $select->fetch(\PDO::FETCH_ASSOC);
+    $result = $select->fetchAll(\PDO::FETCH_ASSOC);
 }
 
 // session_destroy();
@@ -38,12 +38,10 @@ if ($select->execute()) {
 function DisplayArticle($result)
 {
     echo '<div class="carte">';
-    echo '<img class="image" src="' . $result['image'] . '">';
+    echo '<a href="product.php?Article=' .$result['id']. '"><img class="image" src="' . $result['image'] . '"></a>';
     echo '<h2 class="NomArticle">' . $result['name'] . '</h2>';
     echo '<h3 class="prix">' . $result['price'] . ' € </h3>';
-    echo '<form id="redirection" method="get" action="product.php">';
-    echo '<input type="hidden" name="Article" value="' . $result['id'] . '" />';
-    echo '<button class="BtVoirArticle" type="submit">Voir cet article</button></form>';
+    echo '<a href="product.php?Article=' .$result['id']. '"><button class="BtVoirArticle" type="submit">Voir cet article</button></a>';
     echo '</div>';
 }
 
@@ -89,103 +87,103 @@ function DisplayArticle($result)
 
 
     <section class="sectionShop">
-        <h2>Articles les plus vendus</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+        <h2>Nos articles les plus vendus</h2>
+        <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
             slides-per-view="4">
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['0']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['1']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['2']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['3']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['4']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['5']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['6']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['7']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['8']); ?>
             </swiper-slide>
         </swiper-container>
     </section>
 
     <section class="sectionShop">
         <h2>Nos derniers articles</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
+        <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
             slides-per-view="4">
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['9']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['10']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['11']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['12']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['13']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['14']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['15']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['16']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['17']); ?>
             </swiper-slide>
         </swiper-container>
     </section>
 
     <section id="derniereSection" class="sectionShop">
-        <h2>Articles de Saison</h2>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+        <h2>Nos articles de saison</h2>
+        <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
             slides-per-view="4">
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['18']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['19']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['20']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['21']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['22']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['23']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['24']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['25']); ?>
             </swiper-slide>
             <swiper-slide>
-                <?php DisplayArticle($result); ?>
+                <?php DisplayArticle($result['26']); ?>
             </swiper-slide>
         </swiper-container>
     </section>

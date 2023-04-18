@@ -1,85 +1,241 @@
-main{
+main {
     width: 96%;
     display: flex;
-    padding:2%;
+    padding: 2%;
 }
-#image{
-    width: 20%;
+
+#image {
+    width: 25%;
     background-color: var(--bg-color);
-    padding:2%;
-    
+    padding: 2%;
+
 }
-#description{
+
+main {
+    width: 96%;
+    display: flex;
+    padding: 2%;
+}
+
+#imgProduct {
+    width: 100%;
+    height: 40vw;
+    object-fit: cover;
+    border-style: solid;
+    border-color: var(--detail-color);
+}
+
+#description {
     width: 70%;
     border-style: solid;
     border-color: var(--detail-color);
     background-color: white;
-    padding:3%;
+    padding: 3%;
     padding-top: 1%;
 }
-#UpperContainer{
+
+#UpperContainer {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-#infoBox{
-    width: 20%;
+#BtBox {
+    text-align: right;
+    width: 30%;
 }
-#BtBox{
-    width: 20%;
-}
-.BtPanier{
+
+.BtPanier {
     background-color: var(--detail-color);
-    color:var(--bg-color);
+    color: var(--bg-color);
     border-style: none;
     padding: 2%;
     border-radius: 10px;
     width: 100%;
-    height: 20%;
+    height: 30%;
     font-size: 1.5em;
     margin-top: 5%;
 }
-#Ajouter:hover{
-background-color: var(--hover-color);
-}
-#Acheter:hover{
-    background-color: var(--hover-color);
-    }
 
-#DescriptionBox{
+#Ajouter:hover {
+    background-color: var(--hover-color);
+}
+
+#Acheter:hover {
+    background-color: var(--hover-color);
+}
+
+#DescriptionBox {
     margin-top: 5%;
     width: 100%;
-}
-#QuantityBox{
-    user-select: none; 
-}
-#imgProduct{
-    border-style: solid;
-    border-color: var(--detail-color);
-}
-h1{
-    color: var(--detail-color);
-    margin-bottom: 0;
-}
-h2{
     color: var(--detail-color);
 }
 
-#InputQuantity{
-    width: 7%;
-}
-
-#Catégories{
-    color: var(--hover-color);
-    margin-bottom: 0;
-}
-#Price{
+h1 {
+    color: var(--detail-color);
     font-size: 2em;
-line-height: 0;
-}
-
-#BtInput{
-    color: var(--detail-color);
+    white-space: nowrap;
+    margin: 0;
 }
 
 
+#Catégories {
+    color: var(--hover-color);
+    font-size: 1.5em;
+    margin: 0;
+}
+
+#Price {
+    font-size: 2em;
+    margin: 0;
+    margin-bottom: 5%;
+}
+
+caption {
+    background-color: var(--bg-color);
+    border-radius: 10px 10px 0 0;
+}
+
+table {
+    width: 40%;
+    border-collapse: collapse;
+    border: 2px solid var(--detail-color);
+    text-align: center;
+    margin-top: 5%;
+}
+
+td {
+    vertical-align: auto;
+    padding: 5px;
+    width: 5%;
+}
+
+button.BtSize {
+    border-radius: 5px;
+    border-style: none;
+    padding: 15%;
+    width: 100%;
+    background-color: rgb(202, 202, 202);
+}
+
+button.BtSize:hover {
+    background-color: rgb(234, 250, 230);
+}
+
+button.selected {
+    background-color: var(--bg-color);
+}
+
+#QuantityBox {
+    margin-top: 5%;
+    user-select: none;
+
+}
+
+#BtInputBox {
+    margin-top: 2%;
+    margin-left: 15%;
+}
+
+
+#InputQuantity {
+    width: 5%;
+    text-align: center;
+}
+
+
+
+
+
+
+/* Version Mobile */
+@media screen and (max-width: 800px) {
+    main {
+        flex-direction: column;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        padding-top: 2%;
+    }
+
+    #image {
+
+        height: 100vw;
+        width: 80%;
+        padding-right: 3%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        margin-top: 5%;
+        margin-bottom: 0;
+
+    }
+
+    #imgProduct {
+        height: 100vw;
+        width: 100%;
+        ;
+        object-fit: cover;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+    }
+
+    #description {
+        margin: 0;
+        margin-top: 5%;
+        width: auto;
+        border-style: none;
+    }
+
+    #infoBox {
+        font-size: 1.5em;
+        width: 100%;
+    }
+
+    #BtBox {
+        width: 50%;
+    }
+
+    .BtPanier {
+        font-size: 1.9em;
+    }
+
+
+    #DescriptionBox{
+        font-size: 2em;
+        padding: 0;
+    }
+
+
+    table {
+        width: 100%;
+        font-size: 2em;
+        padding: 0;
+    }
+    
+    td {
+        vertical-align: auto;
+        padding: 5px;
+        width: 5%;
+    }
+    
+     #QuantityBox {
+        margin-top: 5%;
+        user-select: none;
+        padding:0;
+    }
+
+    #BtInputBox{
+        padding-left: 25%;
+        width: 250%;
+    }
+
+}

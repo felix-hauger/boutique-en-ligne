@@ -1,6 +1,8 @@
+var Size
 
-function InputQuantityAdd(ValMax){
-    if( document.getElementById("InputQuantity").value < ValMax){
+function InputQuantityAdd(){
+    
+    if( document.getElementById("InputQuantity").value < Size){
         document.getElementById("InputQuantity").value++;
     }
     
@@ -11,3 +13,18 @@ function InputQuantitySub(){
         document.getElementById("InputQuantity").value--;
     }
 }
+$('button').on('click', function(){
+    $('button').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+function SizeSelected(size,stock){
+    document.getElementById("InputQuantity").value = 1
+    Size = stock[size];
+    document.getElementById("SizeSelected").value  = size
+}
+
+
+var w = window.innerWidth;
+
+
