@@ -87,7 +87,7 @@ class Product extends AbstractController
             <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
             <h2 class="NomArticle">' . $product['name'] . '</h2>
             <h3 class="prix">' . $product['price'] . ' € </h3>
-            <a href="product.php?id=' .$product['id']. '"><button class="BtVoirArticle" type="submit">Voir cet article</button></a>
+            <a href="product.php?id=' .$product['id']. '"><button class="BtVoirArticle">Voir cet article</button></a>
         </div>';
     }
 }
