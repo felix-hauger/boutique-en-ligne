@@ -33,17 +33,6 @@ $product_index = $product_controller->index();
 // $test = new Test();
 // var_dump($test->__toString())
 
-
-function displayArticle($result)
-{
-    echo '<div class="carte">';
-    echo '<a href="product.php?Article=' .$result['id']. '"><img class="image" src="' . $result['image'] . '"></a>';
-    echo '<h2 class="NomArticle">' . $result['name'] . '</h2>';
-    echo '<h3 class="prix">' . $result['price'] . ' € </h3>';
-    echo '<a href="product.php?Article=' .$result['id']. '"><button class="BtVoirArticle" type="submit">Voir cet article</button></a>';
-    echo '</div>';
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,53 +73,58 @@ function displayArticle($result)
 <body>
     <?php require_once("includes/header.php") ?>
 
+    <main>
 
-    <section class="sectionShop">
-        <h2>Nos articles les plus vendus</h2>
-        <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
-            slides-per-view="4">
+        <section class="sectionShop">
+            <h2>Nos articles les plus vendus</h2>
 
-            <?php foreach ($product_index['best_selling'] as $product): ?>
+            <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+                slides-per-view="4">
+    
+                <?php foreach ($product_index['best_selling'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+    
+            </swiper-container>
+        </section>
+    
+        <section class="sectionShop">
+            <h2>Nos derniers articles</h2>
 
-                <swiper-slide>
-                    <?= Product::toHtmlThumbnail($product); ?>
-                </swiper-slide>
+            <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
+                slides-per-view="4">
+    
+                <?php foreach ($product_index['last_added'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+    
+            </swiper-container>
+        </section>
+    
+        <section class="sectionShop">
+            <h2>Nos articles de saison</h2>
 
-            <?php endforeach ?>
+            <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+                slides-per-view="4">
+                <?php foreach ($product_index['last_by_season'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+            </swiper-container>
+        </section>
 
-        </swiper-container>
-    </section>
-
-    <section class="sectionShop">
-        <h2>Nos derniers articles</h2>
-        <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
-            slides-per-view="4">
-
-            <?php foreach ($product_index['last_added'] as $product): ?>
-
-                <swiper-slide>
-                    <?= Product::toHtmlThumbnail($product); ?>
-                </swiper-slide>
-
-            <?php endforeach ?>
-
-        </swiper-container>
-    </section>
-
-    <section id="derniereSection" class="sectionShop">
-        <h2>Nos articles de saison</h2>
-        <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
-            slides-per-view="4">
-            <?php foreach ($product_index['last_by_season'] as $product): ?>
-
-                <swiper-slide>
-                    <?= Product::toHtmlThumbnail($product); ?>
-                </swiper-slide>
-
-            <?php endforeach ?>
-        </swiper-container>
-    </section>
-
+    </main>        
 
     <?php require_once("includes/footer.php") ?>
 </body>
