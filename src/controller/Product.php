@@ -49,7 +49,7 @@ class Product extends AbstractController
      */
     public function checkSeason(): string
     {
-        $date_time = new \DateTime('12-10-2020');
+        $date_time = new \DateTime();
 
         $month = $date_time->format('n');
 
@@ -68,6 +68,28 @@ class Product extends AbstractController
         }
     }
 
+    public function index()
+    {
+        $product_model = new ProductModel();
+
+        $current_season = $this->checkSeason();
+
+        return [
+            'last_added' => $product_model->findLastAdded(),
+            'last_by_season' => $product_model->findLastBySeasonName($current_season),
+            'best_selling' => $product_model->findBestSelling()
+        ];
+    }
+
+    public static function toHtmlThumbnail(array $product): string
+    {
+        return '<div class="card">
+            <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
+            <h2 class="ArticleName">' . $product['name'] . '</h2>
+            <h3 class="prix">' . $product['price'] . ' € </h3>
+            <a href="product.php?id=' .$product['id']. '"><button class="linkToArticleBtn">Voir cet article</button></a>
+        </div>';
+    }
 }
 
 // $p = new Product();

@@ -1,4 +1,4 @@
-.carte {
+.card {
     margin: 10% 15% ;
     width: 70%;
     background-color: var(--bg-color);
@@ -20,11 +20,11 @@
     margin-top: 5%;
 }
 
-#derniereSection {
-    margin-bottom: 5%
+.sectionShop:last-child {
+    margin-bottom: 5%;
 }
 
-.NomArticle {
+.ArticleName {
     font-size: 1.5em;
     white-space: nowrap;
     overflow: hidden;
@@ -39,7 +39,7 @@
     font-size: 1em;
 }
 
-.BtVoirArticle {
+.linkToArticleBtn {
     background-color: var(--detail-color);
     color: var(--bg-color);
     border-radius: 3px;
@@ -48,6 +48,7 @@
     padding: 5%;
     font-size: 1.2em;
     margin-bottom: 10%;
+    cursor: pointer;
 }
 
 .swiper {
@@ -73,16 +74,16 @@ h2 {
 
 /* Version Mobile */
 @media screen and (max-width: 800px) {
-    .BtVoirArticle{
+    .linkToArticleBtn{
         font-size: 1em;
     }
     h2 {
         font-size: 1rem;
     }
-    .NomArticle{
+    .ArticleName{
         font-size: 1.2em;
     }
-    .carte{
+    .card{
         width: 80%;
         margin: 5%;
     }

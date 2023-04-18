@@ -109,7 +109,7 @@ class Product extends AbstractModel
     /**
      * @return ?array The best-selling products
      */
-    public function findMoreSold(): ?array
+    public function findBestSelling(): ?array
     {
         $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
 

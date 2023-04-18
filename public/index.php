@@ -1,16 +1,15 @@
 <?php
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
-use App\Config\DbConnection;
+use App\Controller\Product;
 
 session_start();
 
-$sql = 'SELECT * FROM product';
-$select = DbConnection::getPdo()->prepare($sql);
-if ($select->execute()) {
-    //put everything in $result
-    $result = $select->fetchAll(\PDO::FETCH_ASSOC);
-}
+$product_controller = new Product();
+
+$product_index = $product_controller->index();
+
+// var_dump($product_index);
 
 // session_destroy();
 
@@ -33,17 +32,6 @@ if ($select->execute()) {
 // var_dump(get_class($m));
 // $test = new Test();
 // var_dump($test->__toString())
-
-
-function DisplayArticle($result)
-{
-    echo '<div class="carte">';
-    echo '<a href="product.php?Article=' .$result['id']. '"><img class="image" src="' . $result['image'] . '"></a>';
-    echo '<h2 class="NomArticle">' . $result['name'] . '</h2>';
-    echo '<h3 class="prix">' . $result['price'] . ' € </h3>';
-    echo '<a href="product.php?Article=' .$result['id']. '"><button class="BtVoirArticle" type="submit">Voir cet article</button></a>';
-    echo '</div>';
-}
 
 ?>
 <!DOCTYPE html>
@@ -78,116 +66,65 @@ function DisplayArticle($result)
     <script async src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
 
-    <title>Titre</title>
+    <title>Accueil | Saisons à la mode</title>
 
 </head>
 
 <body>
     <?php require_once("includes/header.php") ?>
 
+    <main>
 
-    <section class="sectionShop">
-        <h2>Nos articles les plus vendus</h2>
-        <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
-            slides-per-view="4">
-            <swiper-slide>
-                <?php DisplayArticle($result['0']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['1']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['2']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['3']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['4']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['5']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['6']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['7']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['8']); ?>
-            </swiper-slide>
-        </swiper-container>
-    </section>
+        <section class="sectionShop">
+            <h2>Nos articles les plus vendus</h2>
 
-    <section class="sectionShop">
-        <h2>Nos derniers articles</h2>
-        <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
-            slides-per-view="4">
-            <swiper-slide>
-                <?php DisplayArticle($result['9']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['10']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['11']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['12']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['13']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['14']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['15']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['16']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['17']); ?>
-            </swiper-slide>
-        </swiper-container>
-    </section>
+            <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+                slides-per-view="4">
+    
+                <?php foreach ($product_index['best_selling'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+    
+            </swiper-container>
+        </section>
+    
+        <section class="sectionShop">
+            <h2>Nos derniers articles</h2>
 
-    <section id="derniereSection" class="sectionShop">
-        <h2>Nos articles de saison</h2>
-        <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
-            slides-per-view="4">
-            <swiper-slide>
-                <?php DisplayArticle($result['18']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['19']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['20']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['21']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['22']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['23']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['24']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['25']); ?>
-            </swiper-slide>
-            <swiper-slide>
-                <?php DisplayArticle($result['26']); ?>
-            </swiper-slide>
-        </swiper-container>
-    </section>
+            <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
+                slides-per-view="4">
+    
+                <?php foreach ($product_index['last_added'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+    
+            </swiper-container>
+        </section>
+    
+        <section class="sectionShop">
+            <h2>Nos articles de saison</h2>
 
+            <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
+                slides-per-view="4">
+                <?php foreach ($product_index['last_by_season'] as $product): ?>
+    
+                    <swiper-slide>
+                        <?= Product::toHtmlThumbnail($product); ?>
+                    </swiper-slide>
+    
+                <?php endforeach ?>
+            </swiper-container>
+        </section>
+
+    </main>        
 
     <?php require_once("includes/footer.php") ?>
 </body>
