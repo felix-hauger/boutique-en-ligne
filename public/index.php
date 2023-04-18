@@ -93,7 +93,7 @@ function displayArticle($result)
             <?php foreach ($product_index['best_selling'] as $product): ?>
 
                 <swiper-slide>
-                    <?php displayArticle($product); ?>
+                    <?= Product::toHtmlThumbnail($product); ?>
                 </swiper-slide>
 
             <?php endforeach ?>
@@ -109,7 +109,7 @@ function displayArticle($result)
             <?php foreach ($product_index['last_added'] as $product): ?>
 
                 <swiper-slide>
-                    <?php displayArticle($product); ?>
+                    <?= Product::toHtmlThumbnail($product); ?>
                 </swiper-slide>
 
             <?php endforeach ?>
@@ -124,7 +124,7 @@ function displayArticle($result)
             <?php foreach ($product_index['last_by_season'] as $product): ?>
 
                 <swiper-slide>
-                    <?php displayArticle($product); ?>
+                    <?= Product::toHtmlThumbnail($product); ?>
                 </swiper-slide>
 
             <?php endforeach ?>

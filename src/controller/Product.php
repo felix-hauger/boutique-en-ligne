@@ -80,6 +80,16 @@ class Product extends AbstractController
             'best_selling' => $product_model->findBestSelling()
         ];
     }
+    
+    public static function toHtmlThumbnail(array $product): string
+    {
+        return '<div class="carte">
+            <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
+            <h2 class="NomArticle">' . $product['name'] . '</h2>
+            <h3 class="prix">' . $product['price'] . ' € </h3>
+            <a href="product.php?id=' .$product['id']. '"><button class="BtVoirArticle" type="submit">Voir cet article</button></a>
+        </div>';
+    }
 }
 
 // $p = new Product();
