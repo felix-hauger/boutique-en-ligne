@@ -121,11 +121,47 @@ class Product extends AbstractModel
     /**
      * @return ?array The last added products
      */
-    public function getLastAdded(): ?array
+    public function findLastAdded(): ?array
     {
         $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
 
         $select = $this->_pdo->prepare($sql);
+
+        return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
+    }
+
+    /**
+     * @param string $season The season
+     * @return ?array The products of the selected season
+     */
+    public function findLastBySeasonName(string $season): ?array
+    {
+        $seasons = ['printemps', 'été', 'automne', 'hiver'];
+
+        if (!in_array(mb_convert_case($season, MB_CASE_LOWER, 'UTF-8'), $seasons)) {
+            $season_string = '';
+
+            foreach ($seasons as $key => $s) {
+                if ($key === array_key_last($seasons)) {
+                    $season_string .= $s;
+                } else {
+                    $season_string .= $s . ', ';
+                }
+            }
+            throw new Exception('Veuillez entrer une saison valide (' . $season_string . ').');
+        }
+
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold
+            FROM product
+            INNER JOIN product_tag ON product.id = product_tag.product_id
+            INNER JOIN tag ON tag.id = product_tag.tag_id
+            WHERE LOWER(tag.name) = LOWER(:tag_name)
+            ORDER BY created_at DESC
+            LIMIT 10';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':tag_name', $season);
 
         return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
     }
@@ -154,6 +190,11 @@ class Product extends AbstractModel
 }
 
 $p = new Product();
+try {
+    var_dump($p->findLastBySeasonName('ÉtÉ'));
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
 // $query = $p->findAllByTag(1);
 // $ent = new \App\Entity\Product();
 // var_dump($query);
