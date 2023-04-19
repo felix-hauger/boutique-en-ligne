@@ -13,7 +13,7 @@ function InputQuantitySub(){
         document.getElementById("InputQuantity").value--;
     }
 }
-$('button').on('click', function(){
+$("#QuantityBox button").on('click', function(){
     $('button').removeClass('selected');
     $(this).addClass('selected');
 });
