@@ -4,78 +4,78 @@ namespace App\Entity;
 
 use DateTime;
 
-class Product
+class Product extends AbstractEntity
 {
     /**
      * @var int Identifies entity
      */
-    private int $_id;
+    protected int $_id;
     
     /**
      * @var string The name of the product
      */
-    private string $_name;
+    protected string $_name;
     
     /**
      * @var string The slug of the product to create URI
      */
-    private string $_slug;
+    protected string $_slug;
     
     /**
      * @var string The description of the product
      */
-    private ?string $_description = null;
+    protected ?string $_description = null;
     
     /**
      * @var int The price of the product in the smallest monetary unity
      */
-    private int $_price;
+    protected int $_price;
     
     /**
      * @var string The path leading to product image
      */
-    private string $_image;
+    protected string $_image;
     
     /**
      * @var int The total sold quantity of a product
      */
-    private int $_quantity_sold;
+    protected int $_quantity_sold;
     
     /**
      * @var Datetime The insertion date of the product in the database 
      */
-    private DateTime $_created_at;
+    protected DateTime $_created_at;
     
     /**
      * @var ?Datetime The latest date when the product was updated
      */
-    private ?DateTime $_updated_at = null;
+    protected ?DateTime $_updated_at = null;
     
     /**
      * @var ?Datetime The deletion date to make product unavalaible for purchase 
      * but preserve it in database for admin & customer purchase history
      */
-    private ?DateTime $_deleted_at = null;
+    protected ?DateTime $_deleted_at = null;
     
     /**
      * @var int representing the foreign key category_id 
      */
-    private int $_category_id;
+    protected int $_category_id;
     
     /**
      * @var int representing the foreign key discount_id 
      */
-    private ?int $_discount_id = null;
+    protected ?int $_discount_id = null;
 
     /**
      * @var string The category name retrieved using $_category_id foreign key property
      */
-    private string $_category_name;
+    protected string $_category_name;
 
     /**
      * @var array Store product tags
      */
-    private array $_tags;
+    protected array $_tags;
 
     /**
      * Get the value of _id

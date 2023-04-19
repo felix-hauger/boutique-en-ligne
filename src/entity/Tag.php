@@ -2,51 +2,17 @@
 
 namespace App\Entity;
 
-class Tag
+class Tag extends AbstractEntity
 {
-    /**
-     * @var int Identifies entity
-     */
-    private int $_id;
-
     /**
      * @var string The name of the product
      */
-    private string $_name;
+    protected string $_name;
 
     /**
      * @var string The description of the product
      */
-    private string $_description;
-
-    /**
-     * format properties names using field names from database
-     * properties names must start by an underscore "_"
-     */
-    public function __set($name, $value)
-    {
-        if ($name[0] !== '_') {
-            $this->{'_' . $name} = $value;
-        }
-    }
-
-    /**
-     * Get the value of _id
-     */
-    public function getId(): int
-    {
-        return $this->_id;
-    }
-
-    /**
-     * Set the value of _id
-     */
-    public function setId(int $id): self
-    {
-        $this->_id = $id;
-
-        return $this;
-    }
+    protected string $_description;
 
     /**
      * Get the value of _name

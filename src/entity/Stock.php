@@ -2,76 +2,42 @@
 
 namespace App\Entity;
 
-class Stock
+class Stock extends AbstractEntity
 {
-    /**
-     * @var int Identifies entity
-     */
-    private int $_id;
-
     /**
      * @var int The number of items in xs size
      */
-    private int $_xs;
+    protected int $_xs;
 
     /**
      * @var int The number of items in s size
      */
-    private int $_s;
+    protected int $_s;
 
     /**
      * @var int The number of items in m size
      */
-    private int $_m;
+    protected int $_m;
 
     /**
      * @var int The number of items in l size
      */
-    private int $_l;
+    protected int $_l;
 
     /**
      * @var int The number of items in xl size
      */
-    private int $_xl;
+    protected int $_xl;
 
     /**
      * @var int The number of items in xxl size
      */
-    private int $_xxl;
+    protected int $_xxl;
 
     /**
      * @var int Identifies product
      */
-    private int $_product_id;
-
-    /**
-     * format properties names using field names from database
-     * properties names must start by an underscore "_"
-     */
-    public function __set($name, $value)
-    {
-        if ($name[0] !== '_') {
-            $this->{'_' . $name} = $value;
-        }
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId(): int
-    {
-        return $this->_id;
-    }
-
-    /**
-     * Set the value of id
-     */
-    public function setId(int $id): self
-    {
-        $this->_id = $id;
-
-        return $this;
-    }
+    protected int $_product_id;
 
     /**
      * Get the value of xs
