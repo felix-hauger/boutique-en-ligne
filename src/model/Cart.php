@@ -46,12 +46,9 @@ class Cart extends AbstractModel
             product.id, product.name, SUBSTRING(product.description, 0, 120) AS overview, product.image, product.price, 
             category.name AS category
             FROM cart
-            INNER JOIN cart_product
-            ON cart.id = cart_product.cart_id
-            INNER JOIN product
-            ON product.id = cart_product.product_id
-            INNER JOIN category
-            ON category.id = product.category_id
+            INNER JOIN cart_product ON cart.id = cart_product.cart_id
+            INNER JOIN product ON product.id = cart_product.product_id
+            INNER JOIN category ON category.id = product.category_id
             WHERE cart.id = :id';
 
         $select = $this->_pdo->prepare($sql);
@@ -66,4 +63,4 @@ class Cart extends AbstractModel
 
 // $cart = new Cart();
 
-// var_dump($cart->find(12));
+// var_dump($cart->find(1));

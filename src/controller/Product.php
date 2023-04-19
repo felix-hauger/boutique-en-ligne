@@ -5,6 +5,7 @@ require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use \App\Model\Product as ProductModel;
 use \App\Entity\Product as ProductEntity;
+use App\Model\Tag as TagModel;
 use DateTime;
 use Exception;
 
@@ -15,12 +16,21 @@ class Product extends AbstractController
         $product_model = new ProductModel();
         
         try {
+            // Fetch product infos in associative array
             $db_product = $product_model->find($id);
-            
-            // var_dump($db_product);
+
+            // Instanciate tag model to make query
+            $tag_model = new TagModel();
+
+            // Get product tags
+            $product_tags = $tag_model->findAllByProduct($id);
+
             // isset($db_product['updated_at']) ? new DateTime($db_product['updated_at']): null;
+
+            // Instanciate product entity
             $product_entity = new ProductEntity();
-    
+
+            // Hydrate product entity with product infos & $product_tags
             $product_entity
                 ->setId($db_product['id'])
                 ->setName($db_product['name'])
@@ -32,8 +42,9 @@ class Product extends AbstractController
                 ->setUpdatedAt(isset($db_product['updated_at']) ? new DateTime($db_product['updated_at']): null)
                 ->setDeletedAt(isset($db_product['deleted_at']) ? new DateTime($db_product['deleted_at']): null)
                 ->setCategoryId($db_product['category_id'])
-                ->setCategoryName($db_product['category_name']);
-    
+                ->setCategoryName($db_product['category_name'])
+                ->setTags($product_tags);
+
             return $product_entity;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

@@ -30,6 +30,9 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
     die('<h1>Page introuvable.</h1><a href="index.php">Retour à l\'accueil</a>');
 }
 
+// var_dump($product);
+// die();
+
 //Select everything from product to redistribute
 $sql = "SELECT * FROM product WHERE id = " . $_GET["id"] . "";
 $select = DbConnection::getPdo()->prepare($sql);
