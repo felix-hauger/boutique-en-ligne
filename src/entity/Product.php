@@ -24,7 +24,7 @@ class Product
     /**
      * @var string The description of the product
      */
-    private string $_description;
+    private ?string $_description = null;
     
     /**
      * @var int The price of the product in the smallest monetary unity
@@ -134,7 +134,7 @@ class Product
     /**
      * Get the value of _description
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->_description;
     }
@@ -142,7 +142,7 @@ class Product
     /**
      * Set the value of _description
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->_description = $description;
 
