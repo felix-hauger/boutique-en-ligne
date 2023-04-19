@@ -73,6 +73,11 @@ class Product
     private string $_category_name;
 
     /**
+     * @var array Store product tags
+     */
+    private array $_tags;
+
+    /**
      * Get the value of _id
      */
     public function getId(): int
@@ -302,6 +307,24 @@ class Product
     public function setCategoryName(string $category_name): self
     {
         $this->_category_name = $category_name;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _tags
+     */
+    public function getTags(): array
+    {
+        return $this->_tags;
+    }
+
+    /**
+     * Set the value of _tags
+     */
+    public function setTags(array $tags): self
+    {
+        $this->_tags = $tags;
 
         return $this;
     }
