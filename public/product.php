@@ -135,17 +135,17 @@ if ($select->execute()) {
                     <caption>Tailles disponibles</caption>
                     <tr>
                         <td><button id="XS" class="BtSize"
-                                onclick='SizeSelected("xs", <?= json_encode($stock) ?>)'>XS</button></td>
+                                onclick='SizeSelected("xs",<?= $stock["xs"]?>)'>XS</button></td>
                         <td><button id="S" class="BtSize"
-                                onclick='SizeSelected("s", <?= json_encode($stock) ?>)'>S</button></td>
+                                onclick='SizeSelected("s",<?= $stock["s"]?>)'>S</button></td>
                         <td><button id="M" class="BtSize"
-                                onclick='SizeSelected("m", <?= json_encode($stock) ?>)'>M</button></td>
+                                onclick='SizeSelected("m", <?= $stock["m"]?>)'>M</button></td>
                         <td><button id="L" class="BtSize"
-                                onclick='SizeSelected("l", <?= json_encode($stock) ?>)'>L</button></td>
+                                onclick='SizeSelected("l", <?= $stock["l"]?>)'>L</button></td>
                         <td><button id="XL" class="BtSize"
-                                onclick='SizeSelected("xl", <?= json_encode($stock) ?>)'>XL</button></td>
+                                onclick='SizeSelected("xl", <?= $stock["xl"]?>)'>XL</button></td>
                         <td><button id="XXL" class="BtSize"
-                                onclick='SizeSelected("xxl", <?= json_encode($stock) ?>)'>XXL</button></td>
+                                onclick='SizeSelected("xxl", <?= $stock["xxl"]?>)'>XXL</button></td>
                     </tr>
                     <tr>
                         <td>
