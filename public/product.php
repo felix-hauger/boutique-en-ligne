@@ -20,7 +20,7 @@ $product_controller = new Product();
 
 if (preg_match('/^\d+$/', $_GET['id'])) {
     try {
-        $product = $product_controller->get($_GET['id']);
+        $product = $product_controller->getPageInfos($_GET['id']);
     } catch (Exception $e) {
         http_response_code(404);
         die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');

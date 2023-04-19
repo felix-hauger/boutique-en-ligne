@@ -11,7 +11,7 @@ use Exception;
 
 class Product extends AbstractController
 {
-    public function get(int $id): ProductEntity
+    public function getPageInfos(int $id): ProductEntity
     {
         $product_model = new ProductModel();
         
