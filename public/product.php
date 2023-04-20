@@ -15,12 +15,11 @@ use App\Controller\Product;
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
 
-$product_controller = new Product();
-
-
 if (preg_match('/^\d+$/', $_GET['id'])) {
     try {
-        // * PRODUCT ENTITY CONTAINING PRODUCT DATA
+        $product_controller = new Product();
+
+        // * RETURN PRODUCT ENTITY CONTAINING PRODUCT DATA
         $product = $product_controller->getPageInfos($_GET['id']);
     } catch (Exception $e) {
         http_response_code(404);
@@ -29,37 +28,6 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
 } else {
     http_response_code(404);
     die('<h1>Page introuvable.</h1><a href="index.php">Retour à l\'accueil</a>');
-}
-
-// var_dump($product);
-// die();
-
-//Select everything from product to redistribute
-$sql = "SELECT * FROM product WHERE id = " . $_GET["id"] . "";
-$select = DbConnection::getPdo()->prepare($sql);
-if ($select->execute()) {
-    //put everything in $result
-    $result = $select->fetch(\PDO::FETCH_ASSOC);
-}
-
-
-//find the id of the category of this article
-//get all info from this category
-$sql = "SELECT * FROM `category` WHERE id = " . $result['category_id'] . ";";
-
-$select = DbConnection::getPdo()->prepare($sql);
-
-if ($select->execute()) {
-    //put everything in $Cat
-    $Cat = $select->fetch(\PDO::FETCH_ASSOC);
-}
-$sql = "SELECT * FROM `stock` WHERE `product_id` = " . $result['id'] . "";
-
-$select = DbConnection::getPdo()->prepare($sql);
-
-if ($select->execute()) {
-    //put everything in $Cat
-    $stock = $select->fetch(\PDO::FETCH_ASSOC);
 }
 
 ?>
