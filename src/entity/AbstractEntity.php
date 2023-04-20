@@ -24,8 +24,7 @@ abstract class AbstractEntity
     {
         $this->_id = $id;
 
-    // ! in vscode $this represents AbstractEntity even in child classes
-        return $this; 
+        return $this; // ! in vscode $this represents AbstractEntity even in child classes
     }
 
     /**
@@ -46,7 +45,11 @@ abstract class AbstractEntity
     public function hydrate(array $data): void
     {
         foreach ($data as $key => $value) {
+            // Get formatted method name by converting underscores in spaces,
+            // make first letter of each word uppercase, remove all spaces,
+            // then concatenate it with 'set' to get full method name
             $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key))) ;
+
             if (is_callable([$this, $method])) {
                 $this->$method($value);
             }
