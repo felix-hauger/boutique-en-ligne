@@ -62,11 +62,6 @@ if ($select->execute()) {
     $stock = $select->fetch(\PDO::FETCH_ASSOC);
 }
 
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +93,7 @@ if ($select->execute()) {
     <script async src="scripts/product.js"></script>
 
     <title>
-        <?= $result['name'] ?>
+        <?= $product->getName() . ' | Saisons à la mode' ?>
     </title>
 
 </head>
@@ -110,7 +105,7 @@ if ($select->execute()) {
     <main>
 
         <div id="image">
-            <img id="imgProduct" src="<?= $result['image'] ?>" width="100%">
+            <img id="imgProduct" src="<?= $product->getImage() ?>" width="100%">
         </div>
 
         <div id="description">
@@ -118,13 +113,18 @@ if ($select->execute()) {
             <div id="UpperContainer">
                 <div id="infoBox">
                     <h1>
-                        <?= $result['name'] ?>
+                        <?= $product->getName() ?>
                     </h1><br>
                     <div id="Catégories">&emsp;
-                        <?= "#", $Cat['name'] ?>
+                        <?= "#", $product->getCategoryName() ?>
+                        <?php 
+                        foreach ($product->getTags() as $tag) {
+                            echo ' #', $tag->getName();
+                        }
+                        ?>
                     </div><br>
                     <div id="Price">&nbsp;&nbsp;
-                        <?= $result['price'], "€" ?>
+                        <?= $product->getPrice(), "€" ?>
                     </div>
                 </div>
 
@@ -186,7 +186,7 @@ if ($select->execute()) {
 
             <div id="DescriptionBox">
                 <h2>Description du produit : </h2><br>
-                <?= $result['description'] ?><br>
+                <?= $product->getDescription() ?><br>
             </div>
 
         </div>
