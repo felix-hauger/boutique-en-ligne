@@ -4,8 +4,8 @@ namespace App\Controller;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use \App\Model\User as UserModel;
-use \App\Entity\User as UserEntity;
+use App\Model\User as UserModel;
+use App\Entity\User as UserEntity;
 use Exception;
 
 class User extends AbstractController
