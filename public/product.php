@@ -20,6 +20,7 @@ $product_controller = new Product();
 
 if (preg_match('/^\d+$/', $_GET['id'])) {
     try {
+        // * PRODUCT ENTITY CONTAINING PRODUCT DATA
         $product = $product_controller->getPageInfos($_GET['id']);
     } catch (Exception $e) {
         http_response_code(404);
@@ -138,36 +139,36 @@ if ($select->execute()) {
                     <caption>Tailles disponibles</caption>
                     <tr>
                         <td><button id="XS" class="BtSize"
-                                onclick='SizeSelected("xs",<?= $stock["xs"]?>)'>XS</button></td>
+                                onclick='SizeSelected("xs",<?= $product->getStock()->getXs() ?>)'>XS</button></td>
                         <td><button id="S" class="BtSize"
-                                onclick='SizeSelected("s",<?= $stock["s"]?>)'>S</button></td>
+                                onclick='SizeSelected("s",<?= $product->getStock()->getS() ?>)'>S</button></td>
                         <td><button id="M" class="BtSize"
-                                onclick='SizeSelected("m", <?= $stock["m"]?>)'>M</button></td>
+                                onclick='SizeSelected("m", <?= $product->getStock()->getM() ?>)'>M</button></td>
                         <td><button id="L" class="BtSize"
-                                onclick='SizeSelected("l", <?= $stock["l"]?>)'>L</button></td>
+                                onclick='SizeSelected("l", <?= $product->getStock()->getL() ?>)'>L</button></td>
                         <td><button id="XL" class="BtSize"
-                                onclick='SizeSelected("xl", <?= $stock["xl"]?>)'>XL</button></td>
+                                onclick='SizeSelected("xl", <?= $product->getStock()->getXl()  ?>)'>XL</button></td>
                         <td><button id="XXL" class="BtSize"
-                                onclick='SizeSelected("xxl", <?= $stock["xxl"]?>)'>XXL</button></td>
+                                onclick='SizeSelected("xxl", <?= $product->getStock()->getXxl() ?>)'>XXL</button></td>
                     </tr>
                     <tr>
                         <td>
-                            <?= $stock['xs'] ?>
+                            <?= $product->getStock()->getXs() ?>
                         </td>
                         <td>
-                            <?= $stock['s'] ?>
+                            <?= $product->getStock()->getS() ?>
                         </td>
                         <td>
-                            <?= $stock['m'] ?>
+                            <?= $product->getStock()->getM() ?>
                         </td>
                         <td>
-                            <?= $stock['l'] ?>
+                            <?= $product->getStock()->getL() ?>
                         </td>
                         <td>
-                            <?= $stock['xl'] ?>
+                            <?= $product->getStock()->getXl() ?>
                         </td>
                         <td>
-                            <?= $stock['xxl'] ?>
+                            <?= $product->getStock()->getXxl() ?>
                         </td>
                     </tr>
                 </table>
