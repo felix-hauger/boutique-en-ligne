@@ -46,6 +46,7 @@ class Product extends AbstractController
             // isset($db_product['updated_at']) ? new DateTime($db_product['updated_at']): null;
 
             // Hydrate product entity with product infos & $product_tags
+            // todo: use hydrate to hydrate Product entity
             $product_entity
                 ->setId($db_product['id'])
                 ->setName($db_product['name'])
@@ -84,13 +85,13 @@ class Product extends AbstractController
             case $month > 2 && $month < 6:
                 return 'printemps';
 
-            case $month < 9:
+            case $month > 6 && $month < 9:
                 return 'été';
 
-            case $month < 12:
+            case $month > 9 && $month < 12:
                 return 'automne';
 
-            default:
+            case $month === 12 || $month < 2:
                 return 'hiver';
         }
     }
