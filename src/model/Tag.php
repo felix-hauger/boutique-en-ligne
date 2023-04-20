@@ -29,4 +29,4 @@ class Tag extends AbstractModel
 $t = new Tag();
 
 // $t->findAllByProduct(6);
-var_dump($t->findAllByProduct(6));
+// var_dump($t->findAllByProduct(6));
