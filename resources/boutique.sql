@@ -118,10 +118,12 @@ CREATE TABLE `category_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `product_tag` (
-    `product_id` INT(11) NOT NULL,
-    `tag_id` INT(11) NOT NULL,
+    `product_id` INT(11) UNSIGNED NOT NULL,
+    `tag_id` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`product_id`, `tag_id`),
-    UNIQUE(`product_id`, `tag_id`)
+    UNIQUE(`product_id`, `tag_id`),
+    CONSTRAINT `fk_product_product_tag` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`),
+    CONSTRAINT `fk_tag_product_tag` FOREIGN KEY(`tag_id`) REFERENCES `tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `order_product` (

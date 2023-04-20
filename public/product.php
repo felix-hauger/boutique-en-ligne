@@ -15,12 +15,12 @@ use App\Controller\Product;
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
 
-$product_controller = new Product();
-
-
 if (preg_match('/^\d+$/', $_GET['id'])) {
     try {
-        $product = $product_controller->get($_GET['id']);
+        $product_controller = new Product();
+
+        // * RETURN PRODUCT ENTITY CONTAINING PRODUCT DATA
+        $product = $product_controller->getPageInfos($_GET['id']);
     } catch (Exception $e) {
         http_response_code(404);
         die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');
@@ -29,39 +29,6 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
     http_response_code(404);
     die('<h1>Page introuvable.</h1><a href="index.php">Retour à l\'accueil</a>');
 }
-
-//Select everything from product to redistribute
-$sql = "SELECT * FROM product WHERE id = " . $_GET["id"] . "";
-$select = DbConnection::getPdo()->prepare($sql);
-if ($select->execute()) {
-    //put everything in $result
-    $result = $select->fetch(\PDO::FETCH_ASSOC);
-}
-
-
-//find the id of the category of this article
-//get all info from this category
-$sql = "SELECT * FROM `category` WHERE id = " . $result['category_id'] . ";";
-
-$select = DbConnection::getPdo()->prepare($sql);
-
-if ($select->execute()) {
-    //put everything in $Cat
-    $Cat = $select->fetch(\PDO::FETCH_ASSOC);
-}
-$sql = "SELECT * FROM `stock` WHERE `product_id` = " . $result['id'] . "";
-
-$select = DbConnection::getPdo()->prepare($sql);
-
-if ($select->execute()) {
-    //put everything in $Cat
-    $stock = $select->fetch(\PDO::FETCH_ASSOC);
-}
-
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -94,7 +61,7 @@ if ($select->execute()) {
     <script async src="scripts/product.js"></script>
 
     <title>
-        <?= $result['name'] ?>
+        <?= $product->getName() . ' | Saisons à la mode' ?>
     </title>
 
 </head>
@@ -106,7 +73,7 @@ if ($select->execute()) {
     <main>
 
         <div id="image">
-            <img id="imgProduct" src="<?= $result['image'] ?>" width="100%">
+            <img id="imgProduct" src="<?= $product->getImage() ?>" width="100%">
         </div>
 
         <div id="description">
@@ -114,13 +81,18 @@ if ($select->execute()) {
             <div id="UpperContainer">
                 <div id="infoBox">
                     <h1>
-                        <?= $result['name'] ?>
+                        <?= $product->getName() ?>
                     </h1><br>
                     <div id="Catégories">&emsp;
-                        <?= "#", $Cat['name'] ?>
+                        <?= "#", $product->getCategoryName() ?>
+                        <?php 
+                        foreach ($product->getTags() as $tag) {
+                            echo ' #', $tag->getName();
+                        }
+                        ?>
                     </div><br>
                     <div id="Price">&nbsp;&nbsp;
-                        <?= $result['price'], "€" ?>
+                        <?= $product->getPrice(), "€" ?>
                     </div>
                 </div>
 
@@ -135,36 +107,36 @@ if ($select->execute()) {
                     <caption>Tailles disponibles</caption>
                     <tr>
                         <td><button id="XS" class="BtSize"
-                                onclick='SizeSelected("xs",<?= $stock["xs"]?>)'>XS</button></td>
+                                onclick='SizeSelected("xs",<?= $product->getStock()->getXs() ?>)'>XS</button></td>
                         <td><button id="S" class="BtSize"
-                                onclick='SizeSelected("s",<?= $stock["s"]?>)'>S</button></td>
+                                onclick='SizeSelected("s",<?= $product->getStock()->getS() ?>)'>S</button></td>
                         <td><button id="M" class="BtSize"
-                                onclick='SizeSelected("m", <?= $stock["m"]?>)'>M</button></td>
+                                onclick='SizeSelected("m", <?= $product->getStock()->getM() ?>)'>M</button></td>
                         <td><button id="L" class="BtSize"
-                                onclick='SizeSelected("l", <?= $stock["l"]?>)'>L</button></td>
+                                onclick='SizeSelected("l", <?= $product->getStock()->getL() ?>)'>L</button></td>
                         <td><button id="XL" class="BtSize"
-                                onclick='SizeSelected("xl", <?= $stock["xl"]?>)'>XL</button></td>
+                                onclick='SizeSelected("xl", <?= $product->getStock()->getXl()  ?>)'>XL</button></td>
                         <td><button id="XXL" class="BtSize"
-                                onclick='SizeSelected("xxl", <?= $stock["xxl"]?>)'>XXL</button></td>
+                                onclick='SizeSelected("xxl", <?= $product->getStock()->getXxl() ?>)'>XXL</button></td>
                     </tr>
                     <tr>
                         <td>
-                            <?= $stock['xs'] ?>
+                            <?= $product->getStock()->getXs() ?>
                         </td>
                         <td>
-                            <?= $stock['s'] ?>
+                            <?= $product->getStock()->getS() ?>
                         </td>
                         <td>
-                            <?= $stock['m'] ?>
+                            <?= $product->getStock()->getM() ?>
                         </td>
                         <td>
-                            <?= $stock['l'] ?>
+                            <?= $product->getStock()->getL() ?>
                         </td>
                         <td>
-                            <?= $stock['xl'] ?>
+                            <?= $product->getStock()->getXl() ?>
                         </td>
                         <td>
-                            <?= $stock['xxl'] ?>
+                            <?= $product->getStock()->getXxl() ?>
                         </td>
                     </tr>
                 </table>
@@ -182,7 +154,7 @@ if ($select->execute()) {
 
             <div id="DescriptionBox">
                 <h2>Description du produit : </h2><br>
-                <?= $result['description'] ?><br>
+                <?= $product->getDescription() ?><br>
             </div>
 
         </div>

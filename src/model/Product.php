@@ -75,7 +75,7 @@ class Product extends AbstractModel
 
         $sql =
             'SELECT product.id, product.name, product.description, price, image, quantity_sold, created_at, updated_at, deleted_at,
-            category.id as category_id, category.name as category_name 
+            category.id AS category_id, category.name AS category_name
             FROM product
             INNER JOIN category ON category.id = product.category_id
             WHERE product.id = :id';

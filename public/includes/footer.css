@@ -11,9 +11,11 @@ footer a:link, footer a:visited{
 color:white;
 text-decoration: none;
 }
+
 footer a:hover{
     color :gray;
 }
+
 #boxFooter{
     display: flex;
     justify-content:space-between;
@@ -22,6 +24,7 @@ footer a:hover{
     padding-left: 10%;
     padding-right: 20%;
 }
+
 #boxAddr{
     color:rgb(204, 204, 204);
     display: flex;
@@ -46,5 +49,5 @@ footer a:hover{
 
 }
 #boxMentionLégales a:hover{
-    color :rgb(201, 201, 201)
+    color :rgb(201, 201, 201);
 }

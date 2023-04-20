@@ -2,48 +2,48 @@
 
 namespace App\Entity;
 
-class User
+class User extends AbstractEntity
 {
     /**
      * @var int Identifies entity
      */
-    private int $_id;
+    protected int $_id;
 
     /**
      * @var string Login to auth
      */
-    private string $_login;
+    protected string $_login;
 
     /**
      * @var string Password to auth, do not store in session
      */
-    private string $_password;
+    protected string $_password;
 
     /**
      * @var string Email
      */
-    private string $_email;
+    protected string $_email;
 
     /**
      * @var string Username visible to other users
      */
-    private string $_username;
+    protected string $_username;
 
     /**
      * @var string Personal info
      */
-    private string $_firstname;
+    protected string $_firstname;
 
     /**
      * @var string Personal info
      */
-    private string $_lastname;
+    protected string $_lastname;
 
     /**
      * @var int Represents the foreign key role_id
      *          Role determine what the user can & cannot do
      */
-    private int $_role_id;
+    protected int $_role_id;
 
     /**
      * Get the value of id
