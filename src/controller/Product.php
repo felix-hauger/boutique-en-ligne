@@ -5,7 +5,9 @@ require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use \App\Model\Product as ProductModel;
 use \App\Entity\Product as ProductEntity;
-use App\Model\Tag as TagModel;
+use App\Entity\Stock as StockEntity;
+use \App\Model\Tag as TagModel;
+use \App\Model\Stock as StockModel;
 use DateTime;
 use Exception;
 
@@ -13,22 +15,35 @@ class Product extends AbstractController
 {
     public function getPageInfos(int $id): ProductEntity
     {
-        $product_model = new ProductModel();
-        
         try {
+            // Instanciate Product model to fetch product data
+            $product_model = new ProductModel();
+
             // Fetch product infos in associative array
             $db_product = $product_model->find($id);
+
+            // Instanciate product entity
+            $product_entity = new ProductEntity();
+
+            // Instanciate Stock model to fetch product stock data
+            $stock_model = new StockModel();
+
+            // Instanciate Stock entity to store in instanciated Product entity
+            $stock_entity = new StockEntity();
+
+            // Fetch product stock data
+            $product_stock = $stock_model->find($id);
+
+            // Hydrate instanciated Stock entity with retrieved data
+            $stock_entity->hydrate($product_stock);
 
             // Instanciate tag model to make query
             $tag_model = new TagModel();
 
-            // Get product tags
+            // Fetch product tags to store in instanciated Product entity
             $product_tags = $tag_model->findAllByProduct($id);
 
             // isset($db_product['updated_at']) ? new DateTime($db_product['updated_at']): null;
-
-            // Instanciate product entity
-            $product_entity = new ProductEntity();
 
             // Hydrate product entity with product infos & $product_tags
             $product_entity
@@ -43,7 +58,8 @@ class Product extends AbstractController
                 ->setDeletedAt(isset($db_product['deleted_at']) ? new DateTime($db_product['deleted_at']): null)
                 ->setCategoryId($db_product['category_id'])
                 ->setCategoryName($db_product['category_name'])
-                ->setTags($product_tags);
+                ->setTags($product_tags)
+                ->setStock($stock_entity);
 
             return $product_entity;
         } catch (\Exception $e) {
@@ -73,7 +89,7 @@ class Product extends AbstractController
 
             case $month < 12:
                 return 'automne';
-            
+
             default:
                 return 'hiver';
         }
