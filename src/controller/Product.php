@@ -8,11 +8,14 @@ use App\Entity\Product as ProductEntity;
 use App\Entity\Stock as StockEntity;
 use App\Model\Tag as TagModel;
 use App\Model\Stock as StockModel;
-use DateTime;
 use Exception;
 
 class Product extends AbstractController
 {
+    /**
+     * @param int $id The product id
+     * @return ProductEntity Product entity hydrated with product, stock, category & tags infos
+     */
     public function getPageInfos(int $id): ProductEntity
     {
         try {
@@ -85,7 +88,10 @@ class Product extends AbstractController
         }
     }
 
-    public function index()
+    /**
+     * @return array Index page informations
+     */
+    public function index(): array
     {
         $product_model = new ProductModel();
 
@@ -98,6 +104,10 @@ class Product extends AbstractController
         ];
     }
 
+    /**
+     * @param array $product The product infos
+     * @return string Html product thumbnail
+     */
     public static function toHtmlThumbnail(array $product): string
     {
         return '<div class="card">
@@ -106,6 +116,59 @@ class Product extends AbstractController
             <h3 class="prix">' . $product['price'] . ' € </h3>
             <a href="product.php?id=' .$product['id']. '"><button class="linkToArticleBtn">Voir cet article</button></a>
         </div>';
+    }
+
+    /**
+     * Send image $file to $destination_path and return its $name concatenated with its extension
+     * @param array $image_file Image file from $_FILES
+     * @param string $name To rename the file
+     * @param string $destination_path Define where the image is uploaded
+     * @return string $image_name $name + image extension
+     */
+    public function getImageFile(array $image_file, string $name, string $destination_path) {
+        // Test if file exists and has no error
+        if (isset($image_file) && $image_file['error'] === 0) {
+
+            // Limit image size
+            if ($image_file['size'] > 3000000) {
+                throw new Exception('Taille maximum de l\'image : 3mo');
+            } else {
+                // Get image infos
+                $image_infos = pathinfo($image_file['name']);
+
+                // Get image extensions
+                $image_extension = $image_infos['extension'];
+
+                // Accepted extensions array
+                $extensions_array = ['png', 'gif', 'jpg', 'jpeg', 'webp'];
+
+                if (in_array($image_extension, $extensions_array)) {
+                    // Name image using $name parameter with image extension
+                    $image_name = $name . '.' . $image_infos['extension'];
+
+                    // Set path to using $destination_path parameter with image name
+                    $image_path = $destination_path . $image_name;
+
+                    // Attempt to move image file to image folder
+                    if(move_uploaded_file($image_file['tmp_name'], $image_path)) {
+                        // If successful, return image name to be stored in instance and/or database
+                        return $image_name;
+                    }
+                } else {
+                    // If the format is not accepted
+                    $extensions_string = '';
+
+                    foreach ($extensions_array as $key => $extension) {
+                        if ($key === array_key_last($extensions_array)) {
+                            $extensions_string .= $extension;
+                        } else {
+                            $extensions_string .= $extension . ', ';
+                        }
+                    }
+                    throw new Exception('Format du fichier non accepté. Formats acceptés : ' . $extensions_string);
+                }
+            }
+        }
     }
 }
 
