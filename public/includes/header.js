@@ -82,24 +82,28 @@ function SetSaisons() {
         r.style.setProperty('--bg-color', '#FEF9E8');
         r.style.setProperty('--detail-color', '#E76F00');
         r.style.setProperty('--hover-color', '#ff9838');
+        r.style.setProperty('--lightbg-color', '#fffbf0');
         Saison++;
     } else if (Saison === 1) {
         // Couleurs d'automne
         r.style.setProperty('--bg-color', '#FFEBCD');
         r.style.setProperty('--detail-color', '#AA1155');
         r.style.setProperty('--hover-color', '#db2376');
+        r.style.setProperty('--lightbg-color', '#fffbf0');
         Saison++;
     } else if (Saison === 2) {
         // Couleurs d'hivert
         r.style.setProperty('--bg-color', '#F1FFFF');
         r.style.setProperty('--detail-color', '#5A48A3');
         r.style.setProperty('--hover-color', '#7861d4');
+        r.style.setProperty('--lightbg-color', '#f8fffe');
         Saison++;
     } else if (Saison === 3) {
         // Couleurs de printemps
         r.style.setProperty('--bg-color', '#c0ffd8');
         r.style.setProperty('--detail-color', '#0a460a');
         r.style.setProperty('--hover-color', '#27c422');
+        r.style.setProperty('--lightbg-color', '#eeffeb');
         Saison = 0;
     }
 
