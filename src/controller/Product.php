@@ -8,6 +8,7 @@ use App\Entity\Product as ProductEntity;
 use App\Entity\Stock as StockEntity;
 use App\Model\Tag as TagModel;
 use App\Model\Stock as StockModel;
+use App\Model\ProductTag as ProductTagModel;
 use Exception;
 
 class Product extends AbstractController
@@ -25,7 +26,7 @@ class Product extends AbstractController
             // Fetch product infos in associative array
             $db_product = $product_model->find($id);
 
-            // Instanciate product entity
+            // Instanciate Product entity
             $product_entity = new ProductEntity();
 
             // Instanciate Stock model to fetch product stock data
@@ -57,6 +58,79 @@ class Product extends AbstractController
             return $product_entity;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @param string $name The name of the product
+     * @param string $description The description of the product
+     * @param int $price The price of the product
+     * @param string $image The image path of the product
+     * @param int $category_id The category id of the product
+     * @param int $discount_id The discount id of the product
+     * @param array $tags The tags of the product
+     * @param array $stock The product stock
+     */
+    public function add(string $name, string $description, int $price, string $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
+    {
+        // Get arguments values in an array
+        $args = func_get_args();
+
+        // Get parameters names using reflection
+        $args_names = $this->getMethodArgNames(__CLASS__, __FUNCTION__);
+
+        // Combine them into an associative array
+        $product_input = array_combine($args_names, $args);
+
+        // ? ADD TRANSACTION?
+        // var_dump($product_input);
+        // todo unset($product_input['stock']);
+        // var_dump($product_input);
+        // die();
+        // var_dump($product_input);
+
+        // Instanciate Product entity
+        $product = new ProductEntity();
+
+        // Instanciate Product model to insert data
+        $product_model = new ProductModel();
+
+        // Instanciate Stock entity
+        $stock_entity = new StockEntity();
+
+        //  !unnecessary data! Hydrate stock entity
+        $stock_entity->hydrate($stock);
+
+        //  !unnecessary data! Replace stock array entry (array) by stock entity
+        $product_input['stock'] = $stock_entity;
+
+        // var_dump($stock_entity);
+
+        // Hydrate Product entity with product parameters
+        $product->hydrate($product_input);
+
+        // Create product entry in database using Product entity as parameter
+        if ($product_model->create($product)) {
+            // var_dump($product_model->getPdo()->lastInsertId());
+            // Get last inserted id using AbstractModel $_pdo property
+            $db_product_id = $product_model->getPdo()->lastInsertId();
+
+            // Set product id to create Stock
+            $stock_entity->setProductId($db_product_id);
+
+            // Instanciate stock to insert data
+            $stock_model = new StockModel();
+
+            // Create stock entry in database using Stock entity as parameter
+            $stock_model->create($stock_entity);
+
+            // Instanciate ProductTag model to bind product & tags
+            $product_tag_model = new ProductTagModel();
+
+            foreach ($tags as $tag) {
+                // Create entries in product_tag using last inserted id & tag id
+                $product_tag_model->create($db_product_id, $tag);
+            }
         }
     }
 
@@ -172,7 +246,17 @@ class Product extends AbstractController
     }
 }
 
-// $p = new Product();
+$p = new Product();
+$p->add(
+    'a',
+    'b', 
+    1, 
+    'img', 
+    5, 
+    null, 
+    [11, 13], 
+    ['xs' => 10, 's' => 11, 'm' => 12, 'l' => 13, 'xl' => 14, 'xxl' => 15]
+);
 // echo $p->checkSeason();
 // $test = $p->index();
 // var_dump($p->get(80));
