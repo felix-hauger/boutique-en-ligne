@@ -82,12 +82,9 @@ class Product extends AbstractController
         // Combine them into an associative array
         $product_input = array_combine($args_names, $args);
 
-        // ? ADD TRANSACTION?
-        // var_dump($product_input);
+        // Unset stock from product as it is useless 
+        // before product is inserted in database
         unset($product_input['stock']);
-        // var_dump($product_input);
-        // die();
-        // var_dump($product_input);
 
         // Instanciate Product entity
         $product = new ProductEntity();
@@ -95,40 +92,44 @@ class Product extends AbstractController
         // Instanciate Product model to insert data
         $product_model = new ProductModel();
 
-        // var_dump($stock_entity);
+        // Begin transaction to make sure all request
+        // are successfull before committing to the database
+        $product_model->getPdo()->beginTransaction();
 
         // Hydrate Product entity with product parameters
         $product->hydrate($product_input);
 
         // Create product entry in database using Product entity as parameter
-        if ($product_model->create($product)) {
-            // var_dump($product_model->getPdo()->lastInsertId());
-            // Get last inserted id using AbstractModel $_pdo property
-            $db_product_id = $product_model->getPdo()->lastInsertId();
+        $product_model->create($product);
 
-            // Instanciate Stock entity
-            $stock_entity = new StockEntity();
+        // Get last inserted id using AbstractModel $_pdo property
+        $db_product_id = $product_model->getPdo()->lastInsertId();
 
-            // Hydrate stock entity
-            $stock_entity->hydrate($stock);
+        // Instanciate Stock entity
+        $stock_entity = new StockEntity();
 
-            // Set product id to create Stock
-            $stock_entity->setProductId($db_product_id);
+        // Hydrate stock entity
+        $stock_entity->hydrate($stock);
 
-            // Instanciate stock to insert data
-            $stock_model = new StockModel();
+        // Set product id to create Stock
+        $stock_entity->setProductId($db_product_id);
 
-            // Create stock entry in database using Stock entity as parameter
-            $stock_model->create($stock_entity);
+        // Instanciate stock to insert data
+        $stock_model = new StockModel();
 
-            // Instanciate ProductTag model to bind product & tags
-            $product_tag_model = new ProductTagModel();
+        // Create stock entry in database using Stock entity as parameter
+        $stock_model->create($stock_entity);
 
-            foreach ($tags as $tag) {
-                // Create entries in product_tag using last inserted id & tag id
-                $product_tag_model->create($db_product_id, $tag);
-            }
+        // Instanciate ProductTag model to bind product & tags
+        $product_tag_model = new ProductTagModel();
+
+        foreach ($tags as $tag) {
+            // Create entries in product_tag using last inserted id & tag id
+            $product_tag_model->create($db_product_id, $tag);
         }
+
+        // Commit changes if all databases queries are successfull
+        return $product_model->getPdo()->commit();
     }
 
     /**
