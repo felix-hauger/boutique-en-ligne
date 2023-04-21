@@ -13,7 +13,7 @@
                 echo '<a title="Vos Informations" id="User" href="user.php"><i class="fa-solid fa-user"></i></a>&emsp;';
                 echo '<a title="Vous Déconnecter" href="disconnect.php"><i class="fa-solid fa-user-slash"></i></a>&emsp;';
                 if ($_SESSION['user']->getRoleId() === 1) {
-                    echo '<i title="Changer le Theme" class="fa-solid fa-paint-roller onclick="SetSaisons()"></i>&emsp;';
+                    echo '<i title="Changer le Theme" class="fa-solid fa-paint-roller" onclick="SetSaisons()"></i>&emsp;';
                     echo '<a title="Option D\'administration" href="admin.php"><i class="fa-solid fa-toolbox"></i></a>&emsp;';
                 }
             } else {
