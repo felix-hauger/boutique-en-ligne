@@ -84,7 +84,7 @@ class Product extends AbstractController
 
         // ? ADD TRANSACTION?
         // var_dump($product_input);
-        // todo unset($product_input['stock']);
+        unset($product_input['stock']);
         // var_dump($product_input);
         // die();
         // var_dump($product_input);
@@ -94,15 +94,6 @@ class Product extends AbstractController
 
         // Instanciate Product model to insert data
         $product_model = new ProductModel();
-
-        // Instanciate Stock entity
-        $stock_entity = new StockEntity();
-
-        //  !unnecessary data! Hydrate stock entity
-        $stock_entity->hydrate($stock);
-
-        //  !unnecessary data! Replace stock array entry (array) by stock entity
-        $product_input['stock'] = $stock_entity;
 
         // var_dump($stock_entity);
 
@@ -114,6 +105,12 @@ class Product extends AbstractController
             // var_dump($product_model->getPdo()->lastInsertId());
             // Get last inserted id using AbstractModel $_pdo property
             $db_product_id = $product_model->getPdo()->lastInsertId();
+
+            // Instanciate Stock entity
+            $stock_entity = new StockEntity();
+
+            // Hydrate stock entity
+            $stock_entity->hydrate($stock);
 
             // Set product id to create Stock
             $stock_entity->setProductId($db_product_id);
