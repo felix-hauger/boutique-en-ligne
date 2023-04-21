@@ -31,6 +31,6 @@ function Cookie(id_produit){
 
     product = 'product' +  '_' + id_produit + '_' + Size;
     console.log(product, quantity)
-    document.cookie = product+" = "+quantity
+    document.cookie = product+" = "+quantity+";expires=Fri, 31 Dec 9999 23:59:59 GMT"
     
 }
