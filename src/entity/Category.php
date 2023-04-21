@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-class Tag extends AbstractEntity
+class Category extends AbstractEntity
 {
     /**
-     * @var string The name of the tag
+     * @var string The name of the category
      */
     protected string $_name;
 
     /**
-     * @var string The description of the tag
+     * @var string The description of the category
      */
     protected string $_description;
 
