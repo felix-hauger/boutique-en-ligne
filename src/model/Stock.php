@@ -11,7 +11,7 @@ class Stock extends AbstractModel
      */
     public function create(\App\Entity\Stock $stock): bool
     {
-        $sql = 'INSERT INTO stock (xs, s, m, l, xl, xxl) VALUES (:xs, :s, :m, :l, :xl, :xxl)';
+        $sql = 'INSERT INTO stock (xs, s, m, l, xl, xxl, product_id) VALUES (:xs, :s, :m, :l, :xl, :xxl, :product_id)';
 
         $insert = $this->_pdo->prepare($sql);
 
@@ -19,7 +19,9 @@ class Stock extends AbstractModel
         $insert->bindValue(':s', $stock->getS());
         $insert->bindValue(':m', $stock->getM());
         $insert->bindValue(':l', $stock->getL());
+        $insert->bindValue(':xl', $stock->getXl());
         $insert->bindValue(':xxl', $stock->getXxl());
+        $insert->bindValue(':product_id', $stock->getProductId());
 
         return $insert->execute();
     }
