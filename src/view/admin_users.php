@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -11,23 +11,41 @@ $select = DbConnection::getPdo()->prepare($sql);
 if ($select->execute()) {
     $users = $select->fetchall(\PDO::FETCH_ASSOC);
 }
+echo '<table class="TBAffichage">';
+
+foreach ($users as $user) {
 
 
-foreach ($users as $user){
+    echo '<tr>';
+    echo '<td>';
+    echo 'Utilisateur : ' . $user['login'];
+    echo '</td>';
 
-    echo '<div class="user">';
-    
-    echo 'Utilisateur : <input id="login" name="login" placeholder="'.$user['login'].'"></input>';
-    echo 'Nom : <input id="lastname" name="lastname" placeholder="'.$user['lastname'].'"></input>';
-    echo 'Nom : <input id="firstname" name="firstname" placeholder="'.$user['firstname'].'"></input>';
-    echo 'E-Mail : <input id="mail" name="mail" placeholder="'.$user['email'].'"></input>';
-    if($user['role_id']==1){
-        echo 'Role : Admin';
-    }else if ($user['role_id']==2){
-        echo 'Role : User';
+    echo '<td>';
+    echo 'Nom : ' . $user['lastname'];
+    echo '</td>';
+
+    echo '<td>';
+    echo 'Prénom : ' . $user['firstname'];
+    echo '</td>';
+
+    echo '<td>';
+    echo 'E-Mail : ' . $user['email'];
+    echo '</td>';
+
+    echo '<td>';
+    if ($user['role_id'] == 1) {
+        echo 'Role : <b>Admin</b>';
+    } else if ($user['role_id'] == 2) {
+        echo 'Role : <b>User</b>';
     }
-   
-    echo "</div>";
-}
-?>
+    echo '</td>';
 
+    echo '<td><button>Changer de Role</button></td>';
+    echo '<td><button>Reset Password</button></td>';
+    echo '<td><button class="Supprimer">Supprimer l\'user</button></td>';
+
+
+}
+echo "</table>";
+?>

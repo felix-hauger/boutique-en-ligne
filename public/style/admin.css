@@ -1,48 +1,80 @@
-body{
-    margin:0;
+body {
+    margin: 0;
 }
 
-#ControlPanel{
-    background-color: gray;
-    margin:10%;
+#ControlPanel {
+    background-color: var(--lightbg-color);
+    box-shadow: 10px 10px 15px 1px rgba(0, 0, 0, 0.13);
+    margin: 10%;
     margin-top: 2%;
-    padding:3% 5%;
+    padding: 3% 5%;
     text-align: center;
-
-}
-h1{
-    margin-bottom: 5%;
-}
-
-#CPbuttons{
-    display:flex;
-    justify-content: space-between;
-}
-
-#CPbuttons button{
-    width: 10% ;
-    border-style: none;
-    border-radius: 2px;
-    background-color: whitesmoke;
-    padding: 1% ;
-   
-}
-
-
-#CPbuttons button:hover{
-    background-color:var(--bg-color);
-   
-}
-
-#CPbuttons button.selected{
     border-style: solid;
     border-color: var(--detail-color);
     border-width: 3px;
-    
- 
+
 }
 
-#Main{
+h1 {
+    margin-bottom: 5%;
+}
+
+#CPbuttons {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#CPbuttons button {
+    width: 10%;
+    border-style: none;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    padding: 1%;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.103);
+
+}
+
+
+#CPbuttons button:hover {
+    background-color: var(--bg-color);
+
+}
+
+#CPbuttons button.selected {
+    border-style: solid;
+    border-color: var(--detail-color);
+    border-width: 3px;
+
+
+}
+
+#Main {
     width: 100%;
-    background-color: blanchedalmond;
+    background-color: var(--lightbg-color);
+}
+
+.TBAffichage {
+    padding: 1%;
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid var(--detail-color);
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+td button {
+    padding: 3%;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.Supprimer {
+    background-color: #ff4040;
+    border-style: none;
 }

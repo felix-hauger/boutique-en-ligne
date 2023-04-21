@@ -15,7 +15,7 @@
 }
 
 .sectionShop {
-    background-color: rgb(238, 255, 235);
+    background-color: var(--lightbg-color);
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.089);
     margin-top: 5%;
 }

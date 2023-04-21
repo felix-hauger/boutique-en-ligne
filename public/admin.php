@@ -7,8 +7,6 @@ use App\Controller\Product;
 
 session_start();
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +45,7 @@ session_start();
     <?php require_once("includes/header.php"); ?>
 
     <div id="ControlPanel">
-        <h1>Pannel d'administration</h1>
+        <h1>Panel d'administration</h1>
 
         <div id="CPbuttons">
 
@@ -55,6 +53,7 @@ session_start();
             <button value="articles">Articles</button>
             <button value="transactions">Transactions</button>
             <button value="categories">Catégories</button>
+            <button value="tags">tags</button>
 
         </div>
     </div>
