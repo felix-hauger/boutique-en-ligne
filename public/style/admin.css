@@ -46,3 +46,25 @@ h1{
     width: 100%;
     background-color: blanchedalmond;
 }
+
+.TBAffichage{
+    padding: 1%;
+    text-align: left;
+    border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+    border: 1px solid var(--detail-color);
+    vertical-align: auto;
+   
+}
+td button{
+    padding: 3%;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+.Supprimer{
+    background-color: #ff4040;
+    border-style: none;
+}
