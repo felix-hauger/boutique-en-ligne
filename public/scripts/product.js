@@ -21,7 +21,6 @@ $("#QuantityBox button").on('click', function(){
 function SizeSelected(size,stock){
     document.getElementById("InputQuantity").value = 1
     Size = stock;
-    console.log(stock,size)
     document.getElementById("SizeSelected").value  = size
 }
 
