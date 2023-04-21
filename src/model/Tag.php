@@ -4,6 +4,7 @@ namespace App\Model;
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use PDO;
+use App\Entity\Tag as TagEntity;
 
 class Tag extends AbstractModel
 {
@@ -24,9 +25,21 @@ class Tag extends AbstractModel
 
         return $select->fetchAll(PDO::FETCH_CLASS, '\App\Entity\Tag');
     }
+
+    public function create(TagEntity $tag)
+    {
+        $sql = 'INSERT INTO tag (name, description) VALUES (:name, :description)';
+
+        $insert = $this->_pdo->prepare($sql);
+
+        $insert->bindValue(':name', $tag->getName());
+        $insert->bindValue(':description', $tag->getDescription());
+
+        return $insert->execute();
+    }
 }
 
-$t = new Tag();
+// $t = new Tag();
 
 // $t->findAllByProduct(6);
 // var_dump($t->findAllByProduct(6));
