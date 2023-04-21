@@ -1,3 +1,4 @@
+<?php $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];?>
 <body>
     <header id="WideScreenView">
         <div>

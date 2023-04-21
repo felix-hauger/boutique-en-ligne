@@ -1,8 +1,9 @@
+var Stock
 var Size
 
 function InputQuantityAdd(){
     
-    if( document.getElementById("InputQuantity").value < Size){
+    if( document.getElementById("InputQuantity").value < Stock){
         document.getElementById("InputQuantity").value++;
     }
     
@@ -20,11 +21,16 @@ $("#QuantityBox button").on('click', function(){
 
 function SizeSelected(size,stock){
     document.getElementById("InputQuantity").value = 1
-    Size = stock;
+    Stock = stock;
+    Size = size;
     document.getElementById("SizeSelected").value  = size
 }
 
+function Cookie(id_produit){
+    quantity = document.getElementById("InputQuantity").value
 
-var w = window.innerWidth;
-
-
+    product = 'product' +  '_' + id_produit + '_' + Size;
+    console.log(product, quantity)
+    document.cookie = product+" = "+quantity
+    
+}
