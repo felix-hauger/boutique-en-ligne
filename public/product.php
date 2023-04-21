@@ -59,6 +59,8 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
     <script async src="includes/header.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script async src="scripts/product.js"></script>
+   
+    
 
     <title>
         <?= $product->getName() . ' | Saisons à la mode' ?>
@@ -85,7 +87,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     </h1><br>
                     <div id="Catégories">&emsp;
                         <?= "#", $product->getCategoryName() ?>
-                        <?php 
+                        <?php
                         foreach ($product->getTags() as $tag) {
                             echo ' #', $tag->getName();
                         }
@@ -97,7 +99,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                 </div>
 
                 <div id="BtBox">
-                    <button class="BtPanier" id="Ajouter">Ajouter au Panier</button><br>
+                    <button class="BtPanier" id="Ajouter" onclick='Cookie(<?= $product->getId(); ?>)'>Ajouter au Panier</button><br>
                     <button class="BtPanier" id="Acheter">Acheter cet article</button>
                 </div>
             </div>
@@ -115,7 +117,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                         <td><button id="L" class="BtSize"
                                 onclick='SizeSelected("l", <?= $product->getStock()->getL() ?>)'>L</button></td>
                         <td><button id="XL" class="BtSize"
-                                onclick='SizeSelected("xl", <?= $product->getStock()->getXl()  ?>)'>XL</button></td>
+                                onclick='SizeSelected("xl", <?= $product->getStock()->getXl() ?>)'>XL</button></td>
                         <td><button id="XXL" class="BtSize"
                                 onclick='SizeSelected("xxl", <?= $product->getStock()->getXxl() ?>)'>XXL</button></td>
                     </tr>
@@ -141,7 +143,6 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     </tr>
                 </table>
 
-                <input id="SizeSelected" value="x" hidden></input>
 
                 <div id="BtInputBox">
                     <i id="BtInputSub" class="fa-sharp fa-solid fa-play fa-xl fa-flip-horizontal"
