@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: index.php');
     die();
 }
-var_dump($_POST);
+// var_dump($_POST);
 
 use App\Controller\Category;
 use App\Controller\Product;
@@ -29,7 +29,7 @@ if (isset($_POST['product-submit'])) {
         $_POST['name'],
         $_POST['description'],
         $_POST['price'],
-        'image',
+        $_FILES['image'],
         $_POST['category'],
         null, // discount
         $_POST['tags'],

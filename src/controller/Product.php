@@ -71,65 +71,82 @@ class Product extends AbstractController
      * @param array $tags The tags of the product
      * @param array $stock The product stock
      */
-    public function add(string $name, string $description, int $price, string $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
+    public function add(string $name, string $description, int $price, array $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
     {
-        // Get arguments values in an array
-        $args = func_get_args();
+        try {
+            // Get arguments values in an array
+            $args = func_get_args();
 
-        // Get parameters names using reflection
-        $args_names = $this->getMethodArgNames(__CLASS__, __FUNCTION__);
+            // Get parameters names using reflection
+            $args_names = $this->getMethodArgNames(__CLASS__, __FUNCTION__);
 
-        // Combine them into an associative array
-        $product_input = array_combine($args_names, $args);
+            // Combine them into an associative array
+            $product_input = array_combine($args_names, $args);
 
-        // Unset stock from product as it is useless 
-        // before product is inserted in database
-        unset($product_input['stock']);
+            // Unset stock from product as it is useless
+            // before product is inserted in database
+            unset($product_input['stock']);
 
-        // Instanciate Product entity
-        $product = new ProductEntity();
+            // Instanciate Product entity
+            $product = new ProductEntity();
 
-        // Instanciate Product model to insert data
-        $product_model = new ProductModel();
+            // Instanciate Product model to insert data
+            $product_model = new ProductModel();
 
-        // Begin transaction to make sure all request
-        // are successfull before committing to the database
-        $product_model->getPdo()->beginTransaction();
+            //* Begin transaction to make sure all request
+            //* are successfull before committing to the database
+            $product_model->getPdo()->beginTransaction();
 
-        // Hydrate Product entity with product parameters
-        $product->hydrate($product_input);
+            // Path for uploaded product images
+            $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product_image' . DIRECTORY_SEPARATOR;
 
-        // Create product entry in database using Product entity as parameter
-        $product_model->create($product);
+            // $this->getImageFile($image, $image['name'], $image_path);
 
-        // Get last inserted id using AbstractModel $_pdo property
-        $db_product_id = $product_model->getPdo()->lastInsertId();
+            // Set product image parameter value to image path
+            $product_input['image'] = $image_path . $image['name'];
 
-        // Instanciate Stock entity
-        $stock_entity = new StockEntity();
+            // Hydrate Product entity with product parameters
+            $product->hydrate($product_input);
 
-        // Hydrate stock entity
-        $stock_entity->hydrate($stock);
+            // Create product entry in database using Product entity as parameter
+            $product_model->create($product);
 
-        // Set product id to create Stock
-        $stock_entity->setProductId($db_product_id);
+            // Get last inserted id using AbstractModel $_pdo property
+            $db_product_id = $product_model->getPdo()->lastInsertId();
 
-        // Instanciate stock to insert data
-        $stock_model = new StockModel();
+            // Instanciate Stock entity
+            $stock_entity = new StockEntity();
 
-        // Create stock entry in database using Stock entity as parameter
-        $stock_model->create($stock_entity);
+            // Hydrate stock entity
+            $stock_entity->hydrate($stock);
 
-        // Instanciate ProductTag model to bind product & tags
-        $product_tag_model = new ProductTagModel();
+            // Set product id to create Stock
+            $stock_entity->setProductId($db_product_id);
 
-        foreach ($tags as $tag) {
-            // Create entries in product_tag using last inserted id & tag id
-            $product_tag_model->create($db_product_id, $tag);
+            // Instanciate stock to insert data
+            $stock_model = new StockModel();
+
+            // Create stock entry in database using Stock entity as parameter
+            $stock_model->create($stock_entity);
+
+            // Instanciate ProductTag model to bind product & tags
+            $product_tag_model = new ProductTagModel();
+
+            foreach ($tags as $tag) {
+                // Create entries in product_tag using last inserted id & tag id
+                $product_tag_model->create($db_product_id, $tag);
+            }
+
+            // Commit changes if all databases queries are successfull
+            $product_model->getPdo()->commit();
+
+            $this->getImageFile($image, $image['name'], $image_path);
+
+        } catch (Exception $e) {
+            //throw $th;
+            $product_model->getPdo()->rollBack();
+            echo $e->getMessage();
         }
-
-        // Commit changes if all databases queries are successfull
-        return $product_model->getPdo()->commit();
     }
 
     /**
@@ -215,16 +232,13 @@ class Product extends AbstractController
                 $extensions_array = ['png', 'gif', 'jpg', 'jpeg', 'webp'];
 
                 if (in_array($image_extension, $extensions_array)) {
-                    // Name image using $name parameter with image extension
-                    $image_name = $name . '.' . $image_infos['extension'];
-
                     // Set path to using $destination_path parameter with image name
-                    $image_path = $destination_path . $image_name;
+                    $image_path = $destination_path . $name;
 
                     // Attempt to move image file to image folder
                     if(move_uploaded_file($image_file['tmp_name'], $image_path)) {
-                        // If successful, return image name to be stored in instance and/or database
-                        return $image_name;
+                        // If successful, return image path to be stored in database and/or entity
+                        return $image_path;
                     }
                 } else {
                     // If the format is not accepted
