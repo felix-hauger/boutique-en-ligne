@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: index.php');
     die();
 }
-
+var_dump($_POST);
 
 use App\Controller\Category;
 use App\Controller\Product;
@@ -35,7 +35,6 @@ use App\Controller\Tag;
     <!-- CSS -->
     <link href="includes/header.css" rel="stylesheet" type="text/css" />
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
-    <link href="style/product.css" rel="stylesheet" type="text/css" />
 
     <!-- FontAwesome  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -50,7 +49,6 @@ use App\Controller\Tag;
     <!-- Scripts -->
     <script async src="includes/header.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script async src="scripts/product.js"></script>
 
     <title>Ajouter un nouvel article | Saisons à la mode</title>
 
@@ -64,18 +62,23 @@ use App\Controller\Tag;
         <form id="form" method="post" enctype="multipart/form-data">
             <label class="LabelForm" for="name">Ajouter un nouvel article</label><br>
 
+            <!-- NAME -->
             <input type="text" name="name" id="name" placeholder="Nom de l'article"><br>
 
+            <!-- DESCRIPTION -->
             <textarea name="description" id="description" placeholder="Description de l'article"></textarea><br>
 
+            <!-- PRICE -->
             <input type="number" name="price" id="price" placeholder="Prix"><br>
 
+            <!-- IMAGE -->
             <label for="image">Image de l'article
                 <input type="file" name="image" id="image"><br>
             </label><br />
 
+            <!-- CATEGORY -->
             <select name="category" id="category">
-                <option>--- Catégorie ---</option>
+                <option value="">--- Catégorie ---</option>
 
                 <?php
                 $category_controller = new Category();
@@ -91,24 +94,22 @@ use App\Controller\Tag;
                 ?>
             </select><br />
 
+            <!-- TAGS -->
             <fieldset id="product-tags">
                 <legend>Tags</legend>
-                <select name="category" id="category">
-
-                <option>--- Catégorie ---</option>
 
                 <?php
                 $tag_controller = new Tag();
 
+                // Get all ids & names using model & PDO::FETCH_CLASS
+                // which return an array of Category entities
                 $tags = $tag_controller->getAll();
 
+                // Display checkbox to select Tags, "tags[]" convert them into an array
                 foreach ($tags as $tag) {
-                    echo '<option value="' . $tag->getId() . '">' . $tag->getName() . '</option>';
+                    echo '<label><input type="checkbox" name="tags[]" value="' . $tag->getId() . '">' . $tag->getName() . '</label>';
                 }
                 ?>
-
-                </select>
-                <button id="add-tag">Ajouter Tag</button>
             </fieldset>
 
             <fieldset id="product-stock">
@@ -120,8 +121,6 @@ use App\Controller\Tag;
                 <input type="number" name="xl" id="xl" placeholder="xl">
                 <input type="number" name="xxl" id="xxl" placeholder="xxl">
             </fieldset>
-
-
 
             <input class="BtSubmit" type="submit" name="product-submit" value="Ajouter l'article au magasin">
             
