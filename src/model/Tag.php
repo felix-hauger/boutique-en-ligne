@@ -8,8 +8,25 @@ use App\Entity\Tag as TagEntity;
 class Tag extends AbstractModel
 {
     /**
+     * * Overload AbstractModel::findAll()
+     * Find all id & names, doesn't select description to make request more performant
      * @param int $product_id The id of the product
-     * @return array of Tag entities linked to the product with product_tag binding table  
+     * @return array of Tag entities, or false if request fails
+     */
+    public function findAll(): array|false
+    {
+        $sql = 'SELECT id, name FROM tag';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_CLASS, '\App\Entity\Tag');
+    }
+
+    /**
+     * @param int $product_id The id of the product
+     * @return array|false of Tag entities linked to the product with product_tag binding table, or false if request fails
      */
     public function findAllByProduct(int $product_id): array|false
     {
