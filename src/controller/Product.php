@@ -100,8 +100,6 @@ class Product extends AbstractController
             // Path for uploaded product images
             $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product_image' . DIRECTORY_SEPARATOR;
 
-            // $this->getImageFile($image, $image['name'], $image_path);
-
             // Set product image parameter value to image path
             $product_input['image'] = $image_path . $image['name'];
 
@@ -222,11 +220,8 @@ class Product extends AbstractController
             if ($image_file['size'] > 3000000) {
                 throw new Exception('Taille maximum de l\'image : 3mo');
             } else {
-                // Get image infos
-                $image_infos = pathinfo($image_file['name']);
-
-                // Get image extensions
-                $image_extension = $image_infos['extension'];
+                // Get image extension
+                $image_extension = pathinfo($image_file['name'], PATHINFO_EXTENSION);
 
                 // Accepted extensions array
                 $extensions_array = ['png', 'gif', 'jpg', 'jpeg', 'webp'];
@@ -234,6 +229,15 @@ class Product extends AbstractController
                 if (in_array($image_extension, $extensions_array)) {
                     // Set path to using $destination_path parameter with image name
                     $image_path = $destination_path . $name;
+
+                    // Init counter
+                    $count = 0;
+
+                    // To make sure an existing file is not overwritten
+                    while (file_exists($image_path)) {
+                        $count++;
+                        $image_path = $destination_path . rand() * time() . '_' . $count . '_' . $name;
+                    }
 
                     // Attempt to move image file to image folder
                     if(move_uploaded_file($image_file['tmp_name'], $image_path)) {
