@@ -198,17 +198,17 @@ $p = new Product();
 // $query = $p->findAllByTag(1);
 // $ent = new \App\Entity\Product();
 // var_dump($query);
-// $ent->setName('update');
-// $ent->setDescription('update');
+// $ent->setName('created_at');
+// $ent->setDescription('created_at');
 // $ent->setPrice(150);
-// $ent->setImage('update.jpg');
+// $ent->setImage('create.jpg');
 // $ent->setQuantitySold(10);
 // $ent->setDeletedAt(null);
 // $ent->setCategoryId(3);
 // $ent->setDiscountId(null);
 // $ent->setId(31);
 
-// $p->update($ent);
+// $p->create($ent);
 
 // var_dump($p->getMoreSold());
 // var_dump($p->getLastAdded());

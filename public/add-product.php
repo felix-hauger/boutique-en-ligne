@@ -22,6 +22,21 @@ use App\Controller\Category;
 use App\Controller\Product;
 use App\Controller\Tag;
 
+if (isset($_POST['product-submit'])) {
+    $product_controller = new Product();
+
+    $product_controller->add(
+        $_POST['name'],
+        $_POST['description'],
+        $_POST['price'],
+        'image',
+        $_POST['category'],
+        null, // discount
+        $_POST['tags'],
+        $_POST['stock']
+    );
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -114,12 +129,12 @@ use App\Controller\Tag;
 
             <fieldset id="product-stock">
                 <legend>Définir les stocks disponibles</legend>
-                <input type="number" name="xs" id="xs" placeholder="xs">
-                <input type="number" name="s" id="s" placeholder="s">
-                <input type="number" name="m" id="m" placeholder="m">
-                <input type="number" name="l" id="l" placeholder="l">
-                <input type="number" name="xl" id="xl" placeholder="xl">
-                <input type="number" name="xxl" id="xxl" placeholder="xxl">
+                <input type="number" name="stock[xs]" id="xs" placeholder="xs" value="0">
+                <input type="number" name="stock[s]" id="s" placeholder="s" value="0">
+                <input type="number" name="stock[m]" id="m" placeholder="m" value="0">
+                <input type="number" name="stock[l]" id="l" placeholder="l" value="0">
+                <input type="number" name="stock[xl]" id="xl" placeholder="xl" value="0">
+                <input type="number" name="stock[xxl]" id="xxl" placeholder="xxl" value="0">
             </fieldset>
 
             <input class="BtSubmit" type="submit" name="product-submit" value="Ajouter l'article au magasin">
