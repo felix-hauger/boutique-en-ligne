@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\Category as CategoryEntity;
+use PDO;
 
 class Category extends AbstractModel
 {
@@ -16,5 +17,16 @@ class Category extends AbstractModel
         $insert->bindValue(':description', $category->getDescription());
 
         return $insert->execute();
+    }
+
+    public function findAll(): array|false
+    {
+        $sql = 'SELECT id, name FROM category';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_CLASS, 'App\Entity\Category');
     }
 }

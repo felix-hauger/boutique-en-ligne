@@ -244,17 +244,17 @@ class Product extends AbstractController
     }
 }
 
-$p = new Product();
-$p->add(
-    'a',
-    'b', 
-    1, 
-    'img', 
-    5, 
-    null, 
-    [11, 13], 
-    ['xs' => 10, 's' => 11, 'm' => 12, 'l' => 13, 'xl' => 14, 'xxl' => 15]
-);
+// $p = new Product();
+// $p->add(
+//     'a',
+//     'b', 
+//     1, 
+//     'img', 
+//     5, 
+//     null, 
+//     [11, 13], 
+//     ['xs' => 10, 's' => 11, 'm' => 12, 'l' => 13, 'xl' => 14, 'xxl' => 15]
+// );
 // echo $p->checkSeason();
 // $test = $p->index();
 // var_dump($p->get(80));
