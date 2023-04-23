@@ -7,6 +7,11 @@ use PDO;
 
 class Category extends AbstractModel
 {
+    /**
+     * Insert category in database
+     * @param CategoryEntity $category Entity
+     * @return bool depending if request is successfull or not
+     */
     public function create(CategoryEntity $category)
     {
         $sql = 'INSERT INTO category (name, description) VALUES (:name, :description)';
@@ -19,6 +24,10 @@ class Category extends AbstractModel
         return $insert->execute();
     }
 
+    /**
+     * Find all id & names, doesn't select description to make request more performant
+     * @return array|false Category entities if request is successfull, else false
+     */
     public function findAll(): array|false
     {
         $sql = 'SELECT id, name FROM category';
