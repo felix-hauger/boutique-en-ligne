@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\Category as CategoryModel;
 
-class Category
+class Category extends AbstractController
 {
     public function getAll()
     {
