@@ -23,18 +23,22 @@ use App\Controller\Product;
 use App\Controller\Tag;
 
 if (isset($_POST['product-submit'])) {
-    $product_controller = new Product();
-
-    $product_controller->add(
-        $_POST['name'],
-        $_POST['description'],
-        $_POST['price'],
-        $_FILES['image'],
-        $_POST['category'],
-        null, // discount
-        $_POST['tags'],
-        $_POST['stock']
-    );
+    try {
+        $product_controller = new Product();
+    
+        $product_controller->add(
+            $_POST['name'],
+            $_POST['description'],
+            $_POST['price'],
+            $_FILES['image'],
+            $_POST['category'],
+            null, // discount
+            $_POST['tags'],
+            $_POST['stock']
+        );
+    } catch (Exception $e) {
+        $add_product_error = $e->getMessage();
+    }
 }
 
 ?>
