@@ -38,6 +38,13 @@ class Cart extends AbstractModel
         return $update->execute();
     }
 
+    /**
+     * * Overload AbstractModel::find(int $id)
+     * Use INNER JOIN to get infos from cart products
+     * @param int $id The cart id
+     * @return array|false Find all products linked to the cart with 
+     * the binding table cart_product, or false if request fails
+     */
     public function find(int $id): array|false
     {
         $sql = 'SELECT 
