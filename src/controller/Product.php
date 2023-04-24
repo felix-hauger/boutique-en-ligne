@@ -13,6 +13,8 @@ use Exception;
 
 class Product extends AbstractController
 {
+    const MAX_UPLOADED_FILE_NAME_LENGTH = 175;
+
     /**
      * @param int $id The product id
      * @return ProductEntity Product entity hydrated with product, stock, category & tags infos
@@ -101,7 +103,7 @@ class Product extends AbstractController
             $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product_image' . DIRECTORY_SEPARATOR;
 
             // Set product image parameter value to image path
-            $product_input['image'] = $image_path . $image['name'];
+            $product_input['image'] = $this->getImageFile($image, $image['name'], $image_path);
 
             // Hydrate Product entity with product parameters
             $product->hydrate($product_input);
@@ -138,7 +140,7 @@ class Product extends AbstractController
             // Commit changes if all databases queries are successfull
             $product_model->getPdo()->commit();
 
-            $this->getImageFile($image, $image['name'], $image_path);
+            // $this->getImageFile($image, $image['name'], $image_path);
 
         } catch (Exception $e) {
             //throw $th;
@@ -206,6 +208,26 @@ class Product extends AbstractController
     }
 
     /**
+     * Check if a file name is too long
+     * @param string $filename The uploaded file name
+     * @return bool Depending if the uploaded file name is too long or not
+     */
+    public function checkUploadedFileNameLength(string $filename): bool
+    {
+        return mb_strlen($filename, 'UTF-8') > Product::MAX_UPLOADED_FILE_NAME_LENGTH;
+    }
+
+    /**
+     * Check if a file name has only alphanumeric characters
+     * @param string $filename The uploaded file name
+     * @return bool Depending if the uploaded file match with the regex
+     */
+    public function checkUploadedFileName(string $filename): bool
+    {
+        return (bool) preg_match("`^[-0-9A-Z_\.]+$`i", $filename);
+    }
+
+    /**
      * Send image $file to $destination_path and return its $name concatenated with its extension
      * @param array $image_file Image file from $_FILES
      * @param string $name To rename the file
@@ -216,8 +238,10 @@ class Product extends AbstractController
         // Test if file exists and has no error
         if (isset($image_file) && $image_file['error'] === 0) {
 
-            // Limit image size
+            // var_dump($name);
+
             if ($image_file['size'] > 3000000) {
+                // Limit image size
                 throw new Exception('Taille maximum de l\'image : 3mo');
             } else {
                 // Get image extension
@@ -230,13 +254,9 @@ class Product extends AbstractController
                     // Set path to using $destination_path parameter with image name
                     $image_path = $destination_path . $name;
 
-                    // Init counter
-                    $count = 0;
-
                     // To make sure an existing file is not overwritten
                     while (file_exists($image_path)) {
-                        $count++;
-                        $image_path = $destination_path . rand() * time() . '_' . $count . '_' . $name;
+                        $image_path = $destination_path .  uniqid() . '_' . rand() . '_' . $name;
                     }
 
                     // Attempt to move image file to image folder
