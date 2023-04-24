@@ -1,14 +1,34 @@
 <?php
 
 namespace App\Model;
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use PDO;
 use App\Entity\Tag as TagEntity;
 
 class Tag extends AbstractModel
 {
-    public function findAllByProduct(int $product_id)
+    /**
+     * * Overload AbstractModel::findAll()
+     * Find all id & names, doesn't select description to make request more performant
+     * @param int $product_id The id of the product
+     * @return array of Tag entities, or false if request fails
+     */
+    public function findAll(): array|false
+    {
+        $sql = 'SELECT id, name FROM tag';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_CLASS, '\App\Entity\Tag');
+    }
+
+    /**
+     * @param int $product_id The id of the product
+     * @return array|false of Tag entities linked to the product with product_tag binding table, or false if request fails
+     */
+    public function findAllByProduct(int $product_id): array|false
     {
         $sql = 
             'SELECT tag.id, tag.name
@@ -26,7 +46,11 @@ class Tag extends AbstractModel
         return $select->fetchAll(PDO::FETCH_CLASS, '\App\Entity\Tag');
     }
 
-    public function create(TagEntity $tag)
+    /**
+     * @param App\Entity\Tag $tag Entity
+     * @return bool depending if request is successfull or not
+     */
+    public function create(TagEntity $tag): bool
     {
         $sql = 'INSERT INTO tag (name, description) VALUES (:name, :description)';
 
@@ -38,8 +62,3 @@ class Tag extends AbstractModel
         return $insert->execute();
     }
 }
-
-// $t = new Tag();
-
-// $t->findAllByProduct(6);
-// var_dump($t->findAllByProduct(6));

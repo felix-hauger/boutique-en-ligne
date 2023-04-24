@@ -78,9 +78,9 @@ class Product extends AbstractEntity
     protected array $_tags;
 
     /**
-     * @var Stock Entity storing product stock by size with its properties
+     * @var ?Stock Entity storing product stock by size with its properties
      */
-    protected Stock $_stock;
+    protected ?Stock $_stock;
 
     /**
      * Get the value of _id
@@ -337,7 +337,7 @@ class Product extends AbstractEntity
     /**
      * Get the value of _stock
      */
-    public function getStock(): Stock
+    public function getStock(): ?Stock
     {
         return $this->_stock;
     }
@@ -345,7 +345,7 @@ class Product extends AbstractEntity
     /**
      * Set the value of _stock
      */
-    public function setStock(Stock $_stock): self
+    public function setStock(?Stock $_stock): self
     {
         $this->_stock = $_stock;
 

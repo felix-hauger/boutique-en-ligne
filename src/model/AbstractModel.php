@@ -132,5 +132,13 @@ abstract class AbstractModel
 
         return $select->execute() ? $select->fetchColumn() : null;
     }
+
+    /**
+     * @return PDO $this->_pdo to get Database connection infos
+     */
+    public function getPdo()
+    {
+        return $this->_pdo;
+    }
 }
 
