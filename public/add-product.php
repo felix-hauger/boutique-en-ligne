@@ -124,11 +124,23 @@ if (isset($_POST['product-submit'])) {
 
             <fieldset id="product-stock">
                 <legend>Définir les stocks disponibles</legend>
+
+                <label for="xs">XS</label>
                 <input type="number" name="stock[xs]" id="xs" placeholder="xs" value="0">
+
+                <label for="s">S</label>
                 <input type="number" name="stock[s]" id="s" placeholder="s" value="0">
+
+                <label for="m">M</label>
                 <input type="number" name="stock[m]" id="m" placeholder="m" value="0">
+
+                <label for="l">L</label>
                 <input type="number" name="stock[l]" id="l" placeholder="l" value="0">
+
+                <label for="xl">XL</label>
                 <input type="number" name="stock[xl]" id="xl" placeholder="xl" value="0">
+
+                <label for="xxl">XXL</label>
                 <input type="number" name="stock[xxl]" id="xxl" placeholder="xxl" value="0">
             </fieldset>
 
