@@ -15,6 +15,8 @@ class Product extends AbstractController
 {
     const MAX_UPLOADED_FILE_NAME_LENGTH = 175;
 
+    private static $_max_uploaded_file_size = 3000000;
+
     /**
      * @param int $id The product id
      * @return ProductEntity Product entity hydrated with product, stock, category & tags infos
@@ -73,7 +75,7 @@ class Product extends AbstractController
      * @param array $tags The tags of the product
      * @param array $stock The product stock
      */
-    public function add(string $name, string $description, int $price, array $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
+    public function add(string $name, string $description, int $price, string $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
     {
         try {
             // Get arguments values in an array
@@ -98,12 +100,6 @@ class Product extends AbstractController
             //* Begin transaction to make sure all request
             //* are successfull before committing to the database
             $product_model->getPdo()->beginTransaction();
-
-            // Path for uploaded product images
-            $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product_image' . DIRECTORY_SEPARATOR;
-
-            // Set product image parameter value to image path
-            $product_input['image'] = $this->getImageFile($image, $image['name'], $image_path);
 
             // Hydrate Product entity with product parameters
             $product->hydrate($product_input);
@@ -138,13 +134,18 @@ class Product extends AbstractController
             }
 
             // Commit changes if all databases queries are successfull
-            $product_model->getPdo()->commit();
+            return $product_model->getPdo()->commit() ? $db_product_id : false;
 
             // $this->getImageFile($image, $image['name'], $image_path);
 
         } catch (Exception $e) {
             //throw $th;
             $product_model->getPdo()->rollBack();
+
+            // var_dump($image);
+
+            // unlink($image);
+
             echo $e->getMessage();
         }
     }
@@ -214,7 +215,7 @@ class Product extends AbstractController
      */
     public function checkUploadedFileNameLength(string $filename): bool
     {
-        return mb_strlen($filename, 'UTF-8') > Product::MAX_UPLOADED_FILE_NAME_LENGTH;
+        return mb_strlen($filename, 'UTF-8') <= Product::MAX_UPLOADED_FILE_NAME_LENGTH;
     }
 
     /**
@@ -228,21 +229,42 @@ class Product extends AbstractController
     }
 
     /**
+     * Check if a file name has only alphanumeric characters
+     * @param string $filename The uploaded file name
+     * @return bool Depending if the uploaded file match with the regex
+     */
+    public function checkUploadedFileSize(int $filesize): bool
+    {
+        return $filesize <= static::$_max_uploaded_file_size;
+    }
+
+    /**
      * Send image $file to $destination_path and return its $name concatenated with its extension
      * @param array $image_file Image file from $_FILES
      * @param string $name To rename the file
      * @param string $destination_path Define where the image is uploaded
      * @return string $image_name $name + image extension
      */
-    public function getImageFile(array $image_file, string $name, string $destination_path) {
+    public function getImageFile(array $image_file, string $destination_path) {
         // Test if file exists and has no error
         if (isset($image_file) && $image_file['error'] === 0) {
 
             // var_dump($name);
+            // var_dump($image_file);
 
-            if ($image_file['size'] > 3000000) {
+            $image_infos = pathinfo($image_file['name']);
+
+            $image_name = $image_infos['filename'];
+
+            if (!$this->checkUploadedFileNameLength($image_name)) {
+                // Limit image file name length
+                throw new Exception('Nom du fichier trop long. Longueur max : ' . Product::MAX_UPLOADED_FILE_NAME_LENGTH);
+            } elseif (!$this->checkUploadedFileName($image_name)) {
+                // Limit which characters image file name can contain
+                throw new Exception('Seuls des caractères alphanumériques sans accent et des tirets sont acceptés pour le nom de l\'image');
+            } elseif (!$this->checkUploadedFileSize($image_file['size'])) {
                 // Limit image size
-                throw new Exception('Taille maximum de l\'image : 3mo');
+                throw new Exception('Taille maximum de l\'image : ' . static::$_max_uploaded_file_size / 1000000 . 'mo');
             } else {
                 // Get image extension
                 $image_extension = pathinfo($image_file['name'], PATHINFO_EXTENSION);
@@ -252,11 +274,11 @@ class Product extends AbstractController
 
                 if (in_array($image_extension, $extensions_array)) {
                     // Set path to using $destination_path parameter with image name
-                    $image_path = $destination_path . $name;
+                    $image_path = $destination_path . $image_name . '.' . $image_extension;
 
                     // To make sure an existing file is not overwritten
                     while (file_exists($image_path)) {
-                        $image_path = $destination_path .  uniqid() . '_' . rand() . '_' . $name;
+                        $image_path = $destination_path .  uniqid() . '_' . rand() . '_' . $image_name . '.' . $image_extension;
                     }
 
                     // Attempt to move image file to image folder
@@ -279,6 +301,7 @@ class Product extends AbstractController
                 }
             }
         }
+        throw new Exception('Erreur dans le téléchargement de l\'image. Veuillez sélectionner un fichier de ' . static::$_max_uploaded_file_size / 1000000 . 'mo maximum, dont le nom comporte uniquement des caractères alphanumériques sans accent et des tirets, avec une extension d\'image correcte');
     }
 }
 

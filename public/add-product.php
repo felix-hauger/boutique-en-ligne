@@ -25,12 +25,23 @@ use App\Controller\Tag;
 if (isset($_POST['product-submit'])) {
     try {
         $product_controller = new Product();
-    
+
+        // Path for uploaded product images
+        $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product-image' . DIRECTORY_SEPARATOR;
+
+        // todo: upload image only if controller/Product::add() is successfull & vice versa
+        // Set product image parameter value to image path
+        $image = $product_controller->getImageFile($_FILES['image'], $image_path);
+
+        // var_dump($image);
+
+        // die();
+
         $product_controller->add(
             $_POST['name'],
             $_POST['description'],
             $_POST['price'],
-            $_FILES['image'],
+            $image,
             $_POST['category'],
             null, // discount
             $_POST['tags'],
@@ -38,6 +49,8 @@ if (isset($_POST['product-submit'])) {
         );
     } catch (Exception $e) {
         $add_product_error = $e->getMessage();
+
+        // echo $add_product_error;
     }
 }
 
