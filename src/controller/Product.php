@@ -75,7 +75,7 @@ class Product extends AbstractController
      * @param array $tags The tags of the product
      * @param array $stock The product stock
      */
-    public function add(string $name, string $description, int $price, string $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
+    public function addWithParams(string $name, string $description, int $price, string $image, int $category_id, ?int $discount_id = null, array $tags, array $stock)
     {
         try {
             // Get arguments values in an array
@@ -86,6 +86,8 @@ class Product extends AbstractController
 
             // Combine them into an associative array
             $product_input = array_combine($args_names, $args);
+            var_dump($product_input);
+            die();
 
             // Unset stock from product as it is useless
             // before product is inserted in database
@@ -142,11 +144,113 @@ class Product extends AbstractController
             //throw $th;
             $product_model->getPdo()->rollBack();
 
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function filterInputInt($value)
+    {
+        return filter_var($value, FILTER_VALIDATE_INT);
+    }
+
+    public function add()
+    {
+        // todo: upload image only if controller/Product::add() is successfull & vice versa
+        // Image destination path to use with Product::getImageFile($image_file, $destination_path)
+        $image_path = 'upload' . DIRECTORY_SEPARATOR . 'product-image' . DIRECTORY_SEPARATOR;
+
+        // Filter all post inputs
+        $product_input = [
+            'name' => filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'description' => filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'price' => filter_input(INPUT_POST, 'price', FILTER_VALIDATE_INT),
+            'image' => filter_var($this->getImageFile($_FILES['image'], $image_path), FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'category_id' => filter_input(INPUT_POST, 'category', FILTER_VALIDATE_INT),
+            'tags' => isset($_POST['tags']) ? array_map([$this, 'filterInputInt'], $_POST['tags']) : [],
+            'stock' => isset($_POST['stock']) ? array_map([$this, 'filterInputInt'], $_POST['stock']) : []
+        ];
+
+        // If an input is invalid throw Exception
+        foreach($product_input as $key => $value) {
+            if ($key !== 'tags') {
+                if ($key === 'stock') {
+                    foreach ($value as $k => $v) {
+                        // Handle each stock value
+                        if (!is_int($v)) {
+                            throw new Exception('Champ de stock ' . $k . ' invalide.');
+                        }
+                    }
+                } elseif (empty($value)) {
+                    throw new Exception('Champ ' . $key . ' invalide.');
+                }
+            }            
+        }
+
+        // die();
+        // var_dump(func_get_args());
+        try {
+
+            // Unset stock from product as it is useless
+            // before product is inserted in database
+            $stock = $product_input['stock'];
+            unset($product_input['stock']);
+
+            // Instanciate Product entity
+            $product = new ProductEntity();
+
+            // Instanciate Product model to insert data
+            $product_model = new ProductModel();
+
+            //* Begin transaction to make sure all request
+            //* are successfull before committing to the database
+            $product_model->getPdo()->beginTransaction();
+
+            // Hydrate Product entity with product parameters
+            $product->hydrate($product_input);
+
+            // Create product entry in database using Product entity as parameter
+            $product_model->create($product);
+
+            // Get last inserted id using AbstractModel $_pdo property
+            $db_product_id = $product_model->getPdo()->lastInsertId();
+
+            // Instanciate Stock entity
+            $stock_entity = new StockEntity();
+
+            // Hydrate stock entity
+            $stock_entity->hydrate($stock);
+
+            // Set product id to create Stock
+            $stock_entity->setProductId($db_product_id);
+
+            // Instanciate stock to insert data
+            $stock_model = new StockModel();
+
+            // Create stock entry in database using Stock entity as parameter
+            $stock_model->create($stock_entity);
+
+            // Instanciate ProductTag model to bind product & tags
+            $product_tag_model = new ProductTagModel();
+
+            foreach ($product_input['tags'] as $tag) {
+                // Create entries in product_tag using last inserted id & tag id
+                $product_tag_model->create($db_product_id, $tag);
+            }
+
+            // Commit changes if all databases queries are successfull
+            return $product_model->getPdo()->commit() ? $db_product_id : false;
+
+            // $this->getImageFile($image, $image['name'], $image_path);
+
+        } catch (Exception $e) {
+            //throw $th;
+            $product_model->getPdo()->rollBack();
+
             // var_dump($image);
 
             // unlink($image);
 
-            echo $e->getMessage();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -249,9 +353,6 @@ class Product extends AbstractController
         // Test if file exists and has no error
         if (isset($image_file) && $image_file['error'] === 0) {
 
-            // var_dump($name);
-            // var_dump($image_file);
-
             $image_infos = pathinfo($image_file['name']);
 
             $image_name = $image_infos['filename'];
@@ -267,7 +368,7 @@ class Product extends AbstractController
                 throw new Exception('Taille maximum de l\'image : ' . static::$_max_uploaded_file_size / 1000000 . 'mo');
             } else {
                 // Get image extension
-                $image_extension = pathinfo($image_file['name'], PATHINFO_EXTENSION);
+                $image_extension = $image_infos['extension'];
 
                 // Accepted extensions array
                 $extensions_array = ['png', 'gif', 'jpg', 'jpeg', 'webp'];
@@ -280,7 +381,6 @@ class Product extends AbstractController
                     while (file_exists($image_path)) {
                         $image_path = $destination_path .  uniqid() . '_' . rand() . '_' . $image_name . '.' . $image_extension;
                     }
-
                     // Attempt to move image file to image folder
                     if(move_uploaded_file($image_file['tmp_name'], $image_path)) {
                         // If successful, return image path to be stored in database and/or entity
