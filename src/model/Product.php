@@ -187,9 +187,27 @@ class Product extends AbstractModel
 
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function findAllByCart(int $cart_id)
+    {
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image
+            FROM product
+            INNER JOIN cart_product ON product.id = cart_product.product_id
+            INNER JOIN cart ON cart.id = cart_product.cart_id
+            WHERE cart.id = :cart_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
-$p = new Product();
+// $p = new Product();
+// var_dump($p->findAllByCart(1));
 // try {
 //     var_dump($p->findLastBySeasonName('ÉtÉ'));
 // } catch (Exception $e) {
