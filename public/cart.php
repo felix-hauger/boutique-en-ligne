@@ -1,9 +1,28 @@
 <?php
 
-?>
 
+
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+use App\Config\DbConnection;
+use App\Controller\Product;
+
+session_start();
+function GetProduct($product_id)
+{
+    $sql = "SELECT * FROM product WHERE id = " . $product_id;
+    $select = DbConnection::getPdo()->prepare($sql);
+    if ($select->execute()) {
+        $products = $select->fetch(\PDO::FETCH_ASSOC);
+        return $products;
+    }
+}
+
+$TOTAL = [];
+?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <!-- MetaData -->
     <meta charset="UTF-8">
@@ -29,34 +48,80 @@
 
     <!-- Scripts -->
     <script async src="includes/header.js"></script>
-    <script async src="scripts/index.js"></script>
-    <!-- slider de https://swiperjs.com/-->
-    <script async src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+    <script async src="scripts/product.js"></script>
 
     <title>Panier | Saisons à la mode</title>
 </head>
+
 <body>
 
     <?php require_once("includes/header.php") ?>
 
     <main>
         <section id="cart-items">
-            <?php for ($i = 0; $i < 10; $i++): ?>
-                <div class="cart-item">
-                    <p>Article <?= $i+1 ?></p>
-                    <div>Prix : 20 €</div>
-                </div>
-            <?php endfor ?>
-        
+            <table>
+                <?php
+                foreach ($_COOKIE as $key => $val) {
+                    // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
+                    list($checkCookie, $product_id, $size) = explode("_", $key);
+                    //pour etre sur que l'on récupere que les cookie de notre panier
+                    if ($checkCookie == "product") {
+                        //on récupere les info de l'article 
+                        $product = GetProduct($product_id);
+
+                        echo '<tr>';
+                        echo "<td class='Tdbg' rowspan='2' class='TdImage'><img class='imageCart' src='" . $product['image'] . "'></td>";
+                        echo "<td class='Tdbg' ><b>" . $product['name'] . "</b></td>";
+                        echo "<td class='Tdbg' >Taille : <b>" . $size . "</b></td>";
+                        echo "<td class='Tdbg' >Quantité : <b>" . $val . "</b></td>";
+
+                        if ($val > 1) {
+                            $Nprice = $product['price'] * $val;
+                            array_push($TOTAL, [$product['name'], $Nprice]);
+                            echo "<td class='Tdbg' ><b>" . $Nprice . "€</b><br>";
+                            echo "(" . $product['price'] . "€ x " . $val . ")";
+                            echo "</td>";
+                        } else {
+                            echo "<td class='Tdbg' ><b>" . $product['price'] . "€</b></td>";
+                            array_push($TOTAL, [$product['name'], $product['price']]);
+                        }
+
+                        echo '</tr>';
+
+                        echo '<tr>';
+                            echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
+                            echo "<td><button onclick='SupprimerCookie(\"".$key."\")'>Supprimer L'article</button></td>";
+                        echo '</tr>';
+
+
+                    }
+                }
+
+
+                ?>
+            </table>
         </section>
-    
+
         <section id="cart-action">
             <section id="cart-check">
+                <table>
+                    <?php foreach ($TOTAL as $T_array) {
+                        echo "<tr>";
 
+                        foreach ($T_array as $T_prix) {
+                            if (is_string($T_prix)) {
+                                echo "<td>" . $T_prix . "</td>";
+                            } else {
+                                echo "<td>" . $T_prix . "€</td>";
+                            }
+
+                        }
+                    } ?>
+                </table>
             </section>
-        
+
             <section id="cart-buttons">
-    
+                <button>Passer Commande</button>
             </section>
         </section>
     </main>
@@ -66,4 +131,5 @@
     <?php require_once("includes/footer.php") ?>
 
 </body>
+
 </html>
