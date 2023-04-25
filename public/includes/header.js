@@ -135,4 +135,37 @@ function CurrentSaison() {
     }
 }
 
+
+
+function CartCount(){
+    var myCookies = document.cookie;
+    var count=0
+    const cookies = myCookies.split('; ');
+
+    cookies.forEach(element => {
+        if(element.substring(0, 7)== "product"){
+            count++
+            function changeColor(){
+                document.getElementById("CartCount").style.color = 'orange';
+                document.getElementById("CartCount").classList.remove('fadein');
+              }
+
+              function fadeColor(){
+                document.getElementById("CartCount").style.color = 'var(--detail-color-)';
+                document.getElementById("CartCount").classList.add('fadein');
+              }
+
+              changeColor();
+              setTimeout(fadeColor, 500);
+        }
+       
+    })
+    if(count != 0){
+        document.getElementById('CartCount').innerHTML=count
+    }
+
+
+}
+
 CurrentSaison()
+CartCount()

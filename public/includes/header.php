@@ -1,4 +1,5 @@
-<?php $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];?>
+<?php $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+?>
 <body>
     <header id="WideScreenView">
         <div>
@@ -21,6 +22,7 @@
                 echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
+            <span title="Nombre d'artcile dans le panier" id="CartCount"></span>
             <a title="Votre Panier" href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>
