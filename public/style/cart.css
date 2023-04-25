@@ -5,21 +5,32 @@ main {
 }
 
 #cart-items {
-    width:60%;
-  
+    width: 60%;
+
 }
 
 #cart-action {
-    position: sticky;
-    width: 25%; 
-    height: 500px;
+    position: relative;
+    width: 25%;
+    height: 50vh;
     border: 3px solid black;
+    font-size: 1.2em;
 }
 
-#cart-buttons{
-  width: 100%;
+#cart-buttons {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
 }
-#cart-buttons button{
+
+#Total {
+    text-align: center;
+    font-size: 2em;
+}
+
+#cart-buttons button {
     background-color: red;
     border-style: none;
     width: 100%;
@@ -29,44 +40,73 @@ main {
 }
 
 
-#cart-items table{
+#cart-items table {
     width: 100%;
     border-collapse: collapse;
     font-size: 1.5em;
     border: 4px solid black;
 }
-#cart-items  td {
-    border: 3px solid ;
+
+#cart-items td {
+    border: 3px solid;
     text-align: center;
     vertical-align: middle;
     border-color: var(--detail-color) rgba(0, 0, 0, 0);
 
 }
-#cart-items .TdImage{
+
+#cart-items .TdImage {
     width: min-content;
 }
 
-#cart-items .TdDesc{
-   font-size: 0.75em;
-   padding: 0;
-   margin: 0;
+#cart-items .TdDesc {
+    font-size: 0.75em;
+    padding: 0;
+    margin: 0;
 }
 
-#cart-items .imageCart{
+#cart-items .imageCart {
     width: 10vw;
 }
-#cart-items .Tdbg{
+
+#cart-items .Tdbg {
     height: 5vw;
     background-color: var(--bg-color);
 }
 
-#cart-action table{
+#cart-action table {
     width: 100%;
     font-size: 1.5em;
     border-collapse: collapse;
 }
 
-#cart-action td{
-   border: 2px solid black;
+#cart-action td {
+    border: 2px solid black;
 
+}
+
+.BtSuppCookie {
+    width: 7vw;
+    padding: 5%;
+    background-color: rgb(255, 205, 112);
+    border-style: none;
+    border-radius: 10px;
+}
+
+.TOTALNom {
+    text-align: left;
+}
+
+.TOTALPrix {
+    text-align: center;
+}
+
+.RowTOTAL {
+    height: 7vh;
+}
+
+#cart-check{
+    height: 65%;
+    flex-wrap: wrap;
+    overflow-y: scroll;
 }

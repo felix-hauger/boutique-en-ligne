@@ -62,11 +62,11 @@ $TOTAL = [];
             <table>
                 <?php
                 foreach ($_COOKIE as $key => $val) {
-                    if (substr($key,0,7) == "product"){
-                    // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
-                    list($ignore, $product_id, $size) = explode("_", $key);
-                    //pour etre sur que l'on récupere que les cookie de notre panier
-                   
+                    if (substr($key, 0, 7) == "product") {
+                        // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
+                        list($ignore, $product_id, $size) = explode("_", $key);
+                        //pour etre sur que l'on récupere que les cookie de notre panier
+                
                         //on récupere les info de l'article 
                         $product = GetProduct($product_id);
 
@@ -90,8 +90,8 @@ $TOTAL = [];
                         echo '</tr>';
 
                         echo '<tr>';
-                            echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
-                            echo "<td><button onclick='SupprimerCookie(\"".$key."\")'>Supprimer L'article</button></td>";
+                        echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
+                        echo "<td class='BoxBtSuppCookie'><button class='BtSuppCookie' onclick='SupprimerCookie(\"" . $key . "\")'>Supprimer L'article</button></td>";
                         echo '</tr>';
 
 
@@ -106,22 +106,32 @@ $TOTAL = [];
         <section id="cart-action">
             <section id="cart-check">
                 <table>
-                    <?php foreach ($TOTAL as $T_array) {
+                    <td><b>Nom : </b></td><td><b>Prix : </b></td>
+                    <?php
+
+                    foreach ($TOTAL as $T_Subarray) {
                         echo "<tr>";
 
-                        foreach ($T_array as $T_prix) {
-                            if (is_string($T_prix)) {
-                                echo "<td>" . $T_prix . "</td>";
-                            } else {
-                                echo "<td>" . $T_prix . "€</td>";
+                        foreach ($T_Subarray as $elements) {
+                            //si l'élément récupéré est une string ( nom du produit )
+                            if (is_string($elements)) {
+                                echo "<td class='TOTALNom'>" . $elements . "</td>";
+                            } 
+                            //sinon c'est un int ( prix du produit)
+                            else {
+                                echo "<td class='TOTALPrix'>" . $elements . "€</td>";
+                                $PRIX_TOTAL=$PRIX_TOTAL+$elements;
                             }
 
                         }
-                    } ?>
+                    } 
+                    ?>
                 </table>
+               
             </section>
-
+           
             <section id="cart-buttons">
+                <div id="Total"><b>TOTAL : <?=$PRIX_TOTAL?>€</b></div><br>
                 <button>Passer Commande</button>
             </section>
         </section>
