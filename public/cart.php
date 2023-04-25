@@ -62,10 +62,11 @@ $TOTAL = [];
             <table>
                 <?php
                 foreach ($_COOKIE as $key => $val) {
+                    if (substr($key,0,7) == "product"){
                     // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
-                    list($checkCookie, $product_id, $size) = explode("_", $key);
+                    list($ignore, $product_id, $size) = explode("_", $key);
                     //pour etre sur que l'on récupere que les cookie de notre panier
-                    if ($checkCookie == "product") {
+                   
                         //on récupere les info de l'article 
                         $product = GetProduct($product_id);
 
