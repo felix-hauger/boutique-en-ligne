@@ -28,15 +28,16 @@ function SizeSelected(size, stock) {
 
 function Cookie(id_produit) {
     quantity = document.getElementById("InputQuantity").value
-    product = 'product' + '_' + id_produit + '_' + Size;
-    console.log(product, quantity)
-    document.cookie = product + " = " + quantity + ";expires=Fri, 31 Dec 9999 23:59:59 GMT"
+    if (typeof (Size) != "undefined") {
+        product = 'product' + '_' + id_produit + '_' + Size;
 
+        document.cookie = product + " = " + quantity + ";expires=Fri, 31 Dec 9999 23:59:59 GMT"
+    }
 }
 
 function SupprimerCookie(cookie) {
     console.log(cookie)
     //Supprime le cookie en lui passant une date d'expiration passée
-    document.cookie = cookie+'=; expires=Thu, 01 Jan 1970 00:00:00 UTC'
-    document.location.href="cart.php"; 
+    document.cookie = cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC'
+    document.location.href = "cart.php";
 }
