@@ -111,7 +111,7 @@ class Product extends AbstractModel
      */
     public function findBestSelling(): ?array
     {
-        $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 120) AS preview, price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
 
         $select = $this->_pdo->prepare($sql);
 
@@ -123,7 +123,7 @@ class Product extends AbstractModel
      */
     public function findLastAdded(): ?array
     {
-        $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 120) AS preview, price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
 
         $select = $this->_pdo->prepare($sql);
 
@@ -151,7 +151,7 @@ class Product extends AbstractModel
             throw new Exception('Veuillez entrer une saison valide (' . $season_string . ').');
         }
 
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image, created_at, quantity_sold
             FROM product
             INNER JOIN product_tag ON product.id = product_tag.product_id
             INNER JOIN tag ON tag.id = product_tag.tag_id
@@ -172,7 +172,7 @@ class Product extends AbstractModel
      */
     public function findAllByTag(int $tag_id): array|false
     {
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold,
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image, created_at, quantity_sold,
             tag.name, tag.description
             FROM product
             INNER JOIN product_tag ON product.id = product_tag.product_id
@@ -188,9 +188,13 @@ class Product extends AbstractModel
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $cart_id The cart id
+     * @return array|false Array of database rows if query is successfully executed
+     */
     public function findAllByCart(int $cart_id)
     {
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image
             FROM product
             INNER JOIN cart_product ON product.id = cart_product.product_id
             INNER JOIN cart ON cart.id = cart_product.cart_id
