@@ -4,6 +4,8 @@ namespace App\Model;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use PDO;
+
 class Cart extends AbstractModel
 {
     /**
@@ -60,14 +62,38 @@ class Cart extends AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        $select->bindParam(':id', $id, \PDO::PARAM_INT);
+        $select->bindParam(':id', $id, PDO::PARAM_INT);
 
         $select->execute();
 
-        return $select->fetchAll(\PDO::FETCH_ASSOC);
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Use INNER JOIN to get infos from cart products
+     * @param int $user_id The id of the cart owner
+     * @return array|false Find all products linked to the cart with 
+     * the binding table cart_product, or false if request fails
+     */
+    public function findByUser(int $user_id)
+    {
+        $sql = 
+            'SELECT 
+            id, created_at, updated_at, total_amount, user_id
+            FROM cart
+            WHERE user_id = :user_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetch(PDO::FETCH_ASSOC);
     }
 }
 
-// $cart = new Cart();
+$cart = new Cart();
 
 // var_dump($cart->find(1));
+var_dump($cart->findByUser(1));
