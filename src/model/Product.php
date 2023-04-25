@@ -11,7 +11,7 @@ class Product extends AbstractModel
 {
     /**
      * Insert user in database
-     * @param App\Entity\User $user Entity
+     * @param App\Entity\Product $product Entity
      * @return bool depending if request is successfull or not
      */
     public function create(\App\Entity\Product $product): bool
@@ -63,11 +63,10 @@ class Product extends AbstractModel
     }
 
     /**
-     * overload AbstractMethod::find() method
      * @param int $id The product id
      * @return array|false Array of database rows if query is successfully executed
      */
-    public function find(int $id): array|false
+    public function findWithCategory(int $id): array|false
     {
         if (!$this->isInDb($id)) {
             throw new Exception('Produit introuvable.');
