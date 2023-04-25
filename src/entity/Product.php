@@ -73,6 +73,11 @@ class Product extends AbstractEntity
     protected string $_category_name;
 
     /**
+     * @var string Description excerpt
+     */
+    protected string $_preview;
+
+    /**
      * @var array Store product tags
      */
     protected array $_tags;
@@ -348,6 +353,24 @@ class Product extends AbstractEntity
     public function setStock(?Stock $_stock): self
     {
         $this->_stock = $_stock;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _preview
+     */
+    public function getPreview(): string
+    {
+        return $this->_preview;
+    }
+
+    /**
+     * Set the value of _preview
+     */
+    public function setPreview(string $_preview): self
+    {
+        $this->_preview = $_preview;
 
         return $this;
     }
