@@ -41,35 +41,6 @@ class Cart extends AbstractModel
     }
 
     /**
-     * * Overload AbstractModel::find(int $id)
-     * Use INNER JOIN to get infos from cart products
-     * @param int $id The cart id
-     * @return array|false Find all products linked to the cart with 
-     * the binding table cart_product, or false if request fails
-     */
-    public function find(int $id): array|false
-    {
-        $sql = 'SELECT 
-            cart.id, cart.created_at, cart.updated_at, cart.total_amount, 
-            cart_product.quantity, 
-            product.id, product.name, SUBSTRING(product.description, 0, 120) AS overview, product.image, product.price, 
-            category.name AS category
-            FROM cart
-            INNER JOIN cart_product ON cart.id = cart_product.cart_id
-            INNER JOIN product ON product.id = cart_product.product_id
-            INNER JOIN category ON category.id = product.category_id
-            WHERE cart.id = :id';
-
-        $select = $this->_pdo->prepare($sql);
-
-        $select->bindParam(':id', $id, PDO::PARAM_INT);
-
-        $select->execute();
-
-        return $select->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Use INNER JOIN to get infos from cart products
      * @param int $user_id The id of the cart owner
      * @return array|false Find all products linked to the cart with 
@@ -93,7 +64,7 @@ class Cart extends AbstractModel
     }
 }
 
-$cart = new Cart();
+// $cart = new Cart();
 
-// var_dump($cart->find(1));
-var_dump($cart->findByUser(1));
+// // var_dump($cart->find(1));
+// var_dump($cart->findByUser(1));
