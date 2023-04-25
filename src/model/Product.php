@@ -206,7 +206,7 @@ class Product extends AbstractModel
 
         $select->execute();
 
-        return $select->fetchAll(PDO::FETCH_ASSOC);
+        return $select->fetchAll(PDO::FETCH_CLASS, '\\App\\Entity\\Product');
     }
 }
 

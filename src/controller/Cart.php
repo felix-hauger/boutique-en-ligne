@@ -30,7 +30,7 @@ class Cart extends AbstractController
         // Instanciate Product model to retrieve cart products data
         $product_model = new ProductModel();
 
-        // Store in cart infos cart products data, using retrieved cart id
+        // Store in cart infos cart Product entities containing product data, using retrieved cart id
         $cart_infos['items'] = $product_model->findAllByCart($cart_infos['id']);
 
         // Instanciate Cart entity to hydrate
