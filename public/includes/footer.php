@@ -4,13 +4,13 @@
 
          <ul>
             <a href="index.php">4-Saisons </a><br>
-            <a href="index.php">Boutique </a><br>
-            <a href="index.php">Panier </a><br>
+            <a href="Boutique.php">Boutique </a><br>
+            <a href="cart.php">Panier </a><br>
          </ul>
 
          <ul>
             <a href="index.php">Saisons </a><br>
-            <a href="index.php">Profil </a><br>
+            <a href="user.php">Profil </a><br>
             <a href="index.php">Nouveautés </a><br>
          </ul>
       </div>
@@ -23,8 +23,8 @@
       </div>
 
       <div id="boxMentionLégales">
-         <a href="index.php"> Conditions générales de vente</a>
-         <a href="index.php"> Mentions Légales</a>
+         <a href="https://www.youtube.com/watch?v=M5V_IXMewl4&ab_channel=TheBest10HourVideos"> Conditions générales de vente</a>
+         <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=Duran"> Mentions Légales</a>
       </div>
 
       </div>
