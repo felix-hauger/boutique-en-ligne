@@ -187,6 +187,18 @@ class Product extends AbstractModel
 
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function findAllPreview(): array|false
+    {
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 100) as preview, price, created_at, quantity_sold FROM product';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 $p = new Product();
