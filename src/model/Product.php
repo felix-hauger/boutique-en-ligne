@@ -11,7 +11,7 @@ class Product extends AbstractModel
 {
     /**
      * Insert user in database
-     * @param App\Entity\User $user Entity
+     * @param App\Entity\Product $product Entity
      * @return bool depending if request is successfull or not
      */
     public function create(\App\Entity\Product $product): bool
@@ -63,11 +63,10 @@ class Product extends AbstractModel
     }
 
     /**
-     * overload AbstractMethod::find() method
      * @param int $id The product id
      * @return array|false Array of database rows if query is successfully executed
      */
-    public function find(int $id): array|false
+    public function findWithCategory(int $id): array|false
     {
         if (!$this->isInDb($id)) {
             throw new Exception('Produit introuvable.');
@@ -111,7 +110,7 @@ class Product extends AbstractModel
      */
     public function findBestSelling(): ?array
     {
-        $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 120) AS preview, price, image, created_at, quantity_sold FROM product ORDER BY quantity_sold DESC LIMIT 10';
 
         $select = $this->_pdo->prepare($sql);
 
@@ -123,7 +122,7 @@ class Product extends AbstractModel
      */
     public function findLastAdded(): ?array
     {
-        $sql = 'SELECT id, name, SUBSTRING(description, 0, 120), price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 120) AS preview, price, image, created_at, quantity_sold FROM product ORDER BY created_at DESC LIMIT 10';
 
         $select = $this->_pdo->prepare($sql);
 
@@ -151,7 +150,7 @@ class Product extends AbstractModel
             throw new Exception('Veuillez entrer une saison valide (' . $season_string . ').');
         }
 
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image, created_at, quantity_sold
             FROM product
             INNER JOIN product_tag ON product.id = product_tag.product_id
             INNER JOIN tag ON tag.id = product_tag.tag_id
@@ -172,7 +171,7 @@ class Product extends AbstractModel
      */
     public function findAllByTag(int $tag_id): array|false
     {
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 0, 120), price, image, created_at, quantity_sold,
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image, created_at, quantity_sold,
             tag.name, tag.description
             FROM product
             INNER JOIN product_tag ON product.id = product_tag.product_id
@@ -188,6 +187,30 @@ class Product extends AbstractModel
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $cart_id The cart id
+     * @return array|false Array of database rows if query is successfully executed
+     */
+    public function findAllByCart(int $cart_id)
+    {
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image
+            FROM product
+            INNER JOIN cart_product ON product.id = cart_product.product_id
+            INNER JOIN cart ON cart.id = cart_product.cart_id
+            WHERE cart.id = :cart_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_CLASS, '\\App\\Entity\\Product');
+    }
+
+    /**
+     * @return array|false Products with description excerpt
+     */
     public function findAllPreview(): array|false
     {
         $sql = 'SELECT id, name, SUBSTRING(description, 1, 100) as preview, price, created_at, quantity_sold FROM product';
@@ -201,7 +224,8 @@ class Product extends AbstractModel
 
 }
 
-$p = new Product();
+// $p = new Product();
+// var_dump($p->findAllByCart(1));
 // try {
 //     var_dump($p->findLastBySeasonName('ÉtÉ'));
 // } catch (Exception $e) {
