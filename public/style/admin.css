@@ -62,6 +62,8 @@ h1 {
 }
 
 td {
+    height: 5vh;
+    font-size: 1.2em;
     border: 1px solid var(--detail-color);
     text-align: center;
     vertical-align: middle;
@@ -77,4 +79,24 @@ td button {
 .Supprimer {
     background-color: #ff4040;
     border-style: none;
+}
+#BoxButton{
+    text-align: center;
+}
+#AddButton{
+    margin-bottom: 5%;
+    padding: 1% 2%;
+    font-size: 1.5em;
+    background-color: var(--bg-color);
+}
+.Desc{
+    height: 5vh;
+    background-color: var(--bg-color);
+}
+
+.description{
+    height: 5vh;
+    width: 30vw;
+    padding: 0 3%;
+    overflow: hidden;
 }

@@ -1,38 +1,39 @@
 <?php
-
-
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+use App\Controller\Admin;
 
-use App\Config\DbConnection;
+$admin = new Admin;
+$products=$admin->getAllInfoPreview();
+
+echo '<div id="BoxButton" onclick="RedirectAddProduct()"><button id="AddButton">Ajouter un article</button></div>';
 
 
-$sql = "SELECT * FROM product";
-$select = DbConnection::getPdo()->prepare($sql);
-if ($select->execute()) {
-    $products = $select->fetchall(\PDO::FETCH_ASSOC);
-}
 echo '<table class="TBAffichage">';
-
+echo '<tr class="Desc"><td><b>Produit : </b></td><td><b>Description : </b></td><td><b>&emsp;Prix : &emsp;</b></td><td><b>Quantité vendue : </b></td><td colspan="2"><b>Commandes </b></td></tr>';
 foreach ($products as $product) {
 
 
     echo '<tr>';
     echo '<td>';
-    echo 'Produit : ' . $product['name'];
+    echo $product['name'];
+    echo '</td>';
+
+    echo '<td class="description">';
+    echo $product['preview']." ...";
     echo '</td>';
 
     echo '<td>';
-    echo 'Prix : ' . $product['price'];
+    echo $product['price'].' €';
     echo '</td>';
 
 
     echo '<td>';
-    echo 'E-Mail : ' . $product['quantity_sold'];
+    echo $product['quantity_sold'];
     echo '</td>';
 
    
     echo '<td><button>modifier l\'Article</button></td>';
-    echo '<td><button class="Supprimer">Supprimer l\'user</button></td>';
+    echo '<td><button class="Supprimer">Supprimer l\'article</button></td>';
 
 
 }

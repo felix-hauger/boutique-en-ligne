@@ -3,41 +3,43 @@
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use App\Config\DbConnection;
+use App\Controller\User;
+
+$Users = new User;
+$users=$Users->getAllInfo();
 
 
-$sql = "SELECT * FROM user";
-$select = DbConnection::getPdo()->prepare($sql);
-if ($select->execute()) {
-    $users = $select->fetchall(\PDO::FETCH_ASSOC);
-}
 echo '<table class="TBAffichage">';
-
+echo '<tr class="Desc"><td><b>Utilisateur : </b></td><td><b>&ensp;Id :&ensp;</b></td><td><b>Nom : </b></td><td><b>Prénom : </b></td><td><b>E-Mail : </b></td><td><b>Role : </b></td><td colspan="3"><b>Commandes </b></td></tr>';
 foreach ($users as $user) {
 
 
     echo '<tr>';
     echo '<td>';
-    echo 'Utilisateur : ' . $user['login'];
+    echo $user['login'];
     echo '</td>';
 
     echo '<td>';
-    echo 'Nom : ' . $user['lastname'];
+    echo $user['id'];
     echo '</td>';
 
     echo '<td>';
-    echo 'Prénom : ' . $user['firstname'];
+    echo $user['lastname'];
     echo '</td>';
 
     echo '<td>';
-    echo 'E-Mail : ' . $user['email'];
+    echo $user['firstname'];
+    echo '</td>';
+
+    echo '<td>';
+    echo $user['email'];
     echo '</td>';
 
     echo '<td>';
     if ($user['role_id'] == 1) {
-        echo 'Role : <b>Admin</b>';
+        echo '<b>Admin</b>';
     } else if ($user['role_id'] == 2) {
-        echo 'Role : <b>User</b>';
+        echo '<b>User</b>';
     }
     echo '</td>';
 
