@@ -52,6 +52,13 @@ class Admin extends User
     {
     }
 
+    public function getAllInfoPreview()
+    {
+        $product_model = new ProductModel();
+        return $product_model->findAllPreview();
+       
+    }
+
     public function addTagToProduct(int $product_id, int $tag_id)
     {
         $product_tag_model = new ProductTagModel();

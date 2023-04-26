@@ -20,5 +20,6 @@ function FetchContent(page){
         console.warn('Something went wrong.', err);
     });
 }
-
-
+function RedirectAddProduct(){
+    window.location="add-product.php"
+}

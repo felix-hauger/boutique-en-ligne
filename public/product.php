@@ -43,7 +43,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
 
     } catch (Exception $e) {
         http_response_code(404);
-        die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');
+        die('<div style="text-align:center;margin-top:5%"><h1>' . $e->getMessage() .'&ensp; :\'(</h1><p>Le produit que vous cherchez n\'existe pas, ou plus</p><br><a style="font-size:1.5em" href="index.php">Retour à l\'accueil</a><br><img style="margin-top:5%;opacity: 0.07;" src="https://art.pixilart.com/b416025df4c07f8.gif">');
     }
 } else {
     http_response_code(404);

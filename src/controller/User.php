@@ -112,6 +112,14 @@ class User extends AbstractController
         throw new \Exception('identifiants incorrects');
     }
 
+
+    public function getAllInfo()
+    {
+        $product_model = new UserModel();
+        return $product_model->findAll();
+       
+    }
+
     public function checkPasswordStrength(string $password) {
         // check if password is powerful enough with regex
     }

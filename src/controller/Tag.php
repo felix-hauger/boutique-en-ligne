@@ -12,4 +12,12 @@ class Tag extends AbstractController
 
         return $category_model->findAll();
     }
+
+
+    public function getAllPreview()
+    {
+        $category_model = new TagModel();
+
+        return $category_model->findAllPreview();
+    }
 }

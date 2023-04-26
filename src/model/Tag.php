@@ -24,6 +24,17 @@ class Tag extends AbstractModel
         return $select->fetchAll(PDO::FETCH_CLASS, '\App\Entity\Tag');
     }
 
+    public function findAllPreview(): array|false
+    {
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 100) as preview FROM tag';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * @param int $product_id The id of the product
      * @return array|false of Tag entities linked to the product with product_tag binding table, or false if request fails

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use PDO;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -46,6 +47,16 @@ class User extends AbstractModel
         $update->bindValue(':id', $user->getId());
 
         return $update->execute();
+    }
+    public function getAllInfo()
+    {
+        $sql = 'SELECT * FROM user';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

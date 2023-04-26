@@ -17,8 +17,12 @@
                 if ($_SESSION['user']->getRoleId() === 1) {
                     echo '<i title="Changer le Theme" class="fa-solid fa-paint-roller" onclick="SetSaisons()"></i>&emsp;';
                     echo '<a title="Option D\'administration" href="admin.php"><i class="fa-solid fa-toolbox"></i></a>&emsp;';
-                }
-            } else {
+                    echo '<a title="Ajouter un Article" href="add-product.php"> <i class="fa-solid fa-file-circle-plus"></i></a>&emsp;';
+
+                }else if ($_SESSION['user']->getRoleId() === 3) {
+                    echo '<a title="Ajouter un Article" href="add-product.php"> <i class="fa-solid fa-file-circle-plus"></i></a>&emsp;';
+
+            }} else {
                 echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
