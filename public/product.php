@@ -1,26 +1,46 @@
 <?php
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
+
+use App\Controller\Cart;
+use App\Controller\Product;
+
+//session start apres l'autoload sinon bug lors de la connexion
+session_start();
+
+// Handle cart for logged user, in asynchronous javascript
+if (isset($_SESSION['user'])) {
+    // If all necessary inputs are send using fetch & FormData
+    if (isset($_POST['product_id']) && isset($_POST['product_quantity']) && isset($_POST['product_size'])) {
+        $cart_controller = new Cart();
+
+        // Add product to user cart, using logged user id
+        $cart_controller->addProductToUserCart(
+            $_SESSION['user']->getId(), 
+            $_POST['product_id'], 
+            $_POST['product_quantity'], 
+            $_POST['product_size']
+        );
+
+        // Stop code execution
+        die();
+    }
+}
+
 //check if an article is selected, if not the user will be redirected to index
 if (!isset($_GET['id'])) {
     header('Location: index.php');
     die();
 }
 
-
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
-
-use App\Config\DbConnection;
-use App\Controller\Product;
-
-//session start apres l'autoload sinon bug lors de la connexion
-session_start();
-
+// Test with regex if product id is an integer
 if (preg_match('/^\d+$/', $_GET['id'])) {
     try {
         $product_controller = new Product();
 
         // * RETURN PRODUCT ENTITY CONTAINING PRODUCT DATA
         $product = $product_controller->getPageInfos($_GET['id']);
+
     } catch (Exception $e) {
         http_response_code(404);
         die('<h1>' . $e->getMessage() . '</h1><a href="index.php">Retour à l\'accueil</a>');
@@ -98,10 +118,19 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     </div>
                 </div>
 
-                <div id="BtBox">
-                    <button class="BtPanier" id="Ajouter" onclick='Cookie(<?= $product->getId(); ?>)'>Ajouter au Panier</button><br>
-                    <button class="BtPanier" id="Acheter">Acheter cet article</button>
-                </div>
+                <form id="BtBox">
+                    <?php if (isset($_SESSION['user'])): ?>
+
+                        <button class="BtPanier" id="AddLogged" value="<?= $product->getId(); ?>" >Ajouter au Panier</button><br>
+                        <button class="BtPanier" id="BuyLogged">Acheter cet article</button>
+
+                    <?php else: ?>
+
+                        <button class="BtPanier" id="AddNotLogged"onclick='Cookie(<?= $product->getId(); ?>)'>Ajouter au Panier</button><br>
+                        <button class="BtPanier" id="BuyNotLogged">Acheter cet article</button>
+
+                    <?php endif ?>
+                </form>
             </div>
 
             <div id="QuantityBox">
