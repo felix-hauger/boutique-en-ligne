@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-// require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Entity\Cart as CartEntity;
 use App\Model\Cart as CartModel;
+use App\Model\CartProduct;
 use App\Model\Product as ProductModel;
+use App\Model\User;
 
 class Cart extends AbstractController
 {
@@ -42,8 +44,21 @@ class Cart extends AbstractController
         // We can use Cart entity setters, getters & hydrate on it
         return $cart_entity;
     }
+
+    public function addProductToUserCart($user_id, $product_id, $quantity, $size)
+    {
+        $cart_product = new CartProduct();
+
+        $cart_model = new CartModel();
+
+        $cart_id = $cart_model->findIdWithField('user_id', $user_id);
+
+        $cart_product->create($cart_id, $product_id, $quantity, $size);
+    }
 }
 
 // $c = new Cart();
 
-// var_dump($c->getByUser(1));
+// // var_dump($c->getByUser(1));
+
+// $c->addProductToUserCart(1, 8, 2, 'xl');
