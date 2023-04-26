@@ -65,9 +65,8 @@ main {
 }
 
 #cart-items .imageCart {
-    width: 10vw;
+    width: min-content;
     height:25vh;
-    object-fit:fill;
 }
 
 #cart-items .Tdbg {
