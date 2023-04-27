@@ -19,7 +19,7 @@ class Product extends AbstractEntity
     /**
      * @var string The slug of the product to create URI
      */
-    protected string $_slug;
+    protected ?string $_slug = null;
     
     /**
      * @var string The description of the product
@@ -126,7 +126,7 @@ class Product extends AbstractEntity
     /**
      * Get the value of _slug
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->_slug;
     }
@@ -134,7 +134,7 @@ class Product extends AbstractEntity
     /**
      * Set the value of _slug
      */
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->_slug = $slug;
 
