@@ -1,5 +1,5 @@
-var Stock
-var Size
+let Stock
+let Size
 
 function InputQuantityAdd() {
 

@@ -1,5 +1,5 @@
-var page
-var users
+let page
+let users
 
 $("#CPbuttons button").on('click', function(){
     $('button').removeClass('selected');
