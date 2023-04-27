@@ -1,5 +1,5 @@
-var Stock;
-var Size;
+let Stock
+let Size
 
 const productButtons = document.querySelector('#BtBox');
 
@@ -12,6 +12,7 @@ const BuyLogged = document.querySelector('#BuyLogged');
 productButtons.addEventListener('submit', (ev) => {
     ev.preventDefault();
 });
+
 
 function InputQuantityAdd() {
 
