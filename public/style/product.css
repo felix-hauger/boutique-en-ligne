@@ -57,11 +57,7 @@ main {
     margin-top: 5%;
 }
 
-#Ajouter:hover {
-    background-color: var(--hover-color);
-}
-
-#Acheter:hover {
+.BtPanier:hover {
     background-color: var(--hover-color);
 }
 

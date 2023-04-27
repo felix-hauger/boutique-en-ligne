@@ -19,7 +19,7 @@ class Product extends AbstractEntity
     /**
      * @var string The slug of the product to create URI
      */
-    protected string $_slug;
+    protected ?string $_slug = null;
     
     /**
      * @var string The description of the product
@@ -73,6 +73,11 @@ class Product extends AbstractEntity
     protected string $_category_name;
 
     /**
+     * @var string Description excerpt
+     */
+    protected string $_preview;
+
+    /**
      * @var array Store product tags
      */
     protected array $_tags;
@@ -121,7 +126,7 @@ class Product extends AbstractEntity
     /**
      * Get the value of _slug
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->_slug;
     }
@@ -129,7 +134,7 @@ class Product extends AbstractEntity
     /**
      * Set the value of _slug
      */
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->_slug = $slug;
 
@@ -348,6 +353,24 @@ class Product extends AbstractEntity
     public function setStock(?Stock $_stock): self
     {
         $this->_stock = $_stock;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _preview
+     */
+    public function getPreview(): string
+    {
+        return $this->_preview;
+    }
+
+    /**
+     * Set the value of _preview
+     */
+    public function setPreview(string $_preview): self
+    {
+        $this->_preview = $_preview;
 
         return $this;
     }

@@ -28,7 +28,7 @@ class Product extends AbstractController
             $product_model = new ProductModel();
 
             // Fetch product infos in associative array
-            $db_product = $product_model->find($id);
+            $db_product = $product_model->findWithCategory($id);
 
             // Instanciate Product entity
             $product_entity = new ProductEntity();
@@ -53,6 +53,8 @@ class Product extends AbstractController
 
             // Hydrate product entity with retrieved product data
             $product_entity->hydrate($db_product);
+
+           
 
             // Add product tags & stocks
             $product_entity
@@ -142,7 +144,7 @@ class Product extends AbstractController
 
         } catch (Exception $e) {
             //throw $th;
-            $product_model->getPdo()->rollBack();
+            //$product_model->getPdo()->rollBack();
 
             throw new Exception($e->getMessage());
         }

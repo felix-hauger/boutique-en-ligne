@@ -1,0 +1,70 @@
+main{
+    width: 100%;
+}
+#UpperBox{
+    height: 40vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 5%
+}
+
+#ImageSelect{
+    padding:2% 5%;
+    width :30%;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
+}
+
+#ArticleInfo{
+    padding:2% 5%;
+    width: 30%;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
+}
+
+#LowerBox{
+    width: 100%;
+    margin-bottom: 5%
+}
+
+.inputs{
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+#description{
+    height: 50%;
+}
+#selectedImage{
+    height: 80%;
+    object-fit:contain;
+    overflow-y: hidden;
+}
+
+#product-tags{
+    margin-bottom: 2%;
+}
+
+.BtSubmit{
+ width: 20%;
+ height: 5vh;
+ font-size: 1.5em;
+}
+
+#BTbox{
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+}
+
+#add-product-form-msg{
+    color: red;
+    text-align: center;
+    margin-top: 2%
+}

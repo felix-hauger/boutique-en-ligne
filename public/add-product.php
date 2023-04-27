@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
     http_response_code(403);
     header('Location: index.php');
     die();
-} elseif ($_SESSION['user']->getRoleId() !== 1) {
+} elseif ($_SESSION['user']->getRoleId() == 2) {
     http_response_code(403);
     header('Location: index.php');
     die();
@@ -45,6 +45,7 @@ if (isset($_POST['product-submit'])) {
     <!-- CSS -->
     <link href="includes/header.css" rel="stylesheet" type="text/css" />
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
+    <link href="style/add-product.css" rel="stylesheet" type="text/css" />
 
     <!-- FontAwesome  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -58,6 +59,7 @@ if (isset($_POST['product-submit'])) {
 
     <!-- Scripts -->
     <script async src="includes/header.js"></script>
+    <script async src="scripts/add-product.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <title>Ajouter un nouvel article | Saisons à la mode</title>
@@ -70,87 +72,100 @@ if (isset($_POST['product-submit'])) {
     <main>
 
         <form id="form" method="post" enctype="multipart/form-data">
-            <label class="LabelForm" for="name">Ajouter un nouvel article</label><br>
+            <h1>Ajouter un nouvel article</h1><br>
 
-            <!-- NAME -->
-            <input type="text" name="name" id="name" placeholder="Nom de l'article"><br>
+            <section id="UpperBox">
+                <div id="ImageSelect">
+                    <!-- IMAGE -->
+                    <label for="image">Image de l'article: </label><br>
+                    <input type="file" name="image" id="image"><br>
+                    <img id="selectedImage" src="" alt="Preview image" />
+                </div>
 
-            <!-- DESCRIPTION -->
-            <textarea name="description" id="description" placeholder="Description de l'article"></textarea><br>
+                <div id="ArticleInfo">
+                    <!-- NAME -->
+                    <input class="inputs" type="text" name="name" id="name" placeholder="Nom de l'article"><br>
 
-            <!-- PRICE -->
-            <input type="number" name="price" id="price" placeholder="Prix"><br>
+                    <!-- DESCRIPTION -->
+                    <textarea class="inputs" name="description" id="description" placeholder="Description de l'article"></textarea><br>
 
-            <!-- IMAGE -->
-            <label for="image">Image de l'article
-                <input type="file" name="image" id="image"><br>
-            </label><br />
+                    <!-- PRICE -->
+                    <input class="inputs" type="number" name="price" id="price" placeholder="Prix"><br>
 
-            <!-- CATEGORY -->
-            <select name="category" id="category">
-                <option value="">--- Catégorie ---</option>
+                    <!-- CATEGORY -->
+                    <select name="category" id="category">
+                        <option value="">--- Catégorie ---</option>
 
-                <?php
-                $category_controller = new Category();
+                        <?php
+                        $category_controller = new Category();
 
-                // Get all ids & names using model & PDO::FETCH_CLASS
-                // which return an array of Category entities
-                $categories = $category_controller->getAll();
+                        // Get all ids & names using model & PDO::FETCH_CLASS
+                        // which return an array of Category entities
+                        $categories = $category_controller->getAll();
 
-                // Display category names for user & use id to set category to product
-                foreach ($categories as $category) {
-                    echo '<option value="' . $category->getId() . '">' . $category->getName() . '</option>';
-                }
-                ?>
-            </select><br />
+                        // Display category names for user & use id to set category to product
+                        foreach ($categories as $category) {
+                            echo '<option value="' . $category->getId() . '">' . $category->getName() . '</option>';
+                        }
+                        ?>
+                    </select><br />
 
-            <!-- TAGS -->
-            <fieldset id="product-tags">
-                <legend>Tags</legend>
+                </div>
+            </section>
 
-                <?php
-                $tag_controller = new Tag();
+            <section id="LowerBox">
+                <!-- TAGS -->
+                <fieldset id="product-tags">
+                    <legend>Tags</legend>
 
-                // Get all ids & names using model & PDO::FETCH_CLASS
-                // which return an array of Category entities
-                $tags = $tag_controller->getAll();
+                    <?php
+                    $tag_controller = new Tag();
 
-                // Display checkbox to select Tags, "tags[]" convert them into an array
-                foreach ($tags as $tag) {
-                    echo '<label><input type="checkbox" name="tags[]" value="' . $tag->getId() . '">' . $tag->getName() . '</label>';
-                }
-                ?>
-            </fieldset>
+                    // Get all ids & names using model & PDO::FETCH_CLASS
+                    // which return an array of Category entities
+                    $tags = $tag_controller->getAll();
 
-            <fieldset id="product-stock">
-                <legend>Définir les stocks disponibles</legend>
+                    // Display checkbox to select Tags, "tags[]" convert them into an array
+                    foreach ($tags as $tag) {
+                        echo '<label><input type="checkbox" name="tags[]" value="' . $tag->getId() . '">' . $tag->getName() . '</label>';
+                    }
+                    ?>
+                </fieldset>
 
-                <label for="xs">XS</label>
-                <input type="number" name="stock[xs]" id="xs" placeholder="xs" value="0">
+                <fieldset id="product-stock">
+                    <legend>Définir les stocks disponibles</legend>
 
-                <label for="s">S</label>
-                <input type="number" name="stock[s]" id="s" placeholder="s" value="0">
+                    <label for="xs">XS</label>
+                    <input type="number" name="stock[xs]" id="xs" placeholder="xs" value="0">
 
-                <label for="m">M</label>
-                <input type="number" name="stock[m]" id="m" placeholder="m" value="0">
+                    <label for="s">S</label>
+                    <input type="number" name="stock[s]" id="s" placeholder="s" value="0">
 
-                <label for="l">L</label>
-                <input type="number" name="stock[l]" id="l" placeholder="l" value="0">
+                    <label for="m">M</label>
+                    <input type="number" name="stock[m]" id="m" placeholder="m" value="0">
 
-                <label for="xl">XL</label>
-                <input type="number" name="stock[xl]" id="xl" placeholder="xl" value="0">
+                    <label for="l">L</label>
+                    <input type="number" name="stock[l]" id="l" placeholder="l" value="0">
 
-                <label for="xxl">XXL</label>
-                <input type="number" name="stock[xxl]" id="xxl" placeholder="xxl" value="0">
-            </fieldset>
+                    <label for="xl">XL</label>
+                    <input type="number" name="stock[xl]" id="xl" placeholder="xl" value="0">
 
-            <input class="BtSubmit" type="submit" name="product-submit" value="Ajouter l'article au magasin">
-            
-            <div class="form-msg" id="add-product-form-msg">
-                <?php if (isset($add_product_error)): ?>
-                    <span class="msg-error"><?= $add_product_error ?></span>
-                <?php endif ?>
-            </div>
+                    <label for="xxl">XXL</label>
+                    <input type="number" name="stock[xxl]" id="xxl" placeholder="xxl" value="0">
+                </fieldset>
+
+                <div id="BTbox">
+                    <input class="BtSubmit" type="submit" name="product-submit" value="Ajouter l'article au magasin">
+                </div>
+
+                <div class="form-msg" id="add-product-form-msg">
+                    <?php if (isset($add_product_error)): ?>
+                        <span class="msg-error">
+                            <?= $add_product_error ?>
+                        </span>
+                    <?php endif ?>
+                </div>
+            </section>
         </form>
 
     </main>

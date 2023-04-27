@@ -17,14 +17,19 @@ class Cart extends AbstractEntity
     protected DateTime $_created_at;
     
     /**
-     * @var Datetime The last time when the cart was updated
+     * @var ?Datetime The last time when the cart was updated
      */
-    protected DateTime $_updated_at;
+    protected ?DateTime $_updated_at;
 
     /**
      * @var int Identifies cart owner
      */
     protected int $_user_id;
+
+    /**
+     * @var array of Product entities storing cart items
+     */
+    protected array $_items;
 
     /**
      * Get the value of _created_at
@@ -76,6 +81,24 @@ class Cart extends AbstractEntity
     public function setUserId(int $user_id): self
     {
         $this->_user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _items
+     */
+    public function getItems(): array
+    {
+        return $this->_items;
+    }
+
+    /**
+     * Set the value of _items
+     */
+    public function setItems(array $_items): self
+    {
+        $this->_items = $_items;
 
         return $this;
     }
