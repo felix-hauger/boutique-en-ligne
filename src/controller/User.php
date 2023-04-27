@@ -4,8 +4,10 @@ namespace App\Controller;
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use App\Entity\Cart;
 use App\Model\User as UserModel;
 use App\Entity\User as UserEntity;
+use App\Model\Cart as CartModel;
 use Exception;
 
 class User extends AbstractController
@@ -23,7 +25,7 @@ class User extends AbstractController
      */
     public function register(string $login, string $password, string $password_confirm, string $email, string $username, string $firstname, string $lastname): bool|string
     {
-        // filter method arguments & replace them in the function environment
+        // Filter method arguments & replace them in the function environment
         extract($this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args()));
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -32,18 +34,23 @@ class User extends AbstractController
 
         // var_dump($user_arr);
         // die();
-        // register user with User model & entity
-        // instanciate User model
-        $user_model = new UserModel();
 
+        // Register user with User model & entity
         if ($password === $password_confirm) {
+            // Instanciate User model
+            $user_model = new UserModel();
+
+            // Begin transaction
+            $user_model->getPdo()->beginTransaction();
+
             try {
-                // instanciate User entity
+                // Instanciate User entity
                 $user_entity = new UserEntity();
 
+                // Hash password to store it in db securely
                 $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
 
-                // hydrate User entity properties
+                // Hydrate User entity properties
                 $user_entity
                     ->setLogin($login)
                     ->setPassword($password)
@@ -52,12 +59,32 @@ class User extends AbstractController
                     ->setFirstname($firstname)
                     ->setLastname($lastname);
 
-                // send User entity to model to create use in database
-                // return bool depending if model successfully created user or not
-                return $user_model->create($user_entity);
+                // Create user in database
+                $user_model->create($user_entity);
+
+                // Get the id of the new registered user
+                $db_user_id = $user_model->getPdo()->lastInsertId();
+
+                // Instanciate Cart model to insert a cart in database
+                $cart_model = new CartModel();
+
+                // Instanciate Cart entity to hydrate with properties
+                $cart = new Cart();
+
+                // Bind cart to user
+                $cart->setUserId($db_user_id);
+
+                // Create user linked cart in database
+                $cart_model->create($cart);
+
+                // Return bool depending if the transaction is completed successfully
+                // And user and cart are inserted in database
+                return $user_model->getPdo()->commit();
             } catch (\PDOException $e) {
-                throw new \Exception($e->getMessage());
-                // var_dump($e);
+                // If an exception is thrown rollback the transaction
+                $user_model->getPdo()->rollBack();
+
+                throw new \Exception($e);
             }
         } else {
             throw new Exception('Le mot de passe et la confirmation doivent être identiques');
@@ -167,8 +194,11 @@ class User extends AbstractController
 }
 
 // $user = new User();
-
-// $user->register('<b>a</b>', 'a', 'a', 'a', 'a', 'a', 'a');
+// try {
+//     $user->register('<b>a</b>', 'a', 'a', 'a@b.c', 'a', 'a', 'a');
+// } catch (Exception $e) {
+//     echo $e->getMessage();
+// }
 // $user_entity = new UserEntity();
 
 // $user_entity
