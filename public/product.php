@@ -105,7 +105,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     <h1>
                         <?= $product->getName() ?>
                     </h1><br>
-                    <div id="Catégories">&emsp;
+                    <div id="Catégories">&emsp;                       
                         <?= "#", $product->getCategoryName() ?>
                         <?php
                         foreach ($product->getTags() as $tag) {
@@ -122,7 +122,7 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     <?php if (isset($_SESSION['user'])): ?>
 
                         <button class="BtPanier" id="AddLogged" value="<?= $product->getId(); ?>" >Ajouter au Panier</button><br>
-                        <button class="BtPanier" id="BuyLogged">Acheter cet article</button>
+                        
 
                     <?php else: ?>
 
