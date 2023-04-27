@@ -4,8 +4,25 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Config\DbConnection;
 use App\Controller\Product;
+use App\Controller\User;
+
+$Users = new User;
 
 session_start();
+
+if (isset($_POST["updateRoleID"]) AND isset($_POST["updateRole"])) {
+    $new_role_id = $_POST["updateRole"];
+    $id = $_POST["updateRoleID"];
+   
+    $Users->updateRole($id, $new_role_id);
+}
+if (isset($_POST["DeleteUserID"])){
+    $Users->delete($_POST["DeleteUserID"]);
+}
+
+
+
+
 
 ?>
 <!DOCTYPE html>
