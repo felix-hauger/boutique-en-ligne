@@ -5,6 +5,7 @@ namespace App\Controller;
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Entity\Cart as CartEntity;
+use App\Entity\Product;
 use App\Model\Cart as CartModel;
 use App\Model\CartProduct;
 use App\Model\Product as ProductModel;
@@ -54,6 +55,21 @@ class Cart extends AbstractController
         $cart_id = $cart_model->findIdWithField('user_id', $user_id);
 
         $cart_product->create($cart_id, $product_id, $quantity, $size);
+    }
+
+    public function getCookieItemInfos(int $id)
+    {
+        $product_model = new ProductModel();
+
+        $product_infos = $product_model->findWithPreview($id);
+
+        $product = new Product();
+
+        $product->setId($product_infos['id']);
+
+        $product->hydrate($product_infos);
+
+        return $product;
     }
 }
 

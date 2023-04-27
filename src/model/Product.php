@@ -222,6 +222,22 @@ class Product extends AbstractModel
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $id The product id
+     * @return array|false Product with description excerpt
+     */
+    public function findWithPreview(int $id): array|false
+    {
+        $sql = 'SELECT id, name, SUBSTRING(description, 1, 100) as preview, price, image FROM product WHERE id = :id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 // $p = new Product();
