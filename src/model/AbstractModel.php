@@ -28,7 +28,7 @@ abstract class AbstractModel
         $class = explode('\\', $class);
 
         // set $_table property value to the last array entry case lowered
-        $this->_table = strtolower(array_pop($class));
+        $this->_table = '`' . strtolower(array_pop($class)) . '`';
 
         // ! WARNING: at current version you must still define $_table property
         // ! WARNING: in child class if the model / table is more than 1 word long
