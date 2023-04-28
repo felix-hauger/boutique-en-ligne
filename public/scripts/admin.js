@@ -1,5 +1,5 @@
-var page
-var users
+let page
+let users
 
 $("#CPbuttons button").on('click', function(){
     $('button').removeClass('selected');
@@ -22,4 +22,15 @@ function FetchContent(page){
 }
 function RedirectAddProduct(){
     window.location="add-product.php"
+}
+
+function validateForm() {
+    const response = confirm("Voulez vous vraiment supprimer cet utilisateur ?");
+    if (response) {
+        return true;
+    }else {
+        document.getElementById("DeleteUserID").value.null
+        return false;
+    }
+   
 }

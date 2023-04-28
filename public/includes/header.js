@@ -1,17 +1,17 @@
-var icon = document.getElementById("SearchIcon");
-var bar = document.getElementById("SearchBar");
-var hide = document.getElementById("SearchHide");
+let icon = document.getElementById("SearchIcon");
+let bar = document.getElementById("SearchBar");
+let hide = document.getElementById("SearchHide");
 
-var popup = document.getElementById("popup");
+let popup = document.getElementById("popup");
 
-var iconMobile = document.getElementById("SearchIconMobile");
-var barMobile = document.getElementById("SearchBarMobile");
-var hideMobile = document.getElementById("SearchHideMobile");
+let iconMobile = document.getElementById("SearchIconMobile");
+let barMobile = document.getElementById("SearchBarMobile");
+let hideMobile = document.getElementById("SearchHideMobile");
 
-var r = document.querySelector(':root');
+let r = document.querySelector(':root');
 
-var Research = 0;
-var Saison = 0;
+let Research = 0;
+let Saison = 0;
 
 //affiche ou non la barre de recherche
 function Recherche() {

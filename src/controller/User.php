@@ -191,6 +191,13 @@ class User extends AbstractController
 
         return $user_model->delete($id);
     }
+
+    public function updateRole($id,$new_role_id)
+    {
+        $user_model = new UserModel();
+    
+        return $user_model->updateRole($id,$new_role_id);
+    }
 }
 
 // $user = new User();

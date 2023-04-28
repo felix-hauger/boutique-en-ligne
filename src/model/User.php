@@ -59,6 +59,17 @@ class User extends AbstractModel
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function updateRole($id, $new_role_id)
+    {
+        $sql = 'UPDATE user set role_id = :role_id where id = :id';
+
+        $update = $this->_pdo->prepare($sql);
+
+        $update->bindValue(':role_id',$new_role_id);
+        $update->bindValue(':id', $id);
+       
+        return $update->execute();
+    }
 
 }
 

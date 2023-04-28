@@ -1,7 +1,7 @@
 const swiperPopulaire = document.getElementById("swiperPopulaire")
 const swiperRecent = document.getElementById("swiperRecent")
 const swiperSaison = document.getElementById("swiperSaison")
-var w = window.innerWidth;
+let w = window.innerWidth;
 
 
 if (w <= 800) {

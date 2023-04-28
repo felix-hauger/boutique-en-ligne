@@ -2,10 +2,38 @@
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    http_response_code(403);
+    header('Location: index.php');
+    die();
+} elseif ($_SESSION['user']->getRoleId() !== 1) {
+    http_response_code(403);
+    header('Location: index.php');
+    die();
+}
+
 use App\Config\DbConnection;
 use App\Controller\Product;
+use App\Controller\User;
 
-session_start();
+$Users = new User;
+
+
+if (isset($_POST["updateRoleID"]) AND isset($_POST["updateRole"])) {
+    $new_role_id = $_POST["updateRole"];
+    $id = $_POST["updateRoleID"];
+   
+    $Users->updateRole($id, $new_role_id);
+}
+if (isset($_POST["DeleteUserID"])){
+    $Users->delete($_POST["DeleteUserID"]);
+}
+
+
+
+
 
 ?>
 <!DOCTYPE html>

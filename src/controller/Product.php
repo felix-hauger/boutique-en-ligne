@@ -54,6 +54,8 @@ class Product extends AbstractController
             // Hydrate product entity with retrieved product data
             $product_entity->hydrate($db_product);
 
+           
+
             // Add product tags & stocks
             $product_entity
                 ->setTags($product_tags)
@@ -142,7 +144,7 @@ class Product extends AbstractController
 
         } catch (Exception $e) {
             //throw $th;
-            $product_model->getPdo()->rollBack();
+            //$product_model->getPdo()->rollBack();
 
             throw new Exception($e->getMessage());
         }
