@@ -51,7 +51,7 @@ function Cookie(id_produit) {
 
 AddCartLogged?.addEventListener('click', async function(ev) {
 
-    console.log(this.value);
+    // console.log(this.value);
 
     if (typeof (Size) != "undefined") {
         const formData = new FormData();
@@ -61,7 +61,7 @@ AddCartLogged?.addEventListener('click', async function(ev) {
         formData.append('product_id', this.value);
         formData.append('product_quantity', quantity);
         formData.append('product_size', Size);
-        console.log(formData);
+        // console.log(formData);
 
         let request = await fetch('product.php', {
             method: 'post',

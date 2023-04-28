@@ -6,6 +6,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Config\DbConnection;
 use App\Controller\Cart as CartController;
+use App\Controller\Order;
 use App\Controller\Product as ProductController;
 use App\Entity\Cart as CartEntity;
 
@@ -40,6 +41,14 @@ foreach ($_COOKIE as $key => $val) {
 }
 
 if (isset($_SESSION['user'])) {
+    $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
+
+    if (isset($_POST['confirm-order'])) {
+        $order_controller = new Order();
+
+        $order_controller->createFromCart($logged_user_cart);
+    }
+
     // var_dump($_SESSION);
 
     // if (!empty($cookies_cart_items)) {
@@ -113,7 +122,7 @@ $TOTAL = [];
             <table>
                 <?php
 
-                if (isset($_SESSION['user'])) {
+                if (isset($logged_user_cart)) {
                     // var_dump($_SESSION);
 
                     if (!empty($cookies_cart_items)) {
@@ -142,48 +151,13 @@ $TOTAL = [];
                         echo CartController::toHtmlCookieItem($item);
 
                         if ($item['quantity'] > 1) {
-                            $Nprice = $item['price'] * $val;
+                            $Nprice = $item['price'] * $item['quantity'];
                             array_push($TOTAL, [$item['name']."<b> x ".$item['quantity']."</b>", $Nprice]);
                         } else {
                             array_push($TOTAL, [$item['name'], $item['price']]);
                         }
                     }
                 }
-
-                // foreach ($_COOKIE as $key => $val) {
-                     
-                //     if (substr($key, 0, 7) == "product") {
-                //         // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
-                //         list($ignore, $product_id, $size) = explode("_", $key);
-                //         //pour etre sur que l'on récupere que les cookie de notre panier
-                
-                //         //on récupere les info de l'article 
-                //         $product = GetProduct($product_id);
-                //         echo '<tr>';
-                //         echo "<td class='Tdbg' rowspan='2' class='TdImage'><img class='imageCart' src='" . $product['image'] . "'></td>";
-                //         echo "<td class='Tdbg' ><b>" . $product['name'] . "</b></td>";
-                //         echo "<td class='Tdbg' >Taille : <b>" . strtoupper($size) . "</b></td>";
-                //         echo "<td class='Tdbg' >Quantité : <b>" . $val . "</b></td>";
-
-                //         if ($val > 1) {
-                //             $Nprice = $product['price'] * $val;
-                //             array_push($TOTAL, [$product['name']."<b> x ".$val."</b>", $Nprice]);
-                //             echo "<td class='Tdbg' ><b>" . $Nprice . "€</b><br>";
-                //             echo "(" . $product['price'] . "€ x " . $val . ")";
-                //             echo "</td>";
-                //         } else {
-                //             echo "<td class='Tdbg' ><b>" . $product['price'] . "€</b></td>";
-                //             array_push($TOTAL, [$product['name'], $product['price']]);
-                //         }
-
-                //         echo '</tr>';
-
-                //         echo '<tr>';
-                //         echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
-                //         echo "<td class='BoxBtSuppCookie'><button class='BtSuppCookie' onclick='SupprimerCookie(\"" . $key . "\")'>Supprimer L'article</button></td>";
-                //         echo '</tr>';
-                //     }
-                // }
 
                 ?>
             </table>
@@ -220,7 +194,9 @@ $TOTAL = [];
            
             <section id="cart-buttons">
                 <div id="Total"><b>TOTAL : <?=$PRIX_TOTAL?>€</b></div>
-                <button>Passer Commande</button>
+                <form action="" method="post">
+                    <button type="submit" name="confirm-order">Passer Commande</button>
+                </form>
             </section>
         </section>
     </main>

@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 use Exception;
 use PDO;
 
@@ -240,31 +238,3 @@ class Product extends AbstractModel
         return $select->fetch(PDO::FETCH_ASSOC);
     }
 }
-
-// $p = new Product();
-// var_dump($p->findAllByCart(1));
-// try {
-//     var_dump($p->findLastBySeasonName('ÉtÉ'));
-// } catch (Exception $e) {
-//     echo $e->getMessage();
-// }
-// $query = $p->findAllByTag(1);
-// $ent = new \App\Entity\Product();
-// var_dump($query);
-// $ent->setName('created_at');
-// $ent->setDescription('created_at');
-// $ent->setPrice(150);
-// $ent->setImage('create.jpg');
-// $ent->setQuantitySold(10);
-// $ent->setDeletedAt(null);
-// $ent->setCategoryId(3);
-// $ent->setDiscountId(null);
-// $ent->setId(31);
-
-// $p->create($ent);
-
-// var_dump($p->getMoreSold());
-// var_dump($p->getLastAdded());
-// var_dump($p->find(5));
-
-// $p->create($ent);

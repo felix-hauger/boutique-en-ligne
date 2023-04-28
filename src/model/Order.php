@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 class Order extends AbstractModel
 {
     /**
@@ -13,7 +11,7 @@ class Order extends AbstractModel
      */
     public function create(\App\Entity\Order $order)
     {
-        $sql = 'INSERT INTO order user_id = :user_id';
+        $sql = 'INSERT INTO `order` (user_id) VALUES (:user_id)';
 
         $insert = $this->_pdo->prepare($sql);
 
@@ -22,7 +20,6 @@ class Order extends AbstractModel
         return $insert->execute();
     }
 
-   
     public function find(int $id): array|false
     {
         $sql = 'SELECT * FROM `order` 
@@ -67,6 +64,7 @@ class Order extends AbstractModel
 
         return $select->fetchAll(\PDO::FETCH_ASSOC);
     }
+
     public function getAllInfo(): array|false
     {
         $sql = 'SELECT * FROM `order`';
@@ -78,7 +76,3 @@ class Order extends AbstractModel
         return $select->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
-
-// $order = new Order();
-
-// var_dump($order->find(1));

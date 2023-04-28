@@ -3,11 +3,6 @@
 namespace App\Model;
 use PDO;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
-// use App\Entity\User as UserEntity;
-
-
 class User extends AbstractModel
 {
     /**
@@ -72,12 +67,3 @@ class User extends AbstractModel
     }
 
 }
-
-// $user = new User();
-
-// var_dump($user->findIdWithField('login', 'tata', false));
-
-// var_dump($user->isFieldInDb('id', 1));
-
-// var_dump($user->_table);
-// var_dump($user->findAll());
