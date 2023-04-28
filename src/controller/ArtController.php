@@ -13,7 +13,7 @@ class ArtController   {
         ob_start();
         extract($variables);
 
-        require($this -> viewpath. str_replace('.','\',$view).'.php');
+        require($this -> viewpath. str_replace('.','\\',$view).'.php');
 
         $content = ob_get_clean();
         require($this -> viewPath.'templates/'. $this -> template . '.php');

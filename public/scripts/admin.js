@@ -24,7 +24,10 @@ function RedirectAddProduct(){
     window.location="add-product.php"
 }
 
-function validateForm() {
+function validateForm(role_id) {
+    if(role_id === 1){
+        return false;
+    }
     const response = confirm("Voulez vous vraiment supprimer cet utilisateur ?");
     if (response) {
         return true;

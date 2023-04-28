@@ -78,10 +78,16 @@ $users = $Users->getAllInfo();
             </td>
 
             <td>
-                <form method="post" onsubmit="return validateForm();">
+                <?php    
+            if ($user['role_id']===1){
+            }else{
+                ?> 
+                <form method="post" onsubmit="return validateForm(<?=$user['role_id']?>);">
                     <input id="DeleteUserID" name="DeleteUserID" value="<?= $user['id']; ?>" hidden />
                     <button type="submit" formmethod="post" class="Supprimer">Supprimer l'user</button>
                 </form>
+                <?php
+            }?>
             </td>
 
             <?php

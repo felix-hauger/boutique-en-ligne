@@ -36,6 +36,22 @@ class Order extends AbstractModel
         return $select->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function findForUser(int $id): array|false
+    {
+        $sql = 'SELECT * FROM `order` 
+        INNER JOIN `order_product` ON `order_product`.`order_id`= `order`.`id`
+        INNER JOIN `product` ON `order_product`.product_id = `product`.`id`
+        where `order`.`user_id` = :id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $select->execute();
+
+        return $select->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function findALL(): array|false
     {
         $sql = 'SELECT * FROM `order` 
