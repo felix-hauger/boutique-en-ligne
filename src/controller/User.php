@@ -128,6 +128,7 @@ class User extends AbstractController
                 if (session_status() === PHP_SESSION_ACTIVE) {
                     // store entity in session to use its structure & methods
                     $_SESSION['user'] = $user_entity;
+                    header('Location: '.$_SESSION['url']);
                 }
 
                 // return true & stop executing method

@@ -21,28 +21,6 @@ if (isset($_POST['submit-login'])) {
     // echo 'titi';
     $userController = new UserController();
 
-    // // add tests to inputs
-    // foreach($_POST as $key => $value) {
-    //     echo "$key => $value, ";
-    //     if ($key === 'email') {
-    //         filter_input(INPUT_POST, $key, FILTER_VALIDATE_EMAIL);
-    //     } else {
-    //         filter_input(INPUT_POST, $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    //     }
-    //     // echo '<br>';
-    //     // echo "$key => $value, ";
-    // }
-    // $filter_options = [
-    //     'login' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    //     'password' => FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $regex]],
-    //     'confirmation' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    //     'login' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    //     'login' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    //     'login' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    //     'login' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
-    // ];
-
-    // var_dump($_POST);
 
     try {
         $userController->register(
