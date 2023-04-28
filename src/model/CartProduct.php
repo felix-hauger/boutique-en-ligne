@@ -101,6 +101,21 @@ class CartProduct
 
         return $insert->execute();
     }
+
+    /**
+     * Delete all entries using cart_id to remove cart infos
+     * @return bool Depending if the request is executed successfully
+     */
+    public function emptyCart(int $cart_id): bool
+    {
+        $sql = 'DELETE FROM cart_product WHERE cart_id = :cart_id';
+
+        $delete = $this->_pdo->prepare($sql);
+
+        $delete->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+
+        return $delete->execute();
+    }
 }
 
 // $cp = new CartProduct();

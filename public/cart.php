@@ -6,6 +6,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Config\DbConnection;
 use App\Controller\Cart as CartController;
+use App\Controller\Order;
 use App\Controller\Product as ProductController;
 use App\Entity\Cart as CartEntity;
 
@@ -40,6 +41,14 @@ foreach ($_COOKIE as $key => $val) {
 }
 
 if (isset($_SESSION['user'])) {
+    $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
+
+    if (isset($_POST['confirm-order'])) {
+        $order_controller = new Order();
+
+        $order_controller->createFromCart($logged_user_cart);
+    }
+
     // var_dump($_SESSION);
 
     // if (!empty($cookies_cart_items)) {
@@ -113,7 +122,7 @@ $TOTAL = [];
             <table>
                 <?php
 
-                if (isset($_SESSION['user'])) {
+                if (isset($logged_user_cart)) {
                     // var_dump($_SESSION);
 
                     if (!empty($cookies_cart_items)) {
@@ -185,7 +194,9 @@ $TOTAL = [];
            
             <section id="cart-buttons">
                 <div id="Total"><b>TOTAL : <?=$PRIX_TOTAL?>€</b></div>
-                <button>Passer Commande</button>
+                <form action="" method="post">
+                    <button type="submit" name="confirm-order">Passer Commande</button>
+                </form>
             </section>
         </section>
     </main>
