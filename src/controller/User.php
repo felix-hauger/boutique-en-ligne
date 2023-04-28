@@ -111,7 +111,7 @@ class User extends AbstractController
 
             // var_dump($db_user);
 
-            if (password_verify($password, $db_user['password']) || $password === $db_user['password']) {
+            if (password_verify($password, $db_user['password'])) {
                 // instanciate User entity
                 $user_entity = new UserEntity();
 
