@@ -1,5 +1,4 @@
 <?php
-// var_dump($_POST);
 
 use App\Controller\User as UserController;
 
@@ -7,8 +6,7 @@ if (isset($_POST['submit-login'])) {
 
     $userController = new UserController();
 
-    //? add tests to inputs here?
-
+  
     try {
         $userController->connect(
             $_POST['login'], 
@@ -18,7 +16,7 @@ if (isset($_POST['submit-login'])) {
         $login_error = $e->getMessage();
     }
 } elseif (isset($_POST['submit-register'])) {
-    // echo 'titi';
+    
     $userController = new UserController();
 
 
