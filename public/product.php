@@ -127,7 +127,6 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     <?php else: ?>
 
                         <button class="BtPanier" id="AddNotLogged"onclick='Cookie(<?= $product->getId(); ?>)'>Ajouter au Panier</button><br>
-                        <button class="BtPanier" id="BuyNotLogged">Acheter cet article</button>
 
                     <?php endif ?>
                 </form>
