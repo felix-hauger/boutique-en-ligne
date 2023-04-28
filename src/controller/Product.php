@@ -28,7 +28,7 @@ class Product extends AbstractController
             $product_model = new ProductModel();
 
             // Fetch product infos in associative array
-            $db_product = $product_model->find($id);
+            $db_product = $product_model->findWithCategory($id);
 
             // Instanciate Product entity
             $product_entity = new ProductEntity();
@@ -303,6 +303,20 @@ class Product extends AbstractController
      * @return string Html product thumbnail
      */
     public static function toHtmlThumbnail(array $product): string
+    {
+        return '<div class="card">
+            <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
+            <h2 class="ArticleName">' . $product['name'] . '</h2>
+            <h3 class="prix">' . $product['price'] . ' € </h3>
+            <a href="product.php?id=' .$product['id']. '"><button class="linkToArticleBtn">Voir cet article</button></a>
+        </div>';
+    }
+
+    /**
+     * @param array $product The product infos
+     * @return string Html product thumbnail
+     */
+    public static function toHtmlCartItem(array $product): string
     {
         return '<div class="card">
             <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
