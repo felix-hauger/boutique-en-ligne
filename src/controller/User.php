@@ -92,6 +92,7 @@ class User extends AbstractController
     }
 
     /**
+     * hydrate User entity with retrieved user infos from db & store it in session
      * @param string $login to auth
      * @param string $password to auth, do not store in session
      * 
@@ -99,7 +100,8 @@ class User extends AbstractController
      */
     public function connect(string $login, string $password): mixed
     {
-        // retrieve user infos, hydrate User entity & store it in session
+        // Filter method arguments & replace them in the function environment
+        extract($this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args()));
 
         $user_model = new UserModel();
 
@@ -108,8 +110,6 @@ class User extends AbstractController
 
         if ($id) {
             $db_user = $user_model->find($id);
-
-            // var_dump($db_user);
 
             if (password_verify($password, $db_user['password'])) {
                 // instanciate User entity
