@@ -1,8 +1,9 @@
 main {
-    height: 100vh;
+    min-height: 100vh;
     margin-top: 2%;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 60px;
 }
 
 #cart-items {

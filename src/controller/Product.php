@@ -315,6 +315,20 @@ class Product extends AbstractController
     }
 
     /**
+     * @param array $product The product infos
+     * @return string Html product thumbnail
+     */
+    public static function toHtmlCartItem(array $product): string
+    {
+        return '<div class="card">
+            <a href="product.php?id=' .$product['id']. '"><img class="image" src="' . $product['image'] . '"></a>
+            <h2 class="ArticleName">' . $product['name'] . '</h2>
+            <h3 class="prix">' . $product['price'] . ' € </h3>
+            <a href="product.php?id=' .$product['id']. '"><button class="linkToArticleBtn">Voir cet article</button></a>
+        </div>';
+    }
+
+    /**
      * Check if a file name is too long
      * @param string $filename The uploaded file name
      * @return bool Depending if the uploaded file name is too long or not

@@ -5,6 +5,7 @@ namespace App\Controller;
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Entity\Cart as CartEntity;
+use App\Entity\Product;
 use App\Model\Cart as CartModel;
 use App\Model\CartProduct;
 use App\Model\Product as ProductModel;
@@ -54,6 +55,76 @@ class Cart extends AbstractController
         $cart_id = $cart_model->findIdWithField('user_id', $user_id);
 
         $cart_product->create($cart_id, $product_id, $quantity, $size);
+    }
+
+    public function getCookieItemInfos(int $id)
+    {
+        $product_model = new ProductModel();
+
+        return $product_model->findWithPreview($id);
+    }
+
+
+    public static function toHtmlItem(array $cart_item)
+    {
+        $result = 
+        // Item image, name, size & quantity
+        '<tr>
+            <td class="Tdbg" rowspan="2" class="TdImage"><img class="imageCart" src="' . $cart_item['image'] . '"></td>
+            <td class="Tdbg" ><b>' . $cart_item['name'] . '</b></td>
+            <td class="Tdbg" >Taille : <b>' . strtoupper($cart_item['size']) . '</b></td>
+            <td class="Tdbg" >Quantité : <b>' . $cart_item['quantity'] . '</b></td>';
+
+        // Price depending of the number of items
+        if ($cart_item['quantity'] > 1) {
+            $Nprice = $cart_item['price'] * $cart_item['quantity'];
+            $result .= 
+                '<td class="Tdbg" ><b>' . $Nprice . '€</b><br>
+                (' . $cart_item['price'] . '€ x ' . $cart_item['quantity'] . ')
+                </td>';
+        } else {
+            $result .= '<td class="Tdbg" ><b>' . $cart_item['price'] . '€</b></td></tr>';
+        }
+
+        $result .= 
+        
+        '<tr>
+            <td class="TdDesc" colspan="3">' . $cart_item['preview'] . '</td>
+            <td class="BoxBtSuppCookie"><form><button class="BtSuppCookie">Supprimer L\'article</button></form></td>
+        </tr>';
+
+        return $result;
+    }
+
+    public static function toHtmlCookieItem(array $cart_item)
+    {
+        $result = 
+        // Item image, name, size & quantity
+        '<tr>
+            <td class="Tdbg" rowspan="2" class="TdImage"><img class="imageCart" src="' . $cart_item['image'] . '"></td>
+            <td class="Tdbg" ><b>' . $cart_item['name'] . '</b></td>
+            <td class="Tdbg" >Taille : <b>' . strtoupper($cart_item['size']) . '</b></td>
+            <td class="Tdbg" >Quantité : <b>' . $cart_item['quantity'] . '</b></td>';
+
+        // Price depending of the number of items
+        if ($cart_item['quantity'] > 1) {
+            $Nprice = $cart_item['price'] * $cart_item['quantity'];
+            $result .= 
+                '<td class="Tdbg" ><b>' . $Nprice . '€</b><br>
+                (' . $cart_item['price'] . '€ x ' . $cart_item['quantity'] . ')
+                </td>';
+        } else {
+            $result .= '<td class="Tdbg" ><b>' . $cart_item['price'] . '€</b></td></tr>';
+        }
+
+        $result .= 
+        
+        '<tr>
+            <td class="TdDesc" colspan="3">' . $cart_item['preview'] . '</td>
+            <td class="BoxBtSuppCookie"><button class="BtSuppCookie" onclick="SupprimerCookie(\'product_' . $cart_item['id'] . '_' . $cart_item['size'] . '\')">Supprimer L\'article</button></td>
+        </tr>';
+
+        return $result;
     }
 }
 

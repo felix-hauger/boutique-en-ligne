@@ -5,9 +5,60 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Config\DbConnection;
-use App\Controller\Product;
+use App\Controller\Cart as CartController;
+use App\Controller\Product as ProductController;
+use App\Entity\Cart as CartEntity;
 
 session_start();
+
+$cart_controller = new CartController();
+
+$cart = new CartEntity();
+
+$product_controller = new ProductController();
+
+$cookies_cart_items = [];
+
+foreach ($_COOKIE as $key => $val) {
+             
+    if (substr($key, 0, 7) == "product") {
+        // le cookie est divisé en plusieures partie    product(string)  id   taille => quantité
+        list($ignore, $product_id, $size) = explode("_", $key);
+        //pour etre sur que l'on récupere que les cookie de notre panier
+
+        // $product = $product_controller->get
+
+        $item = $cart_controller->getCookieItemInfos($product_id);
+
+        $item['size'] = $size;
+        $item['quantity'] = $val;
+        // $item->setSize($size);
+
+        //on récupere les info de l'article
+        $cookies_cart_items[] = $item;
+    }
+}
+
+if (isset($_SESSION['user'])) {
+    // var_dump($_SESSION);
+
+    // if (!empty($cookies_cart_items)) {
+    //     var_dump($cookies_cart_items);
+    // }
+
+
+    // $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
+
+    // if ($logged_user_cart) {
+    //     var_dump($logged_user_cart);
+    // }
+} else {
+
+
+    // var_dump($_COOKIE);
+    // var_dump($cart_items);
+}
+
 function GetProduct($product_id)
 {
     $sql = "SELECT * FROM product WHERE id = " . $product_id;
@@ -61,41 +112,78 @@ $TOTAL = [];
         <section id="cart-items">
             <table>
                 <?php
-                foreach ($_COOKIE as $key => $val) {
-                 
-                    if (substr($key, 0, 7) == "product") {
-                        // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
-                        list($ignore, $product_id, $size) = explode("_", $key);
-                        //pour etre sur que l'on récupere que les cookie de notre panier
+
+                if (isset($_SESSION['user'])) {
+                    // var_dump($_SESSION);
+
+                    if (!empty($cookies_cart_items)) {
+                        // Move cookies in user cart in database
+                    }
                 
-                        //on récupere les info de l'article 
-                        $product = GetProduct($product_id);
-                        echo '<tr>';
-                        echo "<td class='Tdbg' rowspan='2' class='TdImage'><img class='imageCart' src='" . $product['image'] . "'></td>";
-                        echo "<td class='Tdbg' ><b>" . $product['name'] . "</b></td>";
-                        echo "<td class='Tdbg' >Taille : <b>" . $size . "</b></td>";
-                        echo "<td class='Tdbg' >Quantité : <b>" . $val . "</b></td>";
+                    $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
 
-                        if ($val > 1) {
-                            $Nprice = $product['price'] * $val;
-                            array_push($TOTAL, [$product['name']."<b> x ".$val."</b>", $Nprice]);
-                            echo "<td class='Tdbg' ><b>" . $Nprice . "€</b><br>";
-                            echo "(" . $product['price'] . "€ x " . $val . ")";
-                            echo "</td>";
+                    // var_dump($logged_user_cart);
+
+                    foreach ($logged_user_cart->getItems() as $item) {
+                        echo CartController::toHtmlItem($item);
+
+                        if ($item['quantity'] > 1) {
+                            // var_dump($item);
+                            $Nprice = $item['price'] * $item['quantity'];
+                            array_push($TOTAL, [$item['name']."<b> x ".$item['quantity']."</b>", $Nprice]);
                         } else {
-                            echo "<td class='Tdbg' ><b>" . $product['price'] . "€</b></td>";
-                            array_push($TOTAL, [$product['name'], $product['price']]);
+                            array_push($TOTAL, [$item['name'], $item['price']]);
                         }
+                    }
+                
+                    // var_dump($logged_user_cart);
+                } else {
+                    foreach ($cookies_cart_items as $item) {
+                        echo CartController::toHtmlCookieItem($item);
 
-                        echo '</tr>';
-
-                        echo '<tr>';
-                        echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
-                        echo "<td class='BoxBtSuppCookie'><button class='BtSuppCookie' onclick='SupprimerCookie(\"" . $key . "\")'>Supprimer L'article</button></td>";
-                        echo '</tr>';
+                        if ($item['quantity'] > 1) {
+                            $Nprice = $item['price'] * $val;
+                            array_push($TOTAL, [$item['name']."<b> x ".$item['quantity']."</b>", $Nprice]);
+                        } else {
+                            array_push($TOTAL, [$item['name'], $item['price']]);
+                        }
                     }
                 }
 
+                // foreach ($_COOKIE as $key => $val) {
+                     
+                //     if (substr($key, 0, 7) == "product") {
+                //         // le cookie est divisé en plusieures partie    product(string)  id   taille  quantité
+                //         list($ignore, $product_id, $size) = explode("_", $key);
+                //         //pour etre sur que l'on récupere que les cookie de notre panier
+                
+                //         //on récupere les info de l'article 
+                //         $product = GetProduct($product_id);
+                //         echo '<tr>';
+                //         echo "<td class='Tdbg' rowspan='2' class='TdImage'><img class='imageCart' src='" . $product['image'] . "'></td>";
+                //         echo "<td class='Tdbg' ><b>" . $product['name'] . "</b></td>";
+                //         echo "<td class='Tdbg' >Taille : <b>" . strtoupper($size) . "</b></td>";
+                //         echo "<td class='Tdbg' >Quantité : <b>" . $val . "</b></td>";
+
+                //         if ($val > 1) {
+                //             $Nprice = $product['price'] * $val;
+                //             array_push($TOTAL, [$product['name']."<b> x ".$val."</b>", $Nprice]);
+                //             echo "<td class='Tdbg' ><b>" . $Nprice . "€</b><br>";
+                //             echo "(" . $product['price'] . "€ x " . $val . ")";
+                //             echo "</td>";
+                //         } else {
+                //             echo "<td class='Tdbg' ><b>" . $product['price'] . "€</b></td>";
+                //             array_push($TOTAL, [$product['name'], $product['price']]);
+                //         }
+
+                //         echo '</tr>';
+
+                //         echo '<tr>';
+                //         echo "<td class='TdDesc' colspan='3'>" . $product['description'] . "</td>";
+                //         echo "<td class='BoxBtSuppCookie'><button class='BtSuppCookie' onclick='SupprimerCookie(\"" . $key . "\")'>Supprimer L'article</button></td>";
+                //         echo '</tr>';
+                //     }
+                // }
 
                 ?>
             </table>
@@ -106,6 +194,8 @@ $TOTAL = [];
                 <table>
                     <td><b>Nom du Produit: </b></td><td class='TOTALPrix'><b>Prix : </b></td>
                     <?php
+
+                    $PRIX_TOTAL = 0;
 
                     foreach ($TOTAL as $T_Subarray) {
                         echo "<tr>";

@@ -22,7 +22,7 @@ if (isset($_SESSION['user'])) {
             $_POST['product_size']
         );
 
-        // Stop code execution
+        // Stop code execution to prevent redirection as it is used in js
         die();
     }
 }

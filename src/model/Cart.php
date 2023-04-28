@@ -15,7 +15,7 @@ class Cart extends AbstractModel
      */
     public function create(\App\Entity\Cart $cart)
     {
-        $sql = 'INSERT INTO cart user_id = :user_id';
+        $sql = 'INSERT INTO cart (user_id) VALUES (:user_id)';
 
         $insert = $this->_pdo->prepare($sql);
 
@@ -50,7 +50,7 @@ class Cart extends AbstractModel
     {
         $sql = 
             'SELECT 
-            id, created_at, updated_at, total_amount, user_id
+            id, created_at, updated_at, user_id
             FROM cart
             WHERE user_id = :user_id';
 
