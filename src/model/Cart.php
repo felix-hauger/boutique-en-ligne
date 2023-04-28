@@ -50,7 +50,7 @@ class Cart extends AbstractModel
     {
         $sql = 
             'SELECT 
-            id, created_at, updated_at, total_amount, user_id
+            id, created_at, updated_at, user_id
             FROM cart
             WHERE user_id = :user_id';
 

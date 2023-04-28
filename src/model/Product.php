@@ -193,7 +193,8 @@ class Product extends AbstractModel
      */
     public function findAllByCart(int $cart_id)
     {
-        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image
+        $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image,
+            product_quantity AS quantity, product_size AS size
             FROM product
             INNER JOIN cart_product ON product.id = cart_product.product_id
             INNER JOIN cart ON cart.id = cart_product.cart_id
@@ -205,7 +206,7 @@ class Product extends AbstractModel
 
         $select->execute();
 
-        return $select->fetchAll(PDO::FETCH_CLASS, '\\App\\Entity\\Product');
+        return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
