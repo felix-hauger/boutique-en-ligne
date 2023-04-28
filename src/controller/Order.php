@@ -13,6 +13,13 @@ class Order extends AbstractController
         return $category_model->find($id);
     }
 
+    public function findForUser(int $id)
+    {
+        $category_model = new OrderModel();
+
+        return $category_model->findForUser($id);
+    }
+
     public function findALL()
     {
         $category_model = new OrderModel();

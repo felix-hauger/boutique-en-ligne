@@ -1,0 +1,111 @@
+main {
+    min-height: 80vh;
+    margin-top: 2%;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction:row ;
+}
+
+
+/* Menu Gauche */
+#LeftMenu{
+    width: 25vw;
+    min-height: 50vh;
+    background-color:var(--lightbg-color);
+    text-align: center;
+}
+#options{
+    margin-top: 15%;
+    width: 100%;
+    
+}
+
+#options button{
+    padding: 5% 0;
+    width: 100%; 
+    height: 50%;
+    font-size: 1.5em;
+    background-color: white;
+    border-width: 0 0 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+}
+
+#options button:hover{
+    background-color:var(--bg-color);
+}
+
+#options button.selected{
+    background-color:rgb(235, 235, 235);
+
+}
+/* Fin Menu Gauche */
+
+
+
+
+/*  Content Droite */
+#RightContent{
+    width: 75vw;
+    min-height: 50vh;
+    background-color:white;
+    
+    border-width: 2px 0 2px;
+    border-style: groove;
+    border-color: var(--detail-color);
+}
+
+.content{
+    padding: 2% 10%;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+td{
+    padding: 1% 2%;
+    border-width:  2px;
+    border-style: groove;
+    border-color: var(--detail-color);
+}
+
+/* Fin Content Droite */
+
+h2{
+    color:var(--detail-color);
+}
+h3{
+    display:inline;
+    margin-right: 5%;
+}
+#Acceuil{
+    background-color: white;
+}
+
+#modifprofil{
+    display: none;
+   text-align: center;
+   font-size: 1.3em;
+}
+#modifprofil input{
+    width: 15vw;
+    height: 3vh;
+    font-size: 1em;
+    color:rgb(54, 54, 54);
+    margin-bottom: 1%;
+    border-width: 0 0 1px;
+    border-style: groove;
+    border-color: var(--detail-color);
+}
+
+#VoirAchats{
+    display: none;
+
+}
+.Desc{
+    background-color: var(--bg-color);
+}
+#Adresses{
+    display: none;
+}
