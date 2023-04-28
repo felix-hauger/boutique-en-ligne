@@ -15,7 +15,7 @@ function table($orders){
         echo "<td>".$order['unit_price']."</td>";
         echo "<td>".$order['price']."</td>";
         echo "<td>".$order['discount_id']."</td>";
-        echo "<td>".$order['quantity']."</td>";
+        echo "<td>".$order['product_quantity']."</td>";
         echo "<td>".$order['product_size']."</td>";
         echo "</tr>";
     }
