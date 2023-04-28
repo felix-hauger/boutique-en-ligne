@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 use App\Entity\Cart;
 use App\Model\User as UserModel;
 use App\Entity\User as UserEntity;
@@ -31,9 +29,6 @@ class User extends AbstractController
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception('Format email invalide');
         }
-
-        // var_dump($user_arr);
-        // die();
 
         // Register user with User model & entity
         if ($password === $password_confirm) {
@@ -92,6 +87,7 @@ class User extends AbstractController
     }
 
     /**
+     * hydrate User entity with retrieved user infos from db & store it in session
      * @param string $login to auth
      * @param string $password to auth, do not store in session
      * 
@@ -99,7 +95,8 @@ class User extends AbstractController
      */
     public function connect(string $login, string $password): mixed
     {
-        // retrieve user infos, hydrate User entity & store it in session
+        // Filter method arguments & replace them in the function environment
+        extract($this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args()));
 
         $user_model = new UserModel();
 
@@ -108,8 +105,6 @@ class User extends AbstractController
 
         if ($id) {
             $db_user = $user_model->find($id);
-
-            // var_dump($db_user);
 
             if (password_verify($password, $db_user['password'])) {
                 // instanciate User entity
@@ -163,13 +158,8 @@ class User extends AbstractController
 
         $db_user = $user_model->find($user->getId());
 
-        var_dump($db_user);
-
         if ($db_user) {
             $user_model->update($user);
-            // if ($user->getFirstname() !== $db_user['firstname']) {
-                
-            // }
         }
     }
 
@@ -200,23 +190,3 @@ class User extends AbstractController
         return $user_model->updateRole($id,$new_role_id);
     }
 }
-
-// $user = new User();
-// try {
-//     $user->register('<b>a</b>', 'a', 'a', 'a@b.c', 'a', 'a', 'a');
-// } catch (Exception $e) {
-//     echo $e->getMessage();
-// }
-// $user_entity = new UserEntity();
-
-// $user_entity
-//     ->setId(34)
-//     ->setLogin('login')
-//     ->setPassword('password')
-//     ->setEmail('email')
-//     ->setUsername('username')
-//     ->setFirstname('firstname')
-//     ->setLastname('lastname')
-//     ->setRoleId(1);
-
-// $user->update($user_entity);
