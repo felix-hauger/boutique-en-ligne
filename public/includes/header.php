@@ -1,4 +1,11 @@
-<?php $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+<?php 
+if (isset($_GET['id'])){
+    $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id=".$_GET['id'];
+}else {
+    $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+}
+
+
 ?>
 <body>
     <header id="WideScreenView">
