@@ -6,7 +6,7 @@ spl_autoload_register(function($class) {
     $prefix = 'App\\';
 
     // folder containing all classes
-    $base_dir = __DIR__ . '/src/';
+    $base_dir = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
 
     // length of top level namespace
     $len = strlen($prefix);
