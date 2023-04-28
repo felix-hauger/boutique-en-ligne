@@ -56,7 +56,7 @@ class Order extends AbstractController
             
             $cart_product_model = new CartProduct();
 
-            $cart_product_model->emptyCart($cart->getUserId());
+            $cart_product_model->emptyCart($cart->getId());
 
             return $order_model->getPdo()->commit();
 
