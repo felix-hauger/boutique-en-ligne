@@ -5,8 +5,6 @@ namespace App\Model;
 use PDO;
 use App\Config\DbConnection;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 class ProductTag
 {
     /**
@@ -58,12 +56,3 @@ class ProductTag
         return $insert->execute();
     }
 }
-
-// $pt = new ProductTag();
-
-// var_dump($pt);
-
-// $pt->create(8, 12);
-// $pt->update(2, 5, 2);
-// var_dump($pt->find(2, 5));
-// $pt->delete(8, 12);

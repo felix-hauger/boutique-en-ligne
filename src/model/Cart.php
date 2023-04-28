@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 use PDO;
 
 class Cart extends AbstractModel
@@ -63,8 +61,3 @@ class Cart extends AbstractModel
         return $select->fetch(PDO::FETCH_ASSOC);
     }
 }
-
-// $cart = new Cart();
-
-// // var_dump($cart->find(1));
-// var_dump($cart->findByUser(1));

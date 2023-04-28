@@ -8,7 +8,6 @@ use PDO;
 class Category extends AbstractModel
 {
     /**
-     * * Overload AbstractModel::findAll()
      * Insert category in database
      * @param CategoryEntity $category Entity
      * @return bool depending if request is successfull or not
@@ -26,6 +25,7 @@ class Category extends AbstractModel
     }
 
     /**
+     * * Overload AbstractModel::findAll()
      * Find all id & names, doesn't select description to make request more performant
      * @return array|false Category entities if request is successfull, else false
      */

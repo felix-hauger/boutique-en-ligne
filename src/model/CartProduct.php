@@ -117,12 +117,3 @@ class CartProduct
         return $delete->execute();
     }
 }
-
-// $cp = new CartProduct();
-
-// var_dump($cp);
-
-// $cp->create(2, 5, 1);
-// $cp->update(2, 5, 2);
-// var_dump($cp->find(2, 5));
-// $cp->delete(2, 5);

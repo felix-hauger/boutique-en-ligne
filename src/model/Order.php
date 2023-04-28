@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 class Order extends AbstractModel
 {
     /**
@@ -62,7 +60,3 @@ class Order extends AbstractModel
         return $select->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
-
-// $order = new Order();
-
-// var_dump($order->find(1));

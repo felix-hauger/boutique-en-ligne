@@ -141,4 +141,3 @@ abstract class AbstractModel
         return $this->_pdo;
     }
 }
-

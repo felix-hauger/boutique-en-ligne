@@ -5,8 +5,6 @@ namespace App\Model;
 use PDO;
 use App\Config\DbConnection;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
-
 class OrderProduct
 {
     /**
@@ -103,12 +101,3 @@ class OrderProduct
         return $insert->execute();
     }
 }
-
-// $cp = new OrderProduct();
-
-// var_dump($cp);
-
-// $cp->create(2, 5, 1);
-// $cp->update(2, 5, 2);
-// var_dump($cp->find(2, 5));
-// $cp->delete(2, 5);
