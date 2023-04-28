@@ -10,58 +10,58 @@ class Product extends AbstractEntity
      * @var int Identifies entity
      */
     protected int $_id;
-    
+
     /**
      * @var string The name of the product
      */
     protected string $_name;
-    
+
     /**
      * @var string The slug of the product to create URI
      */
-    protected string $_slug;
-    
+    protected ?string $_slug = null;
+
     /**
      * @var string The description of the product
      */
     protected ?string $_description = null;
-    
+
     /**
      * @var int The price of the product in the smallest monetary unity
      */
     protected int $_price;
-    
+
     /**
      * @var string The path leading to product image
      */
     protected string $_image;
-    
+
     /**
      * @var int The total sold quantity of a product
      */
     protected int $_quantity_sold;
-    
+
     /**
      * @var Datetime The insertion date of the product in the database 
      */
     protected DateTime $_created_at;
-    
+
     /**
      * @var ?Datetime The latest date when the product was updated
      */
     protected ?DateTime $_updated_at = null;
-    
+
     /**
      * @var ?Datetime The deletion date to make product unavalaible for purchase 
      * but preserve it in database for admin & customer purchase history
      */
     protected ?DateTime $_deleted_at = null;
-    
+
     /**
      * @var int representing the foreign key category_id 
      */
     protected int $_category_id;
-    
+
     /**
      * @var int representing the foreign key discount_id 
      */
@@ -126,7 +126,7 @@ class Product extends AbstractEntity
     /**
      * Get the value of _slug
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->_slug;
     }
@@ -134,7 +134,7 @@ class Product extends AbstractEntity
     /**
      * Set the value of _slug
      */
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->_slug = $slug;
 
