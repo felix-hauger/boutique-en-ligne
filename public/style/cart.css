@@ -109,7 +109,7 @@ main {
 #cart-check{
     height: 65%;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 
