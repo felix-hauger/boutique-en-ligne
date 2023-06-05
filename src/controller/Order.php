@@ -60,7 +60,7 @@ class Order extends AbstractController
             foreach($cart->getItems() as $item) {
                 $order_product_model->create($db_order_id, $item['id'], $item['price'], $item['quantity'], $item['size']);
             }
-            
+
             $cart_product_model = new CartProduct();
 
             $cart_product_model->emptyCart($cart->getId());
