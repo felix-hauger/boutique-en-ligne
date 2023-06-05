@@ -270,16 +270,16 @@ class Product extends AbstractController
         $month = $date_time->format('n');
 
         switch (true) {
-            case $month > 2 && $month < 6:
+            case $month > 2 && $month <= 6:
                 return 'printemps';
 
-            case $month > 6 && $month < 9:
+            case $month > 6 && $month <= 9:
                 return 'été';
 
-            case $month > 9 && $month < 12:
+            case $month > 9 && $month <= 12:
                 return 'automne';
 
-            case $month === 12 || $month < 2:
+            case $month === 12 || $month <= 2:
                 return 'hiver';
         }
     }

@@ -80,46 +80,46 @@ $product_index = $product_controller->index();
 
             <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
                 slides-per-view="4">
-    
+
                 <?php foreach ($product_index['best_selling'] as $product): ?>
-    
+
                     <swiper-slide>
                         <?= Product::toHtmlThumbnail($product); ?>
                     </swiper-slide>
-    
+
                 <?php endforeach ?>
-    
+
             </swiper-container>
         </section>
-    
+
         <section class="sectionShop">
             <h2>Nos derniers articles</h2>
 
             <swiper-container id="swiperRecent" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3500"
                 slides-per-view="4">
-    
+
                 <?php foreach ($product_index['last_added'] as $product): ?>
-    
+
                     <swiper-slide>
                         <?= Product::toHtmlThumbnail($product); ?>
                     </swiper-slide>
-    
+
                 <?php endforeach ?>
-    
+
             </swiper-container>
         </section>
-    
+
         <section class="sectionShop">
             <h2>Nos articles de saison</h2>
 
             <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
                 slides-per-view="4">
                 <?php foreach ($product_index['last_by_season'] as $product): ?>
-    
+
                     <swiper-slide>
                         <?= Product::toHtmlThumbnail($product); ?>
                     </swiper-slide>
-    
+
                 <?php endforeach ?>
             </swiper-container>
         </section>
