@@ -127,12 +127,13 @@ CREATE TABLE `product_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `order_product` (
+    `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `order_id` INT(11) UNSIGNED NOT NULL,
     `product_id` INT(11) UNSIGNED NOT NULL,
-    `unit_price` INT(11) NOT NULL,
-    `quantity` INT(5) UNSIGNED NOT NULL,
-    PRIMARY KEY(`order_id`, `product_id`),
-    UNIQUE(`order_id`, `product_id`),
+    `unit_price` INT(11) UNSIGNED NOT NULL,
+    `product_size` VARCHAR(255) NOT NULL,
+    `product_quantity` INT(5) UNSIGNED NOT NULL,
+    PRIMARY KEY(`id`),
     CONSTRAINT `fk_order_order_product` FOREIGN KEY(`order_id`) REFERENCES `order` (`id`),
     CONSTRAINT `fk_product_order_product` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -149,11 +150,12 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `cart_product` (
+    `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
     `cart_id` INT(11) UNSIGNED NOT NULL,
     `product_id` INT(11) UNSIGNED NOT NULL,
-    `quantity` INT(5) UNSIGNED NOT NULL,
-    PRIMARY KEY(`cart_id`, `product_id`),
-    UNIQUE(`cart_id`, `product_id`),
+    `product_size` VARCHAR(255) NOT NULL,
+    `product_quantity` INT(5) UNSIGNED NOT NULL,
+    PRIMARY KEY(`id`),
     CONSTRAINT `fk_cart_cart_product` FOREIGN KEY(`cart_id`) REFERENCES `cart` (`id`),
     CONSTRAINT `fk_product_cart_product` FOREIGN KEY(`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
