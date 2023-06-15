@@ -100,10 +100,10 @@ function SetSaisons() {
         Saison++;
     } else if (Saison === 3) {
         // Couleurs de printemps
-        r.style.setProperty('--bg-color', '#c0ffd8');
+        r.style.setProperty('--bg-color', '#e9fff2');
         r.style.setProperty('--detail-color', '#0a460a');
         r.style.setProperty('--hover-color', '#27c422');
-        r.style.setProperty('--lightbg-color', '#eeffeb');
+        r.style.setProperty('--lightbg-color', '#f3fdf1');
         Saison = 0;
     }
 
