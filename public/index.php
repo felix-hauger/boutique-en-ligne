@@ -76,12 +76,12 @@ $product_index = $product_controller->index();
     <main>
 
         <section class="sectionShop">
-            <h2>Nos articles les plus vendus</h2>
+            <h2>Nos articles de saison</h2>
 
             <swiper-container id="swiperPopulaire" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
                 slides-per-view="4">
 
-                <?php foreach ($product_index['best_selling'] as $product): ?>
+                <?php foreach ($product_index['last_by_season'] as $product): ?>
 
                     <swiper-slide>
                         <?= Product::toHtmlThumbnail($product); ?>
@@ -110,11 +110,11 @@ $product_index = $product_controller->index();
         </section>
 
         <section class="sectionShop">
-            <h2>Nos articles de saison</h2>
+            <h2>Nos articles les plus populaires</h2>
 
             <swiper-container id="swiperSaison" class="mySwiper" keyboard="true" navigation="true" loop="true" space-between="30" autoplay-delay="3000"
                 slides-per-view="4">
-                <?php foreach ($product_index['last_by_season'] as $product): ?>
+                <?php foreach ($product_index['best_selling'] as $product): ?>
 
                     <swiper-slide>
                         <?= Product::toHtmlThumbnail($product); ?>
