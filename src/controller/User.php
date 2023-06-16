@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Controller\Cart as CartController;
+use App\Model\CartProduct;
 use App\Entity\Cart;
 use App\Model\User as UserModel;
 use App\Entity\User as UserEntity;
@@ -87,7 +89,7 @@ class User extends AbstractController
     }
 
     /**
-     * hydrate User entity with retrieved user infos from db & store it in session
+     * Hydrate User entity with retrieved user infos from db & store it in session
      * @param string $login to auth
      * @param string $password to auth, do not store in session
      * 
@@ -100,38 +102,32 @@ class User extends AbstractController
 
         $user_model = new UserModel();
 
-        // retrieve user id if it exists
+        // Retrieve user id if it exists
         $id = $user_model->findIdWithField('login', $login);
 
         if ($id) {
             $db_user = $user_model->find($id);
 
             if (password_verify($password, $db_user['password'])) {
-                // instanciate User entity
+                // Instanciate User entity
                 $user_entity = new UserEntity();
 
-                // hydrate User entity properties
-                $user_entity
-                    ->setId($db_user['id'])
-                    ->setLogin($db_user['login'])
-                    ->setEmail($db_user['email'])
-                    ->setUsername($db_user['username'])
-                    ->setFirstname($db_user['firstname'])
-                    ->setLastname($db_user['lastname'])
-                    ->setRoleId($db_user['role_id']);
+                // Hydrate User entity properties
+                $user_entity->hydrate($db_user);
 
                 if (session_status() === PHP_SESSION_ACTIVE) {
-                    // store entity in session to use its structure & methods
+                    // Store entity in session to use its structure & methods
                     $_SESSION['user'] = $user_entity;
-                    header('Location: '.$_SESSION['url']);
+
+                    header('Location: ' . $_SESSION['url']);
                 }
 
-                // return true & stop executing method
+                // Return true & stop executing method
                 return true;
             }
         }
 
-        // generic exception
+        // Incorrect login and/or password
         throw new \Exception('identifiants incorrects');
     }
 
@@ -143,7 +139,8 @@ class User extends AbstractController
        
     }
 
-    public function checkPasswordStrength(string $password) {
+    public function checkPasswordStrength(string $password)
+    {
         // check if password is powerful enough with regex
     }
 
