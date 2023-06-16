@@ -23,9 +23,10 @@ class CartProduct
     }
 
     /**
-     * @param int $cart_id Part 1 of the primary key, the cart id foreign key
-     * @param int $product_id Part 2 of the primary key, the product id foreign key
-     * @param int $product_quantity The quantity of the product
+     * @param int $cart_id The cart id foreign key
+     * @param int $product_id The product id foreign key
+     * @param string $product_size The selected size of the product
+     * @param int $product_quantity The selected quantity of the product
      * @return bool Depending if the request is executed successfully
      */
     public function create(int $cart_id, int $product_id, string $product_size, int $product_quantity): bool
@@ -44,19 +45,16 @@ class CartProduct
     }
 
     /**
-     * @param int $cart_id Part 1 of the primary key, the cart id foreign key
-     * @param int $product_id Part 2 of the primary key, the product id foreign key
+     * @param int $id Primary key
      * @return array|false SQL result if the request is executed successfully
      */
-    public function find(int $cart_id, int $product_id): array|false
+    public function find(int $id): array|false
     {
-        // fetch cart infos with PRIMARY KEY (cart_id, product_id)
-        $sql = 'SELECT * FROM cart_product WHERE cart_id = :cart_id AND product_id = :product_id';
+        $sql = 'SELECT * FROM cart_product WHERE id = :id';
 
         $select = $this->_pdo->prepare($sql);
 
-        $select->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
-        $select->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $select->bindParam(':id', $id, PDO::PARAM_INT);
 
         $select->execute();
 
@@ -64,21 +62,20 @@ class CartProduct
     }
 
     /**
-     * @param int $cart_id Part 1 of the primary key, the cart id foreign key
-     * @param int $product_id Part 2 of the primary key, the product id foreign key
-     * @param int $product_quantity The quantity of the product
+     * @param int $id Primary key
+     * @param string $product_size The selected size of the product
+     * @param int $product_quantity The selected quantity of the product
      * @return bool Depending if the request is executed successfully
      */
-    public function update(int $cart_id, int $product_id, int $product_quantity, string $product_size): bool
+    public function update(int $id, int $product_quantity, string $product_size): bool
     {
-        $sql = 'UPDATE cart_product SET product_quantity = :product_quantity, product_size = :product_size WHERE cart_id = :cart_id AND product_id = :product_id';
+        $sql = 'UPDATE cart_product SET product_size = :product_size, product_quantity = :product_quantity WHERE id = :id';
 
         $update = $this->_pdo->prepare($sql);
 
-        $update->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
-        $update->bindParam(':product_id', $product_id, PDO::PARAM_INT);
-        $update->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
+        $update->bindParam(':id', $id, PDO::PARAM_INT);
         $update->bindParam(':product_size', $product_size);
+        $update->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
 
         return $update->execute();
     }
@@ -88,16 +85,15 @@ class CartProduct
      * @param int $product_id Part 2 of the primary key, the product id foreign key
      * @return bool Depending if the request is executed successfully
      */
-    public function delete(int $cart_id, int $product_id): bool
+    public function delete(int $id): bool
     {
         // delete using primary key (foreign keys mix)
         // ? delete if product_quantity is 0?
-        $sql = 'DELETE FROM cart_product WHERE cart_id = :cart_id AND product_id = :product_id';
+        $sql = 'DELETE FROM cart_product WHERE id = :id';
 
         $insert = $this->_pdo->prepare($sql);
 
-        $insert->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
-        $insert->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $insert->bindParam(':id', $id, PDO::PARAM_INT);
 
         return $insert->execute();
     }
