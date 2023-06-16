@@ -28,17 +28,17 @@ class CartProduct
      * @param int $product_quantity The quantity of the product
      * @return bool Depending if the request is executed successfully
      */
-    public function create(int $cart_id, int $product_id, int $product_quantity, string $product_size): bool
+    public function create(int $cart_id, int $product_id, string $product_size, int $product_quantity): bool
     {
         // fetch cart & product ids, insert them as PRIMARY KEY with product quantity
-        $sql = 'INSERT INTO cart_product (cart_id, product_id, product_quantity, product_size) VALUES (:cart_id, :product_id, :product_quantity, :product_size)';
+        $sql = 'INSERT INTO cart_product (cart_id, product_id, product_size, product_quantity) VALUES (:cart_id, :product_id, :product_size, :product_quantity)';
 
         $insert = $this->_pdo->prepare($sql);
 
         $insert->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
         $insert->bindParam(':product_id', $product_id, PDO::PARAM_INT);
-        $insert->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
         $insert->bindParam(':product_size', $product_size);
+        $insert->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
 
         return $insert->execute();
     }
