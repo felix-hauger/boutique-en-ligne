@@ -119,6 +119,11 @@ class User extends AbstractController
                     // Store entity in session to use its structure & methods
                     $_SESSION['user'] = $user_entity;
 
+                    $cart_controller = new CartController();
+
+                    // Transfer items to logged user from cookies to database
+                    $cart_controller->transferCookieCartItemsToLoggedUser();
+
                     header('Location: ' . $_SESSION['url']);
                 }
 
@@ -130,7 +135,6 @@ class User extends AbstractController
         // Incorrect login and/or password
         throw new \Exception('identifiants incorrects');
     }
-
 
     public function getAllInfo()
     {

@@ -28,7 +28,7 @@ if (isset($_SESSION['user'])) {
         $order_controller->createFromCart($logged_user_cart);
     }
 
-    $cart_controller->transferCookieCartItemsToLoggedUser();
+    // $cart_controller->transferCookieCartItemsToLoggedUser();
 
     // var_dump($_SESSION);
 
@@ -66,7 +66,7 @@ if (isset($_SESSION['user'])) {
 
     // var_dump($cart_items);
 }
-var_dump($_COOKIE);
+// var_dump($_COOKIE);
 
 function GetProduct($product_id)
 {
