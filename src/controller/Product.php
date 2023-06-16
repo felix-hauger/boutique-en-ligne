@@ -40,7 +40,7 @@ class Product extends AbstractController
             $stock_entity = new StockEntity();
 
             // Fetch product stock data
-            $product_stock = $stock_model->find($id);
+            $product_stock = $stock_model->findByProduct($id);
 
             // Hydrate instanciated Stock entity with retrieved data
             $stock_entity->hydrate($product_stock);

@@ -1,7 +1,5 @@
 <?php
 
-
-
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use App\Config\DbConnection;
@@ -20,25 +18,6 @@ $product_controller = new ProductController();
 
 $cookies_cart_items = [];
 
-foreach ($_COOKIE as $key => $val) {
-             
-    if (substr($key, 0, 7) == "product") {
-        // le cookie est divisé en plusieures partie    product(string)  id   taille => quantité
-        list($ignore, $product_id, $size) = explode("_", $key);
-        //pour etre sur que l'on récupere que les cookie de notre panier
-
-        // $product = $product_controller->get
-
-        $item = $cart_controller->getCookieItemInfos($product_id);
-
-        $item['size'] = $size;
-        $item['quantity'] = $val;
-        // $item->setSize($size);
-
-        //on récupere les info de l'article
-        $cookies_cart_items[] = $item;
-    }
-}
 
 if (isset($_SESSION['user'])) {
     $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
@@ -48,6 +27,8 @@ if (isset($_SESSION['user'])) {
 
         $order_controller->createFromCart($logged_user_cart);
     }
+
+    // $cart_controller->transferCookieCartItemsToLoggedUser();
 
     // var_dump($_SESSION);
 
@@ -63,10 +44,29 @@ if (isset($_SESSION['user'])) {
     // }
 } else {
 
+    foreach ($_COOKIE as $key => $val) {
 
-    // var_dump($_COOKIE);
+        if (substr($key, 0, 7) == "product") {
+            // le cookie est divisé en plusieures partie    product(string)  id   taille => quantité
+            list($ignore, $product_id, $size) = explode("_", $key);
+            //pour etre sur que l'on récupere que les cookie de notre panier
+
+            // $product = $product_controller->get
+
+            $item = $cart_controller->getCookieItemInfos($product_id);
+
+            $item['size'] = $size;
+            $item['quantity'] = $val;
+            // $item->setSize($size);
+
+            //on récupere les info de l'article
+            $cookies_cart_items[] = $item;
+        }
+    }
+
     // var_dump($cart_items);
 }
+// var_dump($_COOKIE);
 
 function GetProduct($product_id)
 {
@@ -91,9 +91,7 @@ $TOTAL = [];
 
 
     <!-- FontAwesome  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- GoogleFont-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,7 +126,7 @@ $TOTAL = [];
                     if (!empty($cookies_cart_items)) {
                         // Move cookies in user cart in database
                     }
-                
+
                     $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
 
                     // var_dump($logged_user_cart);
@@ -139,12 +137,12 @@ $TOTAL = [];
                         if ($item['quantity'] > 1) {
                             // var_dump($item);
                             $Nprice = $item['price'] * $item['quantity'];
-                            array_push($TOTAL, [$item['name']."<b> x ".$item['quantity']."</b>", $Nprice]);
+                            array_push($TOTAL, [$item['name'] . "<b> x " . $item['quantity'] . "</b>", $Nprice]);
                         } else {
                             array_push($TOTAL, [$item['name'], $item['price']]);
                         }
                     }
-                
+
                     // var_dump($logged_user_cart);
                 } else {
                     foreach ($cookies_cart_items as $item) {
@@ -152,7 +150,7 @@ $TOTAL = [];
 
                         if ($item['quantity'] > 1) {
                             $Nprice = $item['price'] * $item['quantity'];
-                            array_push($TOTAL, [$item['name']."<b> x ".$item['quantity']."</b>", $Nprice]);
+                            array_push($TOTAL, [$item['name'] . "<b> x " . $item['quantity'] . "</b>", $Nprice]);
                         } else {
                             array_push($TOTAL, [$item['name'], $item['price']]);
                         }
@@ -166,7 +164,8 @@ $TOTAL = [];
         <section id="cart-action">
             <section id="cart-check">
                 <table>
-                    <td><b>Nom du Produit: </b></td><td class='TOTALPrix'><b>Prix : </b></td>
+                    <td><b>Nom du Produit: </b></td>
+                    <td class='TOTALPrix'><b>Prix : </b></td>
                     <?php
 
                     $PRIX_TOTAL = 0;
@@ -178,22 +177,21 @@ $TOTAL = [];
                             //si l'élément récupéré est une string ( nom du produit )
                             if (is_string($elements)) {
                                 echo "<td class='TOTALNom'>&ensp;-&ensp;" . $elements . " </td>";
-                            } 
+                            }
                             //sinon c'est un int ( prix du produit)
                             else {
                                 echo "<td class='TOTALPrix'>" . $elements . "€</td>";
-                                $PRIX_TOTAL=$PRIX_TOTAL+$elements;
+                                $PRIX_TOTAL = $PRIX_TOTAL + $elements;
                             }
-
                         }
-                    } 
+                    }
                     ?>
                 </table>
-               
+
             </section>
-           
+
             <section id="cart-buttons">
-                <div id="Total"><b>TOTAL : <?=$PRIX_TOTAL?>€</b></div>
+                <div id="Total"><b>TOTAL : <?= $PRIX_TOTAL ?>€</b></div>
                 <form action="" method="post">
                     <button type="submit" name="confirm-order">Passer Commande</button>
                 </form>

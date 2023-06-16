@@ -49,6 +49,32 @@ function Cookie(id_produit) {
     }
 }
 
+async function loggedCartCount(){
+    const request = await fetch('cart-count.php');
+
+    const count = await request.text();
+
+    function changeColor(){
+        document.getElementById("CartCount").style.color = 'orange';
+        document.getElementById("CartCount").classList.remove('fadein');
+    }
+
+    function fadeColor(){
+        document.getElementById("CartCount").style.color = 'var(--detail-color-)';
+        document.getElementById("CartCount").classList.add('fadein');
+    }
+
+    changeColor();
+
+    setTimeout(fadeColor, 500);
+
+    if(count != 0){
+        document.getElementById('CartCount').innerHTML=count
+    }
+}
+
+loggedCartCount();
+
 AddCartLogged?.addEventListener('click', async function(ev) {
 
     if (typeof (Size) != "undefined") {
@@ -65,6 +91,8 @@ AddCartLogged?.addEventListener('click', async function(ev) {
             body: formData
         });
 
-        console.log(request.text());
+        loggedCartCount();
+
+        // console.log(request.text());
     }
 });

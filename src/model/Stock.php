@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use PDO;
+
 class Stock extends AbstractModel
 {
     /**
@@ -24,5 +26,22 @@ class Stock extends AbstractModel
         $insert->bindValue(':product_id', $stock->getProductId());
 
         return $insert->execute();
+    }
+
+    /**
+     * @param int $product_id The product id of the stock
+     * @return array|false Row from database if request executed successfully and found, else false
+     */
+    public function findByProduct(int $product_id): array|false
+    {
+        $sql = 'SELECT * FROM stock WHERE product_id = :product_id';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->bindParam(':product_id', $product_id);
+
+        $select->execute();
+
+        return $select->fetch(PDO::FETCH_ASSOC);
     }
 }

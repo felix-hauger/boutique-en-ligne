@@ -6,7 +6,6 @@ if (isset($_POST['submit-login'])) {
 
     $userController = new UserController();
 
-  
     try {
         $userController->connect(
             $_POST['login'], 

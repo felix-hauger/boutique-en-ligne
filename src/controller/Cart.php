@@ -54,7 +54,7 @@ class Cart extends AbstractController
 
         $cart_id = $cart_model->findIdWithField('user_id', $user_id);
 
-        $cart_product->create($cart_id, $product_id, $quantity, $size);
+        $cart_product->create($cart_id, $product_id, $size, $quantity);
     }
 
     public function getCookieItemInfos(int $id)
@@ -125,6 +125,37 @@ class Cart extends AbstractController
         </tr>';
 
         return $result;
+    }
+
+    /**
+     * Transfer cart items from cookie to database
+     * To use when user log in
+     */
+    public function transferCookieCartItemsToLoggedUser(): void
+    {
+        // Find cart of logged user
+        $user_cart = $this->getByUser($_SESSION['user']->getId());
+
+        $cart_product = new CartProduct();
+
+        foreach($_COOKIE as $key => $value) {
+            if (substr($key, 0, 8) === 'product_') {
+                // 0 => id, 1 => size
+                $product = explode('_', substr($key, 8));
+
+                $quantity = $value;
+
+                // Check if id & quantity are integers & if size has only alphanumeric characters
+                if (preg_match('/\d{1,11}/', $product[0]) && preg_match('/[A-Za-z0-9]{1,5}/', $product[1]) && preg_match('/\d{1,5}/', $quantity)) {
+                    // Insert in cart_product
+                    $cart_product->create($user_cart->getId(), $product[0], $product[1], $quantity);
+    
+                    // Remove cookie
+                    setcookie($key, '', -1);
+                }
+
+            }
+        }
     }
 }
 

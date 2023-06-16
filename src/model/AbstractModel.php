@@ -36,7 +36,7 @@ abstract class AbstractModel
     }
 
     /**
-     * @return array of sql results if request executed successfully
+     * @return array|false Array of sql result if request executed successfully and found, else false
      */
     public function findAll(): array|false
     {
@@ -51,7 +51,7 @@ abstract class AbstractModel
 
     /**
      * @param int id representing id column in database
-     * @return array row from database if request executed successfully
+     * @return array|false Row from database if request executed successfully and found, else false
      */
     public function find(int $id): array|false
     {
