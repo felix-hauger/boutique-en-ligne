@@ -24,7 +24,7 @@ function table($orders)
         echo "<td>" . $order['name'] . "</td>";
         echo "<td>" . $order['id'] . "</td>";
         echo "<td>" . $order['unit_price'] . "</td>";
-        echo "<td>" . $order['quantity'] . "</td>";
+        echo "<td>" . $order['product_quantity'] . "</td>";
         echo "<td>" . $order['product_size'] . "</td>";
         echo "</tr>";
         $counter++;
