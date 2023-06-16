@@ -167,5 +167,5 @@ function CartCount(){
 
 }
 
-CurrentSaison()
-CartCount()
+CurrentSaison();
+CartCount();
