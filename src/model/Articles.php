@@ -1,12 +1,12 @@
 <?php
 
-
 namespace App\Model;
 
 use \App\Config\DbConnection;
+use PDO;
 
 
-class Article {
+class Articles extends AbstractModel{
 
     private $id;  
     private $id_article;
@@ -55,7 +55,7 @@ class Article {
     //cree la page selon la categorie
     public function articles_by_id_categ($id_categorie)
     {
-        $this->category_id  = $id_categorie;
+        $this->id_categorie  = $id_categorie;
 
         $id_categorie = htmlspecialchars($id_categorie);
         $sql = "SELECT category.name, product.name, product.images, product.category_id, product.created_at 
@@ -79,15 +79,18 @@ class Article {
     //(1/2) On determine le nombre total d'articles 
     public function total_number_articles()
     {
+      
         // On determine le nombre total d'articles
         $sql = 'SELECT COUNT(*) AS nb_articles FROM `product`;';
+        
         // On prepare la requete
-        $request = $this->bdd->prepare($sql);
+        $request = $this->_pdo->prepare($sql);
+        
         // On execute
         $request->execute();
         // On recupere le nombre d'articles
         $result = $request->fetch();
-        //var_dump($result); //OK fonctionne mais probleme lors de l'attribution en int
+        // var_dump($result); //OK fonctionne mais probleme lors de l'attribution en int
         $nbArticles = intval($result['nb_articles']) ;
         // var_dump($nbArticles);
 
@@ -99,7 +102,7 @@ class Article {
     {
         $sql = 'SELECT * FROM `product` ORDER BY `created_at` DESC LIMIT :premier, :parpage;';
         // On prepare la requete
-        $request = $this->bdd->prepare($sql);
+        $request = $this->_pdo->prepare($sql);
         $request->bindValue(':premier', $first, PDO::PARAM_INT);
         $request->bindValue(':parpage', $bypage, PDO::PARAM_INT);
         // On execute
@@ -118,7 +121,7 @@ class Article {
                 FROM `product` 
                 WHERE id = $id ";
         // On prepare la requete
-        $request = $this->bdd->prepare($sql);
+        $request = $this->_pdo->prepare($sql);
         // On execute
         $request->execute([$id]);
         // On recupere les valeurs dans un tableau associatif
@@ -136,7 +139,7 @@ class Article {
                 FROM `product` 
                 WHERE id = $id ";
         // On prepare la requete
-        $request = $this->bdd->prepare($sql);
+        $request = $this->_pdo->prepare($sql);
         // On execute
         $request->execute([$id]);
 
