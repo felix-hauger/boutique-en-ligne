@@ -77,7 +77,7 @@ function toggleAuth(event) {
 //permet de changer manuellement de saison pour démonstration
 function SetSaisons() {
 
-    if (Saison === 0) {
+    if (Saison === 5) {
         // Couleurs d'été
         r.style.setProperty('--bg-color', '#fffbf0');
         r.style.setProperty('--detail-color', '#528E74');
@@ -98,7 +98,7 @@ function SetSaisons() {
         r.style.setProperty('--hover-color', '#7861d4');
         r.style.setProperty('--lightbg-color', '#f8fffe');
         Saison++;
-    } else if (Saison === 3) {
+    } else if (Saison === 3 || Saison === 0) {
         // Couleurs de printemps
         r.style.setProperty('--bg-color', '#e9fff2');
         r.style.setProperty('--detail-color', '#0a460a');

@@ -10,7 +10,7 @@ class  AppController extends  ArtController   {
 
     protected  $template = 'default';
 
-    public function __ construct(){
+    public function __construct(){
         $this -> viewPath = ROOT.'/app/views/';
     }
 
