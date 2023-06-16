@@ -140,20 +140,20 @@ class Cart extends AbstractController
 
         foreach($_COOKIE as $key => $value) {
             if (substr($key, 0, 8) === 'product_') {
-                // todo: check product format with regex
-
                 // 0 => id, 1 => size
                 $product = explode('_', substr($key, 8));
 
-                // todo: check if value is int
                 $quantity = $value;
 
-                // Insert in cart_product
-                $cart_product->create($user_cart->getId(), $product[0], $product[1], $quantity);
+                // Check if id & quantity are integers & if size has only alphanumeric characters
+                if (preg_match('/\d{1,11}/', $product[0]) && preg_match('/[A-Za-z0-9]{1,5}/', $product[1]) && preg_match('/\d{1,5}/', $quantity)) {
+                    // Insert in cart_product
+                    $cart_product->create($user_cart->getId(), $product[0], $product[1], $quantity);
+    
+                    // Remove cookie
+                    setcookie($key, '', -1);
+                }
 
-                // Remove cookie
-                setcookie($key, '', -1);
-                
             }
         }
     }
