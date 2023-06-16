@@ -68,6 +68,7 @@ $get_page = $articles->get_by_page($premier,$parPage);
 <main class="main-first">
     <div class="row">
         <section>
+           
             <table id="customers">
             
                 <tbody>
@@ -76,7 +77,7 @@ $get_page = $articles->get_by_page($premier,$parPage);
                         // var_dump($article);
                     ?>
                         <div>
-                        <div><a href="product.php?id=<?= $article["id"] ?>"><img src="public/images/<?php echo $article["image"] ?>" alt=""></a></div>
+                        <div><a href="product.php?id=<?= $article["id"] ?>"><img src="<?php echo $article["image"] ?>" alt=""></a></div>
                             <div><a href="product.php?id=<?= $article["id"] ?>"><?= $article["name"] ?></a></div>
                             <div><a href="product.php?id=<?= $article["id"] ?>"><?= $article["price"] ?></a></div>
                             
