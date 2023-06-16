@@ -190,4 +190,15 @@ class User extends AbstractController
     
         return $user_model->updateRole($id,$new_role_id);
     }
+
+    public function countCartItems(int $id)
+    {
+        $cart_model = new CartModel();
+
+        $cart_id = $cart_model->findIdWithField('user_id', $id, true);
+
+        $cart_product = new CartProduct();
+
+        return $cart_product->countByCart($cart_id);
+    }
 }

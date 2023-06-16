@@ -112,4 +112,17 @@ class CartProduct
 
         return $delete->execute();
     }
+
+    public function countByCart(int $cart_id)
+    {
+        $sql = 'SELECT COUNT(id) FROM cart_product WHERE cart_id = :cart_id';
+
+        $count = $this->_pdo->prepare($sql);
+
+        $count->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+
+        $count->execute();
+
+        return $count->fetchColumn();
+    }
 }
