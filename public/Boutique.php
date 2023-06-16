@@ -29,7 +29,7 @@ $nbArticles = $articles->total_number_articles();
 $parPage = 5;
 // On calcule le nombre de pages total
 $pages = ceil($nbArticles / $parPage);
-echo $pages;
+
 
 // Calcul du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
@@ -68,13 +68,8 @@ $get_page = $articles->get_by_page($premier,$parPage);
 <main class="main-first">
     <div class="row">
         <section>
-        <h1 class="title-main">Liste des articles</h1>
             <table id="customers">
-                <thead>
-                    <th>Titre</th>
-                    <th>Date</th>
-                    <th>Images</th> 
-                </thead>
+            
                 <tbody>
                     <?php
                     foreach($get_page as $article){
