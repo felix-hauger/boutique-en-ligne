@@ -54,16 +54,6 @@ if (isset($_SESSION['user'])) {
 
 }
 
-function GetProduct($product_id)
-{
-    $sql = "SELECT * FROM product WHERE id = " . $product_id;
-    $select = DbConnection::getPdo()->prepare($sql);
-    if ($select->execute()) {
-        $products = $select->fetch(\PDO::FETCH_ASSOC);
-        return $products;
-    }
-}
-
 $TOTAL = [];
 ?>
 <!DOCTYPE html>
