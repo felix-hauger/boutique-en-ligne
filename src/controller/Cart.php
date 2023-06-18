@@ -20,6 +20,7 @@ class Cart extends AbstractController
 
     /**
      * @param int $user_id The cart owner id
+     * 
      * @return CartEntity Hydrated with retrieved data
      */
     public function getByUser(int $user_id): CartEntity
@@ -46,7 +47,15 @@ class Cart extends AbstractController
         return $cart_entity;
     }
 
-    public function addProductToUserCart($user_id, $product_id, $quantity, $size)
+    /**
+     * @param int $user_id The id of the cart owner
+     * @param int $product_id The id of the selected product
+     * @param string $product_size The selected size of the product
+     * @param int $product_quantity The selected quantity of the product
+     * 
+     * @return bool Depending if the item is successfully added to cart
+     */
+    public function addProductToUserCart(int $user_id, int $product_id, string $product_size, int $product_quantity): bool
     {
         $cart_product = new CartProduct();
 
@@ -54,26 +63,46 @@ class Cart extends AbstractController
 
         $cart_id = $cart_model->findIdWithField('user_id', $user_id);
 
-        $cart_product->create($cart_id, $product_id, $size, $quantity);
+        return $cart_product->create($cart_id, $product_id, $product_size, $product_quantity);
     }
 
-    public function getCookieItemInfos(int $id)
+    /**
+     * Get product info of cart item for non logged user
+     * 
+     * @param int $id The product id
+     * 
+     * @return array|false Retrieved data if request is successfull
+     */
+    public function getCookieItemInfos(int $id): array|false
     {
         $product_model = new ProductModel();
 
         return $product_model->findWithPreview($id);
     }
 
-    public function deleteItem(int $cart_product_id)
+    /**
+     * Delete item from logged user cart
+     * 
+     * @param int $cart_product_id The primary key of the binding table
+     * 
+     * @return bool Depending if request is successfull
+     */
+    public function deleteItem(int $cart_product_id): bool
     {
         $cart_product = new CartProduct();
 
         return $cart_product->delete($cart_product_id);
     }
 
-    public static function toHtmlItem(array $cart_item)
+    /**
+     * To display cart items for non logged user, with cart_product id to delete item from cart
+     * 
+     * @param array $cart_item Contains product data
+     * 
+     * @return string HTML element
+     */
+    public static function toHtmlItem(array $cart_item): string
     {
-        // var_dump($cart_item);
         $result =
         // Item image, name, size & quantity
         '<tr>
@@ -102,7 +131,14 @@ class Cart extends AbstractController
         return $result;
     }
 
-    public static function toHtmlCookieItem(array $cart_item)
+    /**
+     * To display cart items for non logged user
+     * 
+     * @param array $cart_item Contains product data
+     * 
+     * @return string HTML element
+     */
+    public static function toHtmlCookieItem(array $cart_item): string
     {
         $result = 
         // Item image, name, size & quantity

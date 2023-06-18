@@ -27,7 +27,6 @@ if (isset($_SESSION['user'])) {
 
         $order_controller->createFromCart($logged_user_cart);
     } elseif (isset($_POST['delete-cart-item'])) {
-        var_dump($_POST);
         $cart_controller->deleteItem($_POST['delete-cart-item']);
     }
 
