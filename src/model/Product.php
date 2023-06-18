@@ -192,7 +192,8 @@ class Product extends AbstractModel
     public function findAllByCart(int $cart_id)
     {
         $sql = 'SELECT product.id, product.name, SUBSTRING(product.description, 1, 120) AS preview, price, image,
-            product_quantity AS quantity, product_size AS size
+            product_quantity AS quantity, product_size AS size,
+            cart_product.id AS cart_product_id
             FROM product
             INNER JOIN cart_product ON product.id = cart_product.product_id
             INNER JOIN cart ON cart.id = cart_product.cart_id

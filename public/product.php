@@ -8,6 +8,7 @@ use App\Controller\Product;
 //session start apres l'autoload sinon bug lors de la connexion
 session_start();
 
+
 // Handle cart for logged user, in asynchronous javascript
 if (isset($_SESSION['user'])) {
     // If all necessary inputs are send using fetch & FormData
@@ -18,8 +19,8 @@ if (isset($_SESSION['user'])) {
         $cart_controller->addProductToUserCart(
             $_SESSION['user']->getId(), 
             $_POST['product_id'], 
-            $_POST['product_quantity'], 
-            $_POST['product_size']
+            $_POST['product_size'],
+            $_POST['product_quantity']
         );
 
         // Stop code execution to prevent redirection as it is used in js
@@ -122,7 +123,6 @@ if (preg_match('/^\d+$/', $_GET['id'])) {
                     <?php if (isset($_SESSION['user'])): ?>
 
                         <button class="BtPanier" id="AddLogged" value="<?= $product->getId(); ?>" >Ajouter au Panier</button><br>
-                        
 
                     <?php else: ?>
 

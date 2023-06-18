@@ -81,8 +81,7 @@ class CartProduct
     }
 
     /**
-     * @param int $cart_id Part 1 of the primary key, the cart id foreign key
-     * @param int $product_id Part 2 of the primary key, the product id foreign key
+     * @param int $id Primary key of the binding table
      * @return bool Depending if the request is executed successfully
      */
     public function delete(int $id): bool
