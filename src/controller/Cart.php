@@ -64,10 +64,17 @@ class Cart extends AbstractController
         return $product_model->findWithPreview($id);
     }
 
+    public function deleteItem(int $cart_product_id)
+    {
+        $cart_product = new CartProduct();
+
+        return $cart_product->delete($cart_product_id);
+    }
 
     public static function toHtmlItem(array $cart_item)
     {
-        $result = 
+        // var_dump($cart_item);
+        $result =
         // Item image, name, size & quantity
         '<tr>
             <td class="Tdbg" rowspan="2" class="TdImage"><img class="imageCart" src="' . $cart_item['image'] . '"></td>
@@ -87,10 +94,9 @@ class Cart extends AbstractController
         }
 
         $result .= 
-        
         '<tr>
             <td class="TdDesc" colspan="3">' . $cart_item['preview'] . '</td>
-            <td class="BoxBtSuppCookie"><form><button class="BtSuppCookie">Supprimer L\'article</button></form></td>
+            <td class="BoxBtnSupp"><form method="post"><button type="submit" name="delete-cart-item" value="' . $cart_item['cart_product_id'] . '" class="BtnSupp">Supprimer L\'article</button></form></td>
         </tr>';
 
         return $result;
@@ -121,7 +127,7 @@ class Cart extends AbstractController
         
         '<tr>
             <td class="TdDesc" colspan="3">' . $cart_item['preview'] . '</td>
-            <td class="BoxBtSuppCookie"><button class="BtSuppCookie" onclick="SupprimerCookie(\'product_' . $cart_item['id'] . '_' . $cart_item['size'] . '\')">Supprimer L\'article</button></td>
+            <td class="BoxBtnSupp"><button class="BtnSupp" onclick="SupprimerCookie(\'product_' . $cart_item['id'] . '_' . $cart_item['size'] . '\')">Supprimer L\'article</button></td>
         </tr>';
 
         return $result;
