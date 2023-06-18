@@ -30,20 +30,6 @@ if (isset($_SESSION['user'])) {
         $cart_controller->deleteItem($_POST['delete-cart-item']);
     }
 
-    // $cart_controller->transferCookieCartItemsToLoggedUser();
-
-    // var_dump($_SESSION);
-
-    // if (!empty($cookies_cart_items)) {
-    //     var_dump($cookies_cart_items);
-    // }
-
-
-    // $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
-
-    // if ($logged_user_cart) {
-    //     var_dump($logged_user_cart);
-    // }
 } else {
 
     foreach ($_COOKIE as $key => $val) {
@@ -66,9 +52,7 @@ if (isset($_SESSION['user'])) {
         }
     }
 
-    // var_dump($cart_items);
 }
-// var_dump($_COOKIE);
 
 function GetProduct($product_id)
 {
@@ -123,15 +107,8 @@ $TOTAL = [];
                 <?php
 
                 if (isset($logged_user_cart)) {
-                    // var_dump($_SESSION);
-
-                    if (!empty($cookies_cart_items)) {
-                        // Move cookies in user cart in database
-                    }
 
                     $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
-
-                    // var_dump($logged_user_cart);
 
                     foreach ($logged_user_cart->getItems() as $item) {
                         echo CartController::toHtmlItem($item);
@@ -145,7 +122,6 @@ $TOTAL = [];
                         }
                     }
 
-                    // var_dump($logged_user_cart);
                 } else {
                     foreach ($cookies_cart_items as $item) {
                         echo CartController::toHtmlCookieItem($item);

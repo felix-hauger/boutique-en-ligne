@@ -200,9 +200,3 @@ class Cart extends AbstractController
         }
     }
 }
-
-// $c = new Cart();
-
-// // var_dump($c->getByUser(1));
-
-// $c->addProductToUserCart(1, 8, 2, 'xl');
