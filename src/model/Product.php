@@ -238,4 +238,20 @@ class Product extends AbstractModel
 
         return $select->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * @param string $name The name of the product
+     */
+    public function searchByName(string $name): array|false
+    {
+        $sql = 'SELECT * FROM product WHERE name LIKE :name';
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute(
+            [ ':name' => '%' . $name . '%']
+        );
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
