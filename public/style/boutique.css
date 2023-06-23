@@ -1,0 +1,38 @@
+.ImgArticle{
+    width: 16vw;
+    height:25vw;
+    border-radius: 3px 3px 0 0;
+    object-fit: cover;
+}
+
+.AllArticleContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.ArticleContainer{
+    text-align: center;
+    width: 16vw;
+    margin: 2% 2%;
+    background-color: var(--lightbg-color);
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.089);
+}
+
+.ArticleInfo, .ArticleInfo:link, .ArticleInfo:hover, .ArticleInfo:visited{
+    padding: 5%;
+    color : var(--detail-color);
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.container-pagination {
+    text-align: right;
+    margin: 2% 5% 2%;
+    font-size: larger;
+   
+}
+.page-link:link, .page-link:hover, .page-link:visited{
+    color : var(--detail-color);
+    font-weight: bolder;
+    text-decoration: none;
+}
