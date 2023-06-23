@@ -9,7 +9,6 @@
          </ul>
 
          <ul>
-            <a href="index.php">Saisons </a><br>
             <a href="user.php">Profil </a><br>
             <a href="index.php">Nouveautés </a><br>
          </ul>
@@ -23,7 +22,7 @@
       </div>
 
       <div id="boxMentionLégales">
-         <a href="https://www.youtube.com/watch?v=M5V_IXMewl4&ab_channel=TheBest10HourVideos"> Conditions générales de vente</a>
+         <a href="cgv.html"> Conditions générales de vente</a>
          <a href="http://sam.zoy.org/lprab/COPYING"> Mentions Légales</a>
       </div>
 

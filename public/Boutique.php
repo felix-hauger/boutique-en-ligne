@@ -139,8 +139,8 @@ if ($currentPage > $pages) {
                 ?>
     </nav>
 
-
-    <body>
-        <?php
+    <?php
         include "includes/footer.php";
         ?>
+    <body>
+       
