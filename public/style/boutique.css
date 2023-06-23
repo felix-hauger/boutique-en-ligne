@@ -28,7 +28,7 @@
 .container-pagination {
     text-align: right;
     margin: 2% 5% 2%;
-    font-size: larger;
+    font-size: 3vh;
    
 }
 .page-link:link, .page-link:hover, .page-link:visited{
