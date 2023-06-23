@@ -104,9 +104,9 @@ if ($currentPage > $pages) {
             ?>
             <!-- affiche Image Nom et Prix de l'article-->
             <div class="ArticleContainer"><a href="product.php?id=<?= $article["id"] ?>"><img class="ImgArticle"
-                        src="<?php echo $article["image"] ?>" alt=""></a><br>
-                <a class="ArticleInfo" href="product.php?id=<?= $article["id"] ?>"><?= $article["name"] ?></a><br>
-                <a class="ArticleInfo" href="product.php?id=<?= $article["id"] ?>"><?= $article["price"] . "€" ?></a>
+                        src="<?php echo $article["image"] ?>" alt=""></a><br><br>
+                <a class="ArticleInfo" href="product.php?id=<?= $article["id"] ?>"><?= $article["name"] ?></a><br><br>
+                <a class="ArticleInfo" href="product.php?id=<?= $article["id"] ?>"><?= $article["price"] . "€" ?></a><br><br>
             </div>
 
             <?php
