@@ -157,11 +157,20 @@ searchBar.addEventListener("input", async (ev) => {
         // Result string
         let htmlResult = "";
 
-        // console.log(response);
-
         // Add found products in html result
         for (const product of response) {
-            htmlResult += `<li class="search-result-item"><a href="product.php?id=${product.id}"><img src="${product.image}">${product.name}</a></li>`;
+            htmlResult += 
+            `<li class="search-result-item">
+                <a href="product.php?id=${product.id}">
+
+                    <img src="${product.image}">
+
+                    <p class="product-name">${product.name}</p>
+
+                    <p class="product-price">${product.price} €</p>
+
+                </a>
+            </li>`;
         }
 
         // Display found results
