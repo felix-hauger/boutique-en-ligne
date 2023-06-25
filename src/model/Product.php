@@ -244,12 +244,12 @@ class Product extends AbstractModel
      */
     public function searchByName(string $name): array|false
     {
-        $sql = 'SELECT * FROM product WHERE name LIKE :name';
+        $sql = 'SELECT * FROM product WHERE name LIKE :name LIMIT 5';
 
         $select = $this->_pdo->prepare($sql);
 
         $select->execute(
-            [ ':name' => '%' . $name . '%']
+            [':name' => '%' . $name . '%']
         );
 
         return $select->fetchAll(PDO::FETCH_ASSOC);
