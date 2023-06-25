@@ -14,7 +14,8 @@ if (isset($_GET['id'])){
             <a href="Boutique.php">Boutique </a> &emsp;
             <i class="fa-sharp fa-solid fa-magnifying-glass fa-xs" onclick="Recherche()" id="SearchIcon"></i>
             <i class="fa-solid fa-square-minus fa-xs" onclick="Recherche()" id="SearchHide"></i>
-            <input id="SearchBar" placeholder="Rechercher"></input>
+            <input type="search" id="SearchBar" placeholder="Rechercher"></input>
+            <ul id="SearchResult"></ul>
         </div>
         <div>
             <?php
@@ -33,7 +34,7 @@ if (isset($_GET['id'])){
                 echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
-            <span title="Nombre d'artcile dans le panier" id="CartCount"></span>
+            <span title="Nombre d'articles dans votre panier" id="CartCount"></span>
             <a title="Votre Panier" href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>

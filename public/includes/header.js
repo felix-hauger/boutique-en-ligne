@@ -13,30 +13,40 @@ let r = document.querySelector(':root');
 let Research = 0;
 let Saison = 0;
 
+const searchResult = document.querySelector("#SearchResult");
+
 //affiche ou non la barre de recherche
 function Recherche() {
 
     if (Research === 0) {
 
-        iconMobile.style.display = "none"
+        iconMobile.style.display = "none";
         barMobile.style.display = "inline";
         hideMobile.style.display = "inline";
 
-        icon.style.display = "none"
+        icon.style.display = "none";
         bar.style.display = "inline";
+
+        // Focus on search bar
+        bar.focus();
+
         hide.style.display = "inline";
+
+        searchResult.style.display = "block";
 
         Research = 1;
     }
     else if (Research === 1) {
 
-        iconMobile.style.display = "inline"
+        iconMobile.style.display = "inline";
         barMobile.style.display = "none";
         hideMobile.style.display = "none";
 
-        icon.style.display = "inline"
+        icon.style.display = "inline";
         bar.style.display = "none";
         hide.style.display = "none";
+
+        searchResult.style.display = "none";
 
         Research = 0;
     }
@@ -53,7 +63,7 @@ function HideUser() {
     popup.style.display = "none"
 }
 //empeche la propagation d'une action d'un parent a ses enfants
-function StopPropa(event){
+function StopPropa(event) {
     event.stopPropagation();
 }
 
@@ -135,33 +145,78 @@ function CurrentSaison() {
     }
 }
 
+// AUTOCOMPLETION
 
+const searchBar = document.querySelector("#SearchBar");
 
-function CartCount(){
+searchBar.addEventListener("input", async (ev) => {
+
+    const searchResult = document.querySelector("#SearchResult");
+
+    // There must be at least 3 characters in search bar
+    if (ev.target.value.length > 2) {
+
+        // Empty existing result in html container
+        searchResult.innerHTML = "";
+
+        // Promise with search bar input value as get parameter
+        let request = await fetch("search.php?query=" + ev.target.value);
+
+        // Get response
+        let response = await request.json();
+
+        // Result string
+        let htmlResult = "";
+
+        // Add found products in html result
+        for (const product of response) {
+            htmlResult += 
+            `<li class="search-result-item">
+                <a href="product.php?id=${product.id}">
+
+                    <img src="${product.image}">
+
+                    <p class="product-name">${product.name}</p>
+
+                    <p class="product-price">${product.price} €</p>
+
+                </a>
+            </li>`;
+        }
+
+        // Display found results
+        searchResult.innerHTML = htmlResult;
+    } else {
+        searchResult.innerHTML = "";
+    }
+
+});
+
+function CartCount() {
     var myCookies = document.cookie;
-    var count=0
+    var count = 0
     const cookies = myCookies.split('; ');
 
     cookies.forEach(element => {
-        if(element.substring(0, 7)== "product"){
+        if (element.substring(0, 7) == "product") {
             count++
-            function changeColor(){
+            function changeColor() {
                 document.getElementById("CartCount").style.color = 'orange';
                 document.getElementById("CartCount").classList.remove('fadein');
-              }
+            }
 
-              function fadeColor(){
+            function fadeColor() {
                 document.getElementById("CartCount").style.color = 'var(--detail-color-)';
                 document.getElementById("CartCount").classList.add('fadein');
-              }
+            }
 
-              changeColor();
-              setTimeout(fadeColor, 500);
+            changeColor();
+            setTimeout(fadeColor, 500);
         }
-       
+
     })
-    if(count != 0){
-        document.getElementById('CartCount').innerHTML=count
+    if (count != 0) {
+        document.getElementById('CartCount').innerHTML = count
     }
 
 

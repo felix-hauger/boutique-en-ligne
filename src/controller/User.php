@@ -165,8 +165,7 @@ class User extends AbstractController
     }
 
     /**
-     * disconnect user
-     * @return void
+     * Disconnect user
      */
     public function logout(): void
     {

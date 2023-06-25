@@ -419,6 +419,13 @@ class Product extends AbstractController
         }
         throw new Exception('Erreur dans le téléchargement de l\'image. Veuillez sélectionner un fichier de ' . static::$_max_uploaded_file_size / 1000000 . 'mo maximum, dont le nom comporte uniquement des caractères alphanumériques sans accent et des tirets, avec une extension d\'image correcte');
     }
+
+    public function search($query)
+    {
+        $product_model = new ProductModel();
+
+        return json_encode($product_model->searchByName($query));
+    }
 }
 
 // $p = new Product();
