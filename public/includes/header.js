@@ -13,30 +13,36 @@ let r = document.querySelector(':root');
 let Research = 0;
 let Saison = 0;
 
+const searchResult = document.querySelector("#SearchResult");
+
 //affiche ou non la barre de recherche
 function Recherche() {
 
     if (Research === 0) {
 
-        iconMobile.style.display = "none"
+        iconMobile.style.display = "none";
         barMobile.style.display = "inline";
         hideMobile.style.display = "inline";
 
-        icon.style.display = "none"
+        icon.style.display = "none";
         bar.style.display = "inline";
         hide.style.display = "inline";
+
+        searchResult.style.display = "block";
 
         Research = 1;
     }
     else if (Research === 1) {
 
-        iconMobile.style.display = "inline"
+        iconMobile.style.display = "inline";
         barMobile.style.display = "none";
         hideMobile.style.display = "none";
 
-        icon.style.display = "inline"
+        icon.style.display = "inline";
         bar.style.display = "none";
         hide.style.display = "none";
+
+        searchResult.style.display = "none";
 
         Research = 0;
     }
@@ -141,9 +147,10 @@ const searchBar = document.querySelector("#SearchBar");
 
 searchBar.addEventListener("input", async (ev) => {
 
+    const searchResult = document.querySelector("#SearchResult");
+
     // There must be at least 3 characters in search bar
     if (ev.target.value.length > 2) {
-        const searchResult = document.querySelector("#SearchResult");
 
         // Empty existing result in html container
         searchResult.innerHTML = "";
@@ -175,6 +182,8 @@ searchBar.addEventListener("input", async (ev) => {
 
         // Display found results
         searchResult.innerHTML = htmlResult;
+    } else {
+        searchResult.innerHTML = "";
     }
 
 });
