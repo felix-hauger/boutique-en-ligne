@@ -26,6 +26,10 @@ function Recherche() {
 
         icon.style.display = "none";
         bar.style.display = "inline";
+
+        // Focus on search bar
+        bar.focus();
+
         hide.style.display = "inline";
 
         searchResult.style.display = "block";
