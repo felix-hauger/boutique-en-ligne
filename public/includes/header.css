@@ -45,11 +45,18 @@ header #SearchBar {
     display: none;
     position: relative;
     bottom: 3px;
+    padding: 10px 8px;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid gray;
 }
 
 header #SearchHide {
     display: none;
     position: relative;
+    cursor: pointer;
     top: 4px;
     left: 7px;
 }
@@ -94,7 +101,7 @@ header #SearchIcon {
     left: 75%;
 }
 
-#login-form input ,#register-form input{
+#login-form input ,#register-form input {
     width: 50%;
     padding: 10px 0;
     margin: 5px 0;
