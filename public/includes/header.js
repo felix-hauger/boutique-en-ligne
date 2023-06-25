@@ -53,7 +53,7 @@ function HideUser() {
     popup.style.display = "none"
 }
 //empeche la propagation d'une action d'un parent a ses enfants
-function StopPropa(event){
+function StopPropa(event) {
     event.stopPropagation();
 }
 
@@ -135,33 +135,66 @@ function CurrentSaison() {
     }
 }
 
+// AUTOCOMPLETION
 
+const searchBar = document.querySelector("#SearchBar");
 
-function CartCount(){
+searchBar.addEventListener("input", async (ev) => {
+
+    // There must be at least 3 characters in search bar
+    if (ev.target.value.length > 2) {
+        const searchResult = document.querySelector("#SearchResult");
+
+        // Empty existing result in html container
+        searchResult.innerHTML = "";
+
+        // Promise with search bar input value as get parameter
+        let request = await fetch("search.php?query=" + ev.target.value);
+
+        // Get response
+        let response = await request.json();
+
+        // Result string
+        let htmlResult = "";
+
+        // console.log(response);
+
+        // Add found products in html result
+        for (const product of response) {
+            htmlResult += `<li class="search-result-item"><a href="product.php?id=${product.id}"><img src="${product.image}">${product.name}</a></li>`;
+        }
+
+        // Display found results
+        searchResult.innerHTML = htmlResult;
+    }
+
+});
+
+function CartCount() {
     var myCookies = document.cookie;
-    var count=0
+    var count = 0
     const cookies = myCookies.split('; ');
 
     cookies.forEach(element => {
-        if(element.substring(0, 7)== "product"){
+        if (element.substring(0, 7) == "product") {
             count++
-            function changeColor(){
+            function changeColor() {
                 document.getElementById("CartCount").style.color = 'orange';
                 document.getElementById("CartCount").classList.remove('fadein');
-              }
+            }
 
-              function fadeColor(){
+            function fadeColor() {
                 document.getElementById("CartCount").style.color = 'var(--detail-color-)';
                 document.getElementById("CartCount").classList.add('fadein');
-              }
+            }
 
-              changeColor();
-              setTimeout(fadeColor, 500);
+            changeColor();
+            setTimeout(fadeColor, 500);
         }
-       
+
     })
-    if(count != 0){
-        document.getElementById('CartCount').innerHTML=count
+    if (count != 0) {
+        document.getElementById('CartCount').innerHTML = count
     }
 
 
