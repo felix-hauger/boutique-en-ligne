@@ -25,6 +25,10 @@ footer a:hover{
     padding-right: 20%;
 }
 
+#boxFooter ul {
+    list-style: none;
+}
+
 #boxAddr{
     color:rgb(204, 204, 204);
     display: flex;
