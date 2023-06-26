@@ -2,22 +2,17 @@
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use App\Config\DbConnection;
 use App\Controller\Cart as CartController;
 use App\Controller\Order;
 use App\Controller\Product as ProductController;
-use App\Entity\Cart as CartEntity;
 
 session_start();
 
 $cart_controller = new CartController();
 
-$cart = new CartEntity();
-
 $product_controller = new ProductController();
 
 $cookies_cart_items = [];
-
 
 if (isset($_SESSION['user'])) {
     $logged_user_cart = $cart_controller->getByUser($_SESSION['user']->getId());
@@ -39,13 +34,10 @@ if (isset($_SESSION['user'])) {
             list($ignore, $product_id, $size) = explode("_", $key);
             //pour etre sur que l'on récupere que les cookie de notre panier
 
-            // $product = $product_controller->get
-
             $item = $cart_controller->getCookieItemInfos($product_id);
 
             $item['size'] = $size;
             $item['quantity'] = $val;
-            // $item->setSize($size);
 
             //on récupere les info de l'article
             $cookies_cart_items[] = $item;
@@ -81,8 +73,8 @@ $TOTAL = [];
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/cart.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/cart.js"></script>
 
     <title>Panier | Saisons à la mode</title>
 </head>

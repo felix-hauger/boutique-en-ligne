@@ -192,35 +192,50 @@ searchBar.addEventListener("input", async (ev) => {
 
 });
 
+function changeColor() {
+    document.getElementById("CartCount").style.color = 'orange';
+    document.getElementById("CartCount").classList.remove('fadein');
+}
+
+function fadeColor() {
+    document.getElementById("CartCount").style.color = 'var(--detail-color-)';
+    document.getElementById("CartCount").classList.add('fadein');
+}
+
 function CartCount() {
     var myCookies = document.cookie;
-    var count = 0
+    var count = 0;
     const cookies = myCookies.split('; ');
 
     cookies.forEach(element => {
         if (element.substring(0, 7) == "product") {
-            count++
-            function changeColor() {
-                document.getElementById("CartCount").style.color = 'orange';
-                document.getElementById("CartCount").classList.remove('fadein');
-            }
-
-            function fadeColor() {
-                document.getElementById("CartCount").style.color = 'var(--detail-color-)';
-                document.getElementById("CartCount").classList.add('fadein');
-            }
+            count++;
 
             changeColor();
+
             setTimeout(fadeColor, 500);
         }
+    });
 
-    })
     if (count != 0) {
         document.getElementById('CartCount').innerHTML = count
     }
+}
 
+async function loggedCartCount(){
+    const request = await fetch('cart-count.php');
 
+    const count = await request.text();
+
+    changeColor();
+
+    setTimeout(fadeColor, 500);
+
+    if(count != 0){
+        document.getElementById('CartCount').innerHTML=count
+    }
 }
 
 CurrentSaison();
 CartCount();
+loggedCartCount();

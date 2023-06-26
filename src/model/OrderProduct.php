@@ -26,18 +26,18 @@ class OrderProduct
      * @param int $product_quantity The quantity of the product
      * @return bool Depending if the request is executed successfully
      */
-    public function create(int $order_id, int $product_id, int $unit_price, int $product_quantity, string $product_size): bool
+    public function create(int $order_id, int $product_id, int $unit_price, string $product_size, int $product_quantity): bool
     {
         // fetch order & product ids, insert them as PRIMARY KEY with product quantity
-        $sql = 'INSERT INTO order_product (order_id, product_id, unit_price, product_quantity, product_size) VALUES (:order_id, :product_id, :unit_price, :product_quantity, :product_size)';
+        $sql = 'INSERT INTO order_product (order_id, product_id, unit_price, product_size, product_quantity) VALUES (:order_id, :product_id, :unit_price, :product_size, :product_quantity)';
 
         $insert = $this->_pdo->prepare($sql);
 
         $insert->bindParam(':order_id', $order_id, PDO::PARAM_INT);
         $insert->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $insert->bindParam(':unit_price', $unit_price, PDO::PARAM_INT);
-        $insert->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
         $insert->bindParam(':product_size', $product_size);
+        $insert->bindParam(':product_quantity', $product_quantity, PDO::PARAM_INT);
 
         return $insert->execute();
     }
