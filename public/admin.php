@@ -61,8 +61,8 @@ if (isset($_POST["DeleteUserID"])){
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/admin.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <title>Pannel d'administration</title>

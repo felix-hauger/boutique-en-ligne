@@ -58,8 +58,8 @@ function table($orders)
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/user.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/user.js"></script>
 
     <title>Utilisateur | Saisons à la mode</title>
 </head>

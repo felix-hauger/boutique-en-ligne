@@ -81,8 +81,8 @@ $TOTAL = [];
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/cart.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/cart.js"></script>
 
     <title>Panier | Saisons à la mode</title>
 </head>

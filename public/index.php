@@ -60,8 +60,8 @@ $product_index = $product_controller->index();
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/index.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/index.js"></script>
     <!-- slider de https://swiperjs.com/-->
     <script async src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
