@@ -1,17 +1,17 @@
-<?php 
-if (isset($_GET['id'])){
-    $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?id=".$_GET['id'];
-}else {
-    $_SESSION['url']= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+<?php
+if (isset($_GET['id'])) {
+    $_SESSION['url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?id=" . $_GET['id'];
+} else {
+    $_SESSION['url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 }
 
-
 ?>
+
 <body>
     <header id="WideScreenView">
         <div>
             <a href="index.php">4-Saisons </a> &emsp;
-            <a href="Boutique.php">Boutique </a> &emsp;
+            <a href="shop.php">Boutique </a> &emsp;
             <i class="fa-sharp fa-solid fa-magnifying-glass fa-xs" onclick="Recherche()" id="SearchIcon"></i>
             <i class="fa-solid fa-square-minus fa-xs" onclick="Recherche()" id="SearchHide"></i>
             <input type="search" id="SearchBar" placeholder="Rechercher"></input>
@@ -26,11 +26,10 @@ if (isset($_GET['id'])){
                     echo '<i title="Changer le Theme" class="fa-solid fa-paint-roller" onclick="SetSaisons()"></i>&emsp;';
                     echo '<a title="Option D\'administration" href="admin.php"><i class="fa-solid fa-toolbox"></i></a>&emsp;';
                     echo '<a title="Ajouter un Article" href="add-product.php"> <i class="fa-solid fa-file-circle-plus"></i></a>&emsp;';
-
-                }else if ($_SESSION['user']->getRoleId() === 3) {
+                } else if ($_SESSION['user']->getRoleId() === 3) {
                     echo '<a title="Ajouter un Article" href="add-product.php"> <i class="fa-solid fa-file-circle-plus"></i></a>&emsp;';
-
-            }} else {
+                }
+            } else {
                 echo '<a title="Se Connecter" id="User" onclick="ShowUser()"><i class="fa-solid fa-user"></i></a>&emsp;';
             }
             ?>
@@ -43,7 +42,7 @@ if (isset($_GET['id'])){
 
     <header id="MobileScreenView">
         <a href="index.php">4-Saisons </a>
-        <a href="Boutique.php">Boutique </a>
+        <a href="shop.php">Boutique </a>
     </header>
 
     <div id="OptionMobile">

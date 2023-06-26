@@ -1,24 +1,24 @@
 <body>
    <footer>
       <div id="boxFooter">
-
          <ul>
-            <a href="index.php">4-Saisons </a><br>
-            <a href="Boutique.php">Boutique </a><br>
-            <a href="cart.php">Panier </a><br>
+            <li><a href="index.php">4-Saisons</a></li>
+            <li><a href="shop.php">Boutique</a></li>
+            <li><a href="cart.php">Panier</a></li>
          </ul>
 
          <ul>
-            <a href="user.php">Profil </a><br>
-            <a href="index.php">Nouveautés </a><br>
+            <li><a href="user.php">Profil</a></li>
+            <li><a href="index.php">Nouveautés</a></li>
          </ul>
       </div>
-      <div id="contact">Nous Contacter :<br></div>
-      <div id="boxAddr">
 
-         <div> Feriale.Bourega@laplateforme.io</div>
-         <div> Felix.Hauger@laplateforme.io</div>
-         <div> Lucas.Ribard@laplateforme.io</div>
+      <div id="contact">Nous Contacter :<br></div>
+
+      <div id="boxAddr">
+         <div>Feriale.Bourega@laplateforme.io</div>
+         <div>Felix.Hauger@laplateforme.io</div>
+         <div>Lucas.Ribard@laplateforme.io</div>
       </div>
 
       <div id="boxMentionLégales">
