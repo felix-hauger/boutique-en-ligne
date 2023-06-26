@@ -1,9 +1,10 @@
 <?php
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
+
 use \App\Model\Articles;
 
-include "includes/header.php";
-// require "class/Article.php";
+session_start();
 
 $articles = new Articles();
 
@@ -63,10 +64,12 @@ if ($currentPage > $pages) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <script async defer src="includes/header.js"></script>
+    <script defer src="includes/header.js"></script>
 </head>
 
 <body>
+
+    <?php require_once 'includes' . DIRECTORY_SEPARATOR . 'header.php' ?>
 
     <nav class="container-pagination">
         <a href="Boutique.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
