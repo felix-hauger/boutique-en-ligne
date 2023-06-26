@@ -4,7 +4,7 @@
 
          <ul>
             <a href="index.php">4-Saisons </a><br>
-            <a href="Boutique.php">Boutique </a><br>
+            <a href="shop.php">Boutique </a><br>
             <a href="cart.php">Panier </a><br>
          </ul>
 

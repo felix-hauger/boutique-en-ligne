@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     <header id="WideScreenView">
         <div>
             <a href="index.php">4-Saisons </a> &emsp;
-            <a href="Boutique.php">Boutique </a> &emsp;
+            <a href="shop.php">Boutique </a> &emsp;
             <i class="fa-sharp fa-solid fa-magnifying-glass fa-xs" onclick="Recherche()" id="SearchIcon"></i>
             <i class="fa-solid fa-square-minus fa-xs" onclick="Recherche()" id="SearchHide"></i>
             <input type="search" id="SearchBar" placeholder="Rechercher"></input>
@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
 
     <header id="MobileScreenView">
         <a href="index.php">4-Saisons </a>
-        <a href="Boutique.php">Boutique </a>
+        <a href="shop.php">Boutique </a>
     </header>
 
     <div id="OptionMobile">

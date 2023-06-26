@@ -34,7 +34,7 @@ $get_page = $articles->get_by_page($premier, $parPage);
 //var_dump($get_page);
 
 if ($currentPage > $pages) {
-    header('Location: Boutique.php');
+    header('Location: shop.php');
 }
 
 
@@ -72,18 +72,18 @@ if ($currentPage > $pages) {
     <?php require_once 'includes' . DIRECTORY_SEPARATOR . 'header.php' ?>
 
     <nav class="container-pagination">
-        <a href="Boutique.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
+        <a href="shop.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
 
                 <?php for ($page = 1; $page <= $pages; $page++): ?>
                     <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
-                    <a href="Boutique.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                    <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
 
                 <?php endfor ?>
                 <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
                 <?php
                 if ($currentPage != $pages and $currentPage < $pages) {
                     ?>
-                    <a href="Boutique.php?start=<?= $currentPage + 1 ?>" class="page-link">></a>
+                    <a href="shop.php?start=<?= $currentPage + 1 ?>" class="page-link">></a>
                     <?php
                 }
                 ?>
@@ -125,18 +125,18 @@ if ($currentPage > $pages) {
 
     </section>
     <nav class="container-pagination">
-        <a href="Boutique.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
+        <a href="shop.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
 
                 <?php for ($page = 1; $page <= $pages; $page++): ?>
                     <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
-                    <a href="Boutique.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                    <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
 
                 <?php endfor ?>
                 <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
                 <?php
                 if ($currentPage != $pages and $currentPage < $pages) {
                     ?>
-                    <a href="Boutique.php?start=<?= $currentPage + 1 ?>" class="page-link">></a>
+                    <a href="shop.php?start=<?= $currentPage + 1 ?>" class="page-link">></a>
                     <?php
                 }
                 ?>
