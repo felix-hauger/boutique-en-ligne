@@ -6,7 +6,7 @@ use PDO;
 class User extends AbstractModel
 {
     /**
-     * insert user in database
+     * Insert user in database
      * @param App\Entity\User $user Entity
      * @return bool depending if request is successfull or not
      */

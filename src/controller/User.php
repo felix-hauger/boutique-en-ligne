@@ -7,6 +7,7 @@ use App\Model\CartProduct;
 use App\Entity\Cart;
 use App\Model\User as UserModel;
 use App\Entity\User as UserEntity;
+use App\Entity\UserAddress;
 use App\Model\Cart as CartModel;
 use Exception;
 
@@ -200,4 +201,5 @@ class User extends AbstractController
 
         return $cart_product->countByCart($cart_id);
     }
+
 }
