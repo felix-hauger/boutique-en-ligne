@@ -121,7 +121,7 @@ h3{
 #add-address-form input[type="text"],
 #add-address-form input[type="tel"] {
     height: 3vh;
-    width: 70%;
+    /* width: 70%; */
     font-size: 1em;
     color: rgb(54, 54, 54);
     margin-bottom: 25px;
@@ -131,7 +131,34 @@ h3{
     outline-color: var(--detail-color);
 }
 
-#add-address-form .label-name {
+/* #add-address-form .label-name {
     display: inline-block;
     width: 140px;
+} */
+
+#add-address-form label {
+    display: inline-block;
+    width: 140px;
+}
+
+#add-address-form .mandatory {
+    color: rgb(191, 13, 13);
+    font-family: monospace;
+}
+
+#add-address-form .BtSubmit {
+    width: fit-content;
+    padding: 15px 20px;
+    align-self: center;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 12px;
+    color: var(--detail-color);
+    transition: all ease .5s;
+    background-color: var(--bg-color);
+}
+
+#add-address-form .BtSubmit:hover {
+    background-color: #fff;
+
 }

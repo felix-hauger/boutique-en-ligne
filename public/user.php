@@ -136,7 +136,7 @@ function table($orders)
                 </form>
             </section>
 
-            <!-- page pour voir les commandes passés -->
+            <!-- page pour voir les commandes passées -->
             <section class="content" id="VoirAchats">
                 <table class="TBAffichage">
                     <tr class="Desc">
@@ -152,51 +152,49 @@ function table($orders)
             </section>
 
 
-            <!-- page pour voir et modifier les adresses stockées-->
+            <!-- page pour voir et modifier les adresses stockées -->
             <section class="content" id="Adresses">
                 <h2>Ajouter une adresse</h2>
                 <form id="add-address-form" action="" method="post">
-                    <p>Les champs suivis d'un <span class="mandatory">*</span> sont obligatoires.</p>
+                    <p>Les champs précédés d'un <span class="mandatory">*</span> sont obligatoires.</p>
 
-                    <label for="alias">
-                        <span class="label-name">Alias</span>
-                        <input type="text" name="alias" id="alias" placeholder="Exemples : maison, travail...">
+                    <label for="alias">Alias
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="text" name="alias" id="alias" placeholder="Exemples : maison, travail...">
 
-                    <label for="address-line-1">
-                        <span class="label-name">Adresse</span>
-                        <input type="text" name="address-line-1" id="address-line-1">
+                    <label for="address-line-1">Adresse
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="text" name="address-line-1" id="address-line-1">
 
-                    <label for="address-line-2">
-                        <span class="label-name">Adresse (ligne 2)</span>
-                        <input type="text" name="address-line-2" id="address-line-2">
-                    </label>
+                    <label for="address-line-2">Adresse (ligne 2)</label>
+                    <input type="text" name="address-line-2" id="address-line-2">
 
-                    <label for="city">
-                        <span class="label-name">Ville</span>
-                        <input type="text" name="city" id="city">
+                    <label for="city">Ville
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="text" name="city" id="city">
 
-                    <label for="postal-code">
-                        <span class="label-name">Code Postal</span>
-                        <input type="text" name="postal-code" id="postal-code">
+                    <label for="postal-code">Code Postal
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="text" name="postal-code" id="postal-code">
 
-                    <label for="country">
-                        <span class="label-name">Pays</span>
-                        <input type="text" name="country" id="country">
+                    <label for="country">Pays
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="text" name="country" id="country">
 
-                    <label for="phone">
-                        <span class="label-name">Téléphone</span>
-                        <input type="tel" name="phone" id="phone" placeholder="+33XXXXXXXXX">
+                    <label for="phone">Téléphone
+                        <span class="mandatory">*</span>
                     </label>
+                    <input type="tel" name="phone" id="phone" placeholder="+33XXXXXXXXX">
 
-                    <label for="alias">
-                        <span class="label-name">Mobile</span>
-                        <input type="tel" name="mobile" id="mobile" placeholder="+33XXXXXXXXX">
-                    </label>
+                    <label for="mobile">Mobile</label>
+                    <input type="tel" name="mobile" id="mobile" placeholder="+33XXXXXXXXX">
+
+                    <input type="submit" class="BtSubmit" name="submit-address" value="Ajouter">
                 </form>
 
                 <h2>Mes adresses</h2>
