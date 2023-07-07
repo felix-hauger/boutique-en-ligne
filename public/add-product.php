@@ -165,7 +165,7 @@ if (isset($_POST['product-submit'])) {
                         </span>
                     <?php elseif(isset($db_product_id)): ?>
                         <span>
-                            Produit <?= $db_product_id ?> ajouté avec succès
+                            Produit ajouté avec succès
                         </span>
                     <?php endif ?>
                 </div>
