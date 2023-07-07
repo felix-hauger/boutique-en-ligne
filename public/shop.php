@@ -74,9 +74,21 @@ if ($currentPage > $pages) {
     <nav class="container-pagination">
         <a href="shop.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
 
-                <?php for ($page = 1; $page <= $pages; $page++): ?>
+                <?php for ($page = 1; $page <= $pages; $page++): 
+                    if ($currentPage === $page){
+                        ?>
+                        <a href="#" class="page-link" style='color:var(--hover-color)'><?= $page ?></a>
+                      <?php
+                    }else{
+                        ?>
+                        <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                      <?php
+                    }
+                    
+                    ?>
                     <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
-                    <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                    
+                   
 
                 <?php endfor ?>
                 <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
@@ -87,6 +99,7 @@ if ($currentPage > $pages) {
                     <?php
                 }
                 ?>
+
     </nav>
 
     <section>
@@ -124,12 +137,25 @@ if ($currentPage > $pages) {
         ?>
 
     </section>
+
     <nav class="container-pagination">
         <a href="shop.php?start=<?= $currentPage - 1 ?>" class="page-link"><</a>
 
-                <?php for ($page = 1; $page <= $pages; $page++): ?>
+                <?php for ($page = 1; $page <= $pages; $page++): 
+                    if ($currentPage === $page){
+                        ?>
+                        <a href="#" class="page-link" style='color:var(--hover-color)'><?= $page ?></a>
+                      <?php
+                    }else{
+                        ?>
+                        <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                      <?php
+                    }
+                    
+                    ?>
                     <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
-                    <a href="shop.php?start=<?= $page ?>" class="page-link"><?= $page ?></a>
+                    
+                   
 
                 <?php endfor ?>
                 <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
@@ -140,6 +166,7 @@ if ($currentPage > $pages) {
                     <?php
                 }
                 ?>
+
     </nav>
 
     <?php
