@@ -66,7 +66,7 @@ main {
 }
 
 #cart-items .imageCart {
-    width: min-content;
+    width: 10vw;
     height:25vh;
 }
 
