@@ -26,7 +26,7 @@ if (isset($_POST['product-submit'])) {
     try {
         $product_controller = new Product();
 
-        $product_controller->add();
+        $db_product_id = $product_controller->add();
     } catch (Exception $e) {
         $add_product_error = $e->getMessage();
     }
@@ -162,6 +162,10 @@ if (isset($_POST['product-submit'])) {
                     <?php if (isset($add_product_error)): ?>
                         <span class="msg-error">
                             <?= $add_product_error ?>
+                        </span>
+                    <?php elseif(isset($db_product_id)): ?>
+                        <span>
+                            Produit <?= $db_product_id ?> ajouté avec succès
                         </span>
                     <?php endif ?>
                 </div>
