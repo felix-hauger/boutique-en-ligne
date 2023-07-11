@@ -222,6 +222,7 @@ class User extends AbstractController
                     if (!preg_match($regex_phone, $arg)) {
                         $message = ' Formats acceptés : +331 23 45 67 89, +33123456789, 01 23 45 67 89, 0123456789';
                         
+                        // Customize message depending if it is mobile
                         $message = $key === 'mobile' ? 'Format téléphone mobile non valide.' . $message : 'Format téléphone non valide.' . $message;
 
                         throw new Exception($message);
