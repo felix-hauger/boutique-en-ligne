@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'autoload.php';
+
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -10,10 +11,31 @@ if (!isset($_SESSION['user'])) {
 }
 
 use App\Controller\Order;
+use App\Controller\User;
 
 $Order = new Order;
 $orders = $Order->findForUser($_SESSION['user']->getId());
 
+if (isset($_POST['submit-address'])) {
+    $user = new User();
+
+    try {
+        $user->addAddress(
+            $_POST['alias'],
+            $_POST['address-line-1'],
+            $_POST['address-line-2'],
+            $_POST['city'],
+            $_POST['postal-code'],
+            $_POST['country'],
+            $_POST['phone'],
+            $_POST['mobile'],
+            $_SESSION['user']->getId()
+        );
+    } catch (Exception $e) {
+        $user_address_error = $e->getMessage();
+    }
+
+}
 
 function table($orders)
 {
@@ -195,6 +217,14 @@ function table($orders)
                     <input type="tel" name="mobile" id="mobile" placeholder="+33XXXXXXXXX">
 
                     <input type="submit" class="BtSubmit" name="submit-address" value="Ajouter">
+                    
+                    <span>
+                        <?php
+                        if (isset($user_address_error)) {
+                            echo $user_address_error;
+                        }
+                        ?>
+                    </span>
                 </form>
 
                 <h2>Mes adresses</h2>
