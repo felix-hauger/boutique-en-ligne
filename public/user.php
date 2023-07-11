@@ -76,6 +76,7 @@ function table($orders)
 
     <!-- CSS -->
     <link href="style/user.css" rel="stylesheet" type="text/css" />
+    <link href="style/main.css" rel="stylesheet" type="text/css" />
     <link href="includes/header.css" rel="stylesheet" type="text/css" />
     <link href="includes/footer.css" rel="stylesheet" type="text/css" />
 
@@ -218,13 +219,13 @@ function table($orders)
 
                     <input type="submit" class="BtSubmit" name="submit-address" value="Ajouter">
                     
-                    <span>
+                    <div class="validation">
                         <?php
                         if (isset($user_address_error)) {
                             echo $user_address_error;
                         }
                         ?>
-                    </span>
+                    </div>
                 </form>
 
                 <h2>Mes adresses</h2>
