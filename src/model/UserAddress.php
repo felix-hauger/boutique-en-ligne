@@ -18,13 +18,13 @@ class UserAddress extends AbstractModel
      */
     public function create(\App\Entity\UserAddress $user_address_entity)
     {
-        $sql = 'INSERT INTO user_address (alias, address_line_1, address_line_2, city, postal_code, country, phone, mobile, user_id) VALUES (:alias, :address_line_1, :address_line_2, :city, :postal_code, :country, :phone, :mobile, :user_id)';
+        $sql = 'INSERT INTO user_address (alias, address_line1, address_line2, city, postal_code, country, phone, mobile, user_id) VALUES (:alias, :address_line1, :address_line2, :city, :postal_code, :country, :phone, :mobile, :user_id)';
 
         $insert = $this->_pdo->prepare($sql);
 
         $insert->bindValue(':alias', $user_address_entity->getAlias());
-        $insert->bindValue(':address_line_1', $user_address_entity->getAddressLine1());
-        $insert->bindValue(':address_line_2', $user_address_entity->getAddressLine2());
+        $insert->bindValue(':address_line1', $user_address_entity->getAddressLine1());
+        $insert->bindValue(':address_line2', $user_address_entity->getAddressLine2());
         $insert->bindValue(':city', $user_address_entity->getCity());
         $insert->bindValue(':postal_code', $user_address_entity->getPostalCode());
         $insert->bindValue(':country', $user_address_entity->getCountry());
