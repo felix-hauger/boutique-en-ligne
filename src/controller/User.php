@@ -239,4 +239,35 @@ class User extends AbstractController
 
         return $user_address_model->create($user_address_entity);
     }
+
+    /**
+     * @param int $id The user id
+     * 
+     * @return array List of UserAddress Entities hydrated with sql results
+     */
+    public function getAllAddresses(int $id): array|false
+    {
+        $user_address_model = new UserAddressModel();
+
+        $address_list = $user_address_model->findAllBy(['user_id' => $id]);
+
+        if ($address_list) {
+            // Instanciate and hydrate entities with returned array of addresses
+            $address_entity_list = array_map(
+                function($address) {
+                    $user_address_entity = new UserAddress();
+        
+                    $user_address_entity->hydrate($address);
+    
+                    return $user_address_entity;
+                },
+    
+                $address_list
+            );
+    
+            return $address_entity_list;
+        } else {
+            return false;
+        }
+    }
 }
