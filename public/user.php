@@ -16,7 +16,7 @@ use App\Controller\User;
 $Order = new Order;
 $orders = $Order->findForUser($_SESSION['user']->getId());
 
-if (isset($_POST['submit-address'])) {
+if (isset($_POST['submit-add-address'])) {
     $user = new User();
 
     try {
@@ -178,7 +178,7 @@ function table($orders)
             <!-- page pour voir et modifier les adresses stockées -->
             <section class="content" id="Adresses">
                 <h2>Ajouter une adresse</h2>
-                <form id="add-address-form" action="" method="post">
+                <form id="add-address-form" class="address-form" action="" method="post">
                     <p>Les champs précédés d'un <span class="mandatory">*</span> sont obligatoires.</p>
 
                     <label for="alias">Alias
@@ -217,18 +217,85 @@ function table($orders)
                     <label for="mobile">Mobile</label>
                     <input type="tel" name="mobile" id="mobile" placeholder="+33XXXXXXXXX">
 
-                    <input type="submit" class="BtSubmit" name="submit-address" value="Ajouter">
+                    <input type="submit" class="BtSubmit" name="submit-add-address" value="Ajouter">
                     
-                    <div class="validation">
-                        <?php
-                        if (isset($user_address_error)) {
-                            echo $user_address_error;
-                        }
-                        ?>
+                        <?php if (isset($user_address_error)): ?>
+                            <div class="validation"><?= $user_address_error ?></div>
+                        <?php endif ?>
                     </div>
                 </form>
 
                 <h2>Mes adresses</h2>
+
+                <?php
+
+                $user = new User();
+
+                $user_addresses = $user->getAllAddresses($_SESSION['user']->getId());
+
+                ob_start();
+
+                // To identify each html form in front-end
+                $current_address_form = 1;
+
+                foreach ($user_addresses as $address) {
+
+                ?>
+
+                    <form id="edit-address-form_<?= $current_address_form ?>" class="address-form" action="" method="post">
+                        <p>Les champs précédés d'un <span class="mandatory">*</span> sont obligatoires.</p>
+
+                        <label for="alias_<?= $current_address_form ?>">Alias
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" name="alias" id="alias_<?= $current_address_form ?>" placeholder="Exemples : maison, travail..." value="<?= $address->getAlias() ?>">
+
+                        <label for="address-line-1_<?= $current_address_form ?>">Adresse
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" name="address-line-1" id="address-line-1_<?= $current_address_form ?>" value="<?= $address->getAddressLine1() ?>">
+
+                        <label for="address-line-2_<?= $current_address_form ?>">Adresse (ligne 2)</label>
+                        <input type="text" name="address-line-2" id="address-line-2_<?= $current_address_form ?>" value="<?= $address->getAddressLine2() ?>">
+
+                        <label for="city_<?= $current_address_form ?>">Ville
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" name="city" id="city_<?= $current_address_form ?>" value="<?= $address->getCity() ?>">
+
+                        <label for="postal-code_<?= $current_address_form ?>">Code Postal
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" name="postal-code" id="postal-code_<?= $current_address_form ?>" value="<?= $address->getPostalCode() ?>">
+
+                        <label for="country_<?= $current_address_form ?>">Pays
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" name="country" id="country_<?= $current_address_form ?>" value="<?= $address->getCountry() ?>">
+
+                        <label for="phone_<?= $current_address_form ?>">Téléphone
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="tel" name="phone" id="phone_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getPhone() ?>">
+
+                        <label for="mobile_<?= $current_address_form ?>">Mobile</label>
+                        <input type="tel" name="mobile" id="mobile_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getMobile() ?>">
+
+                        <input type="submit" class="BtSubmit" name="submit-edit-address" value="Modifier">
+
+                        <?php if (isset($user_address_error)): ?>
+                            <div class="validation"><?= $user_address_error ?></div>
+                        <?php endif ?>
+                    </form>
+                    <?php
+
+                    $current_address_form++;
+
+                }
+
+                echo ob_get_clean();
+
+                ?>
             </section>
 
         </section>

@@ -110,20 +110,21 @@ h3{
     display: none;
 }
 
-#add-address-form {
+.address-form {
     display: flex;
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 30px;
     width: 60%;
 }
 
-#add-address-form input[type="text"],
-#add-address-form input[type="tel"] {
+.address-form input[type="text"],
+.address-form input[type="tel"] {
     height: 3vh;
-    /* width: 70%; */
     font-size: 1em;
     color: rgb(54, 54, 54);
+    padding-left: 12px;
     margin-bottom: 25px;
     border-width: 0 0 1px;
     border-style: groove;
@@ -131,22 +132,22 @@ h3{
     outline-color: var(--detail-color);
 }
 
-/* #add-address-form .label-name {
+/* .address-form .label-name {
     display: inline-block;
     width: 140px;
 } */
 
-#add-address-form label {
+.address-form label {
     display: inline-block;
     width: 140px;
 }
 
-#add-address-form .mandatory {
+.address-form .mandatory {
     color: rgb(191, 13, 13);
     font-family: monospace;
 }
 
-#add-address-form .BtSubmit {
+.address-form .BtSubmit {
     width: fit-content;
     padding: 15px 20px;
     align-self: center;
@@ -159,7 +160,7 @@ h3{
     background-color: var(--bg-color);
 }
 
-#add-address-form .BtSubmit:hover {
+.address-form .BtSubmit:hover {
     background-color: #fff;
 
 }
