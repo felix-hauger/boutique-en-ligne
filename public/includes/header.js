@@ -85,7 +85,7 @@ function toggleAuth(event) {
 
 // change les variables du css en fonction de la saison
 //permet de changer manuellement de saison pour démonstration
-function SetSaisons() {
+function SetSeason() {
 
     if (Saison === 0) {
         // Couleurs d'été
@@ -118,22 +118,22 @@ function SetSaisons() {
 
 }
 
-function ChangeSaison(){
+function ChangeSeason(){
     if (Saison === 0) {
         Saison++;
-        SetSaisons();
+        SetSeason();
 
     } else if (Saison === 1) {
         Saison++;
-        SetSaisons();
+        SetSeason();
 
     } else if (Saison === 2) {
         Saison++;
-        SetSaisons();
+        SetSeason();
 
     } else if (Saison === 3) {
         Saison = 0;
-        SetSaisons();
+        SetSeason();
 
     }
 }
@@ -151,16 +151,16 @@ function CurrentSaison() {
 
     if ((day >= 1 && month >= 3) && (day <= 31 && month <= 5)) {
         Saison = 3;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 6) && (day <= 31 && month <= 8)) {
         Saison = 0;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 9) && (day <= 30 && month <= 11)) {
         Saison = 1;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 12) || (day <= 29 && month <= 2)) {
         Saison = 2;
-        SetSaisons()
+        SetSeason()
     }
 }
 
