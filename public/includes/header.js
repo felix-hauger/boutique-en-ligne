@@ -85,7 +85,7 @@ function toggleAuth(event) {
 
 // change les variables du css en fonction de la saison
 //permet de changer manuellement de saison pour démonstration
-function SetSaisons() {
+function SetSeason() {
 
     if (Saison === 0) {
         // Couleurs d'été
@@ -93,30 +93,49 @@ function SetSaisons() {
         r.style.setProperty('--detail-color', '#528E74');
         r.style.setProperty('--hover-color', '#6DD0A5');
         r.style.setProperty('--lightbg-color', '#fffbf0');
-        Saison++;
+
     } else if (Saison === 1) {
         // Couleurs d'automne
         r.style.setProperty('--bg-color', '#FFF0E4');
         r.style.setProperty('--detail-color', '#B15F83');
         r.style.setProperty('--hover-color', '#db2376');
         r.style.setProperty('--lightbg-color', '#FFF0E4');
-        Saison++;
+ 
     } else if (Saison === 2) {
         // Couleurs d'hivert
         r.style.setProperty('--bg-color', '#F1FFFF');
         r.style.setProperty('--detail-color', '#5A48A3');
         r.style.setProperty('--hover-color', '#7861d4');
         r.style.setProperty('--lightbg-color', '#f8fffe');
-        Saison++;
+
     } else if (Saison === 3) {
         // Couleurs de printemps
         r.style.setProperty('--bg-color', '#e9fff2');
         r.style.setProperty('--detail-color', '#0a460a');
         r.style.setProperty('--hover-color', '#27c422');
         r.style.setProperty('--lightbg-color', '#f3fdf1');
-        Saison = 0;
     }
 
+}
+
+function ChangeSeason(){
+    if (Saison === 0) {
+        Saison++;
+        SetSeason();
+
+    } else if (Saison === 1) {
+        Saison++;
+        SetSeason();
+
+    } else if (Saison === 2) {
+        Saison++;
+        SetSeason();
+
+    } else if (Saison === 3) {
+        Saison = 0;
+        SetSeason();
+
+    }
 }
 
 // Change la variable saison en accord avec la saison actuelle 
@@ -132,18 +151,20 @@ function CurrentSaison() {
 
     if ((day >= 1 && month >= 3) && (day <= 31 && month <= 5)) {
         Saison = 3;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 6) && (day <= 31 && month <= 8)) {
         Saison = 0;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 9) && (day <= 30 && month <= 11)) {
         Saison = 1;
-        SetSaisons()
+        SetSeason()
     } else if ((day >= 1 && month >= 12) || (day <= 29 && month <= 2)) {
         Saison = 2;
-        SetSaisons()
+        SetSeason()
     }
 }
+
+
 
 // AUTOCOMPLETION
 
