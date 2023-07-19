@@ -150,8 +150,6 @@ abstract class AbstractModel
 
         $select = $this->_pdo->prepare($sql);
 
-        var_dump($criteria);
-
         $select->execute($criteria);
 
         return $select->fetchAll(PDO::FETCH_ASSOC);
