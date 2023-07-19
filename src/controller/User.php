@@ -243,7 +243,7 @@ class User extends AbstractController
     /**
      * @param int $id The user id
      * 
-     * @return array List of UserAddress Entities hydrated with sql results
+     * @return array|false List of UserAddress Entities hydrated with sql results, false if no result found
      */
     public function getAllAddresses(int $id): array|false
     {
@@ -270,4 +270,42 @@ class User extends AbstractController
             return false;
         }
     }
+
+    public function editAddress(int $id, string $alias, string $address_line1, ?string $address_line2, string $city, string $postal_code, string $country, string $phone, ?string $mobile)
+    {
+        // Filter method arguments
+        $args = $this->filterMethodArgs(__CLASS__, __FUNCTION__, func_get_args());
+
+        $regex_phone = '/^(\+33|0)[1-9](\d{2}){4}$/';
+
+        foreach ($args as $key => $arg) {
+            if ($key !== 'address_line2' && $key !== 'mobile') {
+                if (empty($arg)) {
+                    throw new Exception('Veuillez remplir tous les champs obligatoires.');
+                }
+            }
+
+            if ($key === 'phone' || $key === 'mobile') {
+                if (strlen($arg) > 0) {
+                    if (!preg_match($regex_phone, $arg)) {
+                        $message = ' Formats acceptés : +331 23 45 67 89, +33123456789, 01 23 45 67 89, 0123456789';
+                        
+                        // Customize message depending if it is mobile
+                        $message = $key === 'mobile' ? 'Format téléphone mobile non valide.' . $message : 'Format téléphone non valide.' . $message;
+
+                        throw new Exception($message);
+                    }
+                }
+            }
+        }
+
+        $user_address_entity = new UserAddress();
+        
+        $user_address_entity->hydrate($args);
+
+        $user_address_model = new UserAddressModel();
+
+        return $user_address_model->update($user_address_entity);
+    }
+
 }
