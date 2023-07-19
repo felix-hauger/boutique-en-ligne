@@ -34,6 +34,24 @@ if (isset($_POST['submit-add-address'])) {
     } catch (Exception $e) {
         $user_address_error = $e->getMessage();
     }
+} elseif (isset($_POST['submit-edit-address'])) {
+    $user = new User();
+
+    try {
+        $user->editAddress(
+            $_POST['id'],
+            $_POST['alias'],
+            $_POST['address-line-1'],
+            $_POST['address-line-2'],
+            $_POST['city'],
+            $_POST['postal-code'],
+            $_POST['country'],
+            $_POST['phone'],
+            $_POST['mobile']
+        );
+    } catch (Exception $e) {
+        $user_address_error = $e->getMessage();
+    }
 }
 
 function table($orders)
