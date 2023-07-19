@@ -219,9 +219,18 @@ function table($orders)
 
                     <input type="submit" class="BtSubmit" name="submit-add-address" value="Ajouter">
                     
+<<<<<<< HEAD
                         <?php if (isset($user_address_error)): ?>
                             <div class="validation"><?= $user_address_error ?></div>
                         <?php endif ?>
+=======
+                    <div class="validation">
+                        <?php
+                        if (isset($user_address_error)) {
+                            echo $user_address_error;
+                        }
+                        ?>
+>>>>>>> 4264c7e9974e2f03b4aff6f040c55104213acd7f
                     </div>
                 </form>
 
