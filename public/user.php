@@ -34,7 +34,6 @@ if (isset($_POST['submit-add-address'])) {
     } catch (Exception $e) {
         $user_address_error = $e->getMessage();
     }
-
 }
 
 function table($orders)
@@ -65,9 +64,7 @@ function table($orders)
 
 
     <!-- FontAwesome  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- GoogleFont-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +107,7 @@ function table($orders)
             <!-- page d'acceuil , affichage par defaut -->
             <section class="content" id="Acceuil">
                 <div>
-                    <h2>Bienvenue : <?= $_SESSION['user']->getFirstname() ?>  <?= $_SESSION['user']->getLastname() ?><br></h2>
+                    <h2>Bienvenue : <?= $_SESSION['user']->getFirstname() ?> <?= $_SESSION['user']->getLastname() ?><br></h2>
                     <hr>
                     <h3>Votre Identifiant :</h3><?= $_SESSION['user']->getUsername() ?><br><br>
                     <h3>Votre adresse e-mail :</h3><?= $_SESSION['user']->getEmail() ?><br><br>
@@ -118,13 +115,13 @@ function table($orders)
                 </div>
 
                 <div>
-                   
-                    
-                    
-                    
+
+
+
+
                 </div>
 
-               
+
 
             </section>
 
@@ -132,20 +129,16 @@ function table($orders)
             <section class="content" id="modifprofil">
                 <form>
                     <label>Username :</label><br>
-                    <input value="<?= $_SESSION['user']->getUsername() ?>"
-                        placeholder="<?= $_SESSION['user']->getUsername() ?>"><br>
+                    <input value="<?= $_SESSION['user']->getUsername() ?>" placeholder="<?= $_SESSION['user']->getUsername() ?>"><br>
 
                     <label>Nom :</label><br>
-                    <input value="<?= $_SESSION['user']->getFirstname() ?>"
-                        placeholder="<?= $_SESSION['user']->getFirstname() ?>"><br>
+                    <input value="<?= $_SESSION['user']->getFirstname() ?>" placeholder="<?= $_SESSION['user']->getFirstname() ?>"><br>
 
                     <label>Prénom :</label><br>
-                    <input value="<?= $_SESSION['user']->getLastname() ?>"
-                        placeholder="<?= $_SESSION['user']->getLastname() ?>"><br>
+                    <input value="<?= $_SESSION['user']->getLastname() ?>" placeholder="<?= $_SESSION['user']->getLastname() ?>"><br>
 
                     <label>e-mail :</label><br>
-                    <input value="<?= $_SESSION['user']->getEmail() ?>"
-                        placeholder="<?= $_SESSION['user']->getEmail() ?>"><br>
+                    <input value="<?= $_SESSION['user']->getEmail() ?>" placeholder="<?= $_SESSION['user']->getEmail() ?>"><br>
 
 
                     <label>Ancient mot de passe :</label><br>
@@ -218,19 +211,10 @@ function table($orders)
                     <input type="tel" name="mobile" id="mobile" placeholder="+33XXXXXXXXX">
 
                     <input type="submit" class="BtSubmit" name="submit-add-address" value="Ajouter">
-                    
-<<<<<<< HEAD
-                        <?php if (isset($user_address_error)): ?>
-                            <div class="validation"><?= $user_address_error ?></div>
-                        <?php endif ?>
-=======
-                    <div class="validation">
-                        <?php
-                        if (isset($user_address_error)) {
-                            echo $user_address_error;
-                        }
-                        ?>
->>>>>>> 4264c7e9974e2f03b4aff6f040c55104213acd7f
+
+                    <?php if (isset($user_address_error)) : ?>
+                        <div class="validation"><?= $user_address_error ?></div>
+                    <?php endif ?>
                     </div>
                 </form>
 
@@ -244,63 +228,71 @@ function table($orders)
 
                 ob_start();
 
-                // To identify each html form in front-end
-                $current_address_form = 1;
+                if ($user_addresses) {
 
-                foreach ($user_addresses as $address) {
+                    // To identify each html form in front-end
+                    $current_address_form = 1;
+
+                    foreach ($user_addresses as $address) {
 
                 ?>
 
-                    <form id="edit-address-form_<?= $current_address_form ?>" class="address-form" action="" method="post">
-                        <p>Les champs précédés d'un <span class="mandatory">*</span> sont obligatoires.</p>
+                        <form id="edit-address-form_<?= $current_address_form ?>" class="address-form" action="" method="post">
+                            <p>Les champs précédés d'un <span class="mandatory">*</span> sont obligatoires.</p>
 
-                        <label for="alias_<?= $current_address_form ?>">Alias
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="text" name="alias" id="alias_<?= $current_address_form ?>" placeholder="Exemples : maison, travail..." value="<?= $address->getAlias() ?>">
+                            <label for="alias_<?= $current_address_form ?>">Alias
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" name="alias" id="alias_<?= $current_address_form ?>" placeholder="Exemples : maison, travail..." value="<?= $address->getAlias() ?>">
 
-                        <label for="address-line-1_<?= $current_address_form ?>">Adresse
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="text" name="address-line-1" id="address-line-1_<?= $current_address_form ?>" value="<?= $address->getAddressLine1() ?>">
+                            <label for="address-line-1_<?= $current_address_form ?>">Adresse
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" name="address-line-1" id="address-line-1_<?= $current_address_form ?>" value="<?= $address->getAddressLine1() ?>">
 
-                        <label for="address-line-2_<?= $current_address_form ?>">Adresse (ligne 2)</label>
-                        <input type="text" name="address-line-2" id="address-line-2_<?= $current_address_form ?>" value="<?= $address->getAddressLine2() ?>">
+                            <label for="address-line-2_<?= $current_address_form ?>">Adresse (ligne 2)</label>
+                            <input type="text" name="address-line-2" id="address-line-2_<?= $current_address_form ?>" value="<?= $address->getAddressLine2() ?>">
 
-                        <label for="city_<?= $current_address_form ?>">Ville
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="text" name="city" id="city_<?= $current_address_form ?>" value="<?= $address->getCity() ?>">
+                            <label for="city_<?= $current_address_form ?>">Ville
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" name="city" id="city_<?= $current_address_form ?>" value="<?= $address->getCity() ?>">
 
-                        <label for="postal-code_<?= $current_address_form ?>">Code Postal
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="text" name="postal-code" id="postal-code_<?= $current_address_form ?>" value="<?= $address->getPostalCode() ?>">
+                            <label for="postal-code_<?= $current_address_form ?>">Code Postal
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" name="postal-code" id="postal-code_<?= $current_address_form ?>" value="<?= $address->getPostalCode() ?>">
 
-                        <label for="country_<?= $current_address_form ?>">Pays
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="text" name="country" id="country_<?= $current_address_form ?>" value="<?= $address->getCountry() ?>">
+                            <label for="country_<?= $current_address_form ?>">Pays
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" name="country" id="country_<?= $current_address_form ?>" value="<?= $address->getCountry() ?>">
 
-                        <label for="phone_<?= $current_address_form ?>">Téléphone
-                            <span class="mandatory">*</span>
-                        </label>
-                        <input type="tel" name="phone" id="phone_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getPhone() ?>">
+                            <label for="phone_<?= $current_address_form ?>">Téléphone
+                                <span class="mandatory">*</span>
+                            </label>
+                            <input type="tel" name="phone" id="phone_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getPhone() ?>">
 
-                        <label for="mobile_<?= $current_address_form ?>">Mobile</label>
-                        <input type="tel" name="mobile" id="mobile_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getMobile() ?>">
+                            <label for="mobile_<?= $current_address_form ?>">Mobile</label>
+                            <input type="tel" name="mobile" id="mobile_<?= $current_address_form ?>" placeholder="+33XXXXXXXXX" value="<?= $address->getMobile() ?>">
 
-                        <input type="submit" class="BtSubmit" name="submit-edit-address" value="Modifier">
+                            <input type="hidden" name="isqdqsdd" value="<?= base64_encode($address->getId()) ?>">
+                            <input type="hidden" name="id" value="<?= $address->getId() ?>">
 
-                        <?php if (isset($user_address_error)): ?>
-                            <div class="validation"><?= $user_address_error ?></div>
-                        <?php endif ?>
-                    </form>
-                    <?php
+                            <input type="submit" class="BtSubmit" name="submit-edit-address" value="Modifier">
 
-                    $current_address_form++;
+                            <?php if (isset($user_address_error)) : ?>
+                                <div class="validation"><?= $user_address_error ?></div>
+                            <?php endif ?>
+                        </form>
+                <?php
 
+                        $current_address_form++;
+                    }
+                } else {
+                    echo '<p>Aucune addresse actuellement</p>';
                 }
+
 
                 echo ob_get_clean();
 
