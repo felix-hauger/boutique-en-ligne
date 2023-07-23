@@ -58,8 +58,8 @@ if (isset($_POST['product-submit'])) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    <script async src="includes/header.js"></script>
-    <script async src="scripts/add-product.js"></script>
+    <script defer src="includes/header.js"></script>
+    <script defer src="scripts/add-product.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <title>Ajouter un nouvel article | Saisons à la mode</title>

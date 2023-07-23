@@ -89,14 +89,14 @@ function SetSeason() {
 
     if (Saison === 0) {
         // Couleurs d'été
-        r.style.setProperty('--bg-color', '#fffbf0');
+        r.style.setProperty('--bg-color', '#fff3d2');
         r.style.setProperty('--detail-color', '#528E74');
         r.style.setProperty('--hover-color', '#6DD0A5');
         r.style.setProperty('--lightbg-color', '#fffbf0');
 
     } else if (Saison === 1) {
         // Couleurs d'automne
-        r.style.setProperty('--bg-color', '#FFF0E4');
+        r.style.setProperty('--bg-color', '#FFDBD0');
         r.style.setProperty('--detail-color', '#B15F83');
         r.style.setProperty('--hover-color', '#db2376');
         r.style.setProperty('--lightbg-color', '#FFF0E4');
@@ -115,7 +115,6 @@ function SetSeason() {
         r.style.setProperty('--hover-color', '#27c422');
         r.style.setProperty('--lightbg-color', '#f3fdf1');
     }
-
 }
 
 function ChangeSeason(){
@@ -139,15 +138,15 @@ function ChangeSeason(){
 }
 
 // Change la variable saison en accord avec la saison actuelle 
-function CurrentSaison() {
+function CurrentSeason() {
     //printemps : 1er mars au 31 mai
     //été : 1er juin au 31 août
     //automne : 1er septembre au 30 novembre 
     //hiver : 1er décembre au 28 (ou 29) février 
 
-    var dateObj = new Date();
-    var month = dateObj.getUTCMonth() + 1;
-    var day = dateObj.getUTCDate();
+    let dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1;
+    let day = dateObj.getUTCDate();
 
     if ((day >= 1 && month >= 3) && (day <= 31 && month <= 5)) {
         Saison = 3;
@@ -257,6 +256,6 @@ async function loggedCartCount(){
     }
 }
 
-CurrentSaison();
+CurrentSeason();
 CartCount();
 loggedCartCount();

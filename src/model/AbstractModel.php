@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use PDO;
-use \App\Config\DbConnection;
+use App\Config\DbConnection;
 
 abstract class AbstractModel
 {
@@ -131,6 +131,28 @@ abstract class AbstractModel
         $select->bindParam(':' . $column, $value);
 
         return $select->execute() ? $select->fetchColumn() : null;
+    }
+
+    /**
+     * @param array $criteria Associative array of column names & field values filtering results
+     * 
+     * @return array|false SQL results if request is successfully executed
+     */
+    public function findAllBy(array $criteria): array|false
+    {
+        $sql = 'SELECT * FROM ' . $this->_table . ' WHERE ';
+
+        foreach ($criteria as $column_name => $value) {
+            $sql .= $column_name . ' = :' . $column_name . ' AND ';
+        }
+
+        $sql = substr($sql, 0, -5);
+
+        $select = $this->_pdo->prepare($sql);
+
+        $select->execute($criteria);
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
