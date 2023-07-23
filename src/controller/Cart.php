@@ -191,11 +191,10 @@ class Cart extends AbstractController
                 if (preg_match('/\d{1,11}/', $product[0]) && preg_match('/[A-Za-z0-9]{1,5}/', $product[1]) && preg_match('/\d{1,5}/', $quantity)) {
                     // Insert in cart_product
                     $cart_product->create($user_cart->getId(), $product[0], $product[1], $quantity);
-    
+
                     // Remove cookie
                     setcookie($key, '', -1);
                 }
-
             }
         }
     }

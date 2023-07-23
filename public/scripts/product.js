@@ -1,5 +1,5 @@
-let Stock
-let Size
+let Stock;
+let Size;
 
 const productButtons = document.querySelector('#BtBox');
 
@@ -34,7 +34,7 @@ $("#QuantityBox button").on('click', function () {
 });
 
 function SizeSelected(size, stock) {
-    document.getElementById("InputQuantity").value = 1
+    document.getElementById("InputQuantity").value = 1;
     Stock = stock;
     Size = size;
 }

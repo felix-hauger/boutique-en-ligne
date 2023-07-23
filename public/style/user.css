@@ -109,3 +109,58 @@ h3{
 #Adresses{
     display: none;
 }
+
+.address-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: 60%;
+}
+
+.address-form input[type="text"],
+.address-form input[type="tel"] {
+    height: 3vh;
+    font-size: 1em;
+    color: rgb(54, 54, 54);
+    padding-left: 12px;
+    margin-bottom: 25px;
+    border-width: 0 0 1px;
+    border-style: groove;
+    border-color: var(--detail-color);
+    outline-color: var(--detail-color);
+}
+
+/* .address-form .label-name {
+    display: inline-block;
+    width: 140px;
+} */
+
+.address-form label {
+    display: inline-block;
+    width: 140px;
+}
+
+.address-form .mandatory {
+    color: rgb(191, 13, 13);
+    font-family: monospace;
+}
+
+.address-form .BtSubmit {
+    width: fit-content;
+    padding: 15px 20px;
+    align-self: center;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--detail-color);
+    transition: all ease .5s;
+    background-color: var(--bg-color);
+}
+
+.address-form .BtSubmit:hover {
+    background-color: #fff;
+
+}

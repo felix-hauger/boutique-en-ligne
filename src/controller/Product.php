@@ -3,6 +3,7 @@
 namespace App\Controller;
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use DateTime;
 use App\Model\Product as ProductModel;
 use App\Entity\Product as ProductEntity;
 use App\Entity\Stock as StockEntity;
@@ -265,7 +266,7 @@ class Product extends AbstractController
      */
     public function checkSeason(): string
     {
-        $date_time = new \DateTime();
+        $date_time = new DateTime();
 
         $month = $date_time->format('n');
 

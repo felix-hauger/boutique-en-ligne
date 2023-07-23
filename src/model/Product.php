@@ -129,9 +129,9 @@ class Product extends AbstractModel
 
     /**
      * @param string $season The season
-     * @return ?array The products of the selected season
+     * @return array|false The products of the selected season if request is successfull
      */
-    public function findLastBySeasonName(string $season): ?array
+    public function findLastBySeasonName(string $season): array|false
     {
         $seasons = ['printemps', 'été', 'automne', 'hiver'];
 
@@ -160,7 +160,9 @@ class Product extends AbstractModel
 
         $select->bindParam(':tag_name', $season);
 
-        return $select->execute() ? $select->fetchAll(PDO::FETCH_ASSOC) : null;
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
